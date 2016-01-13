@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C10708C1C46B52D0039270F /* UUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C10708B1C46B52C0039270F /* UUID+LightBlue.swift */; };
 		6C75260F1C3972CA009445CE /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75260E1C3972CA009445CE /* BluetoothManager.swift */; };
 		6C7526111C397A93009445CE /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7526101C397A93009445CE /* RootController.swift */; };
 		6C7526161C39883F009445CE /* NearbyPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7526151C39883F009445CE /* NearbyPeripheralCell.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C10708B1C46B52C0039270F /* UUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+LightBlue.swift"; sourceTree = "<group>"; };
 		6C75260E1C3972CA009445CE /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = Source/BluetoothManager.swift; sourceTree = "<group>"; };
 		6C7526101C397A93009445CE /* RootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		6C7526151C39883F009445CE /* NearbyPeripheralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NearbyPeripheralCell.swift; path = Cell/NearbyPeripheralCell.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				6C75260E1C3972CA009445CE /* BluetoothManager.swift */,
 				6CB655D11C4376C200128BC6 /* BluetoothDelegate.swift */,
+				6C10708B1C46B52C0039270F /* UUID+LightBlue.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				6C75260F1C3972CA009445CE /* BluetoothManager.swift in Sources */,
 				6CB655D21C4376C200128BC6 /* BluetoothDelegate.swift in Sources */,
 				6CB464AE1C3C276E00D16277 /* LogController.swift in Sources */,
+				6C10708C1C46B52D0039270F /* UUID+LightBlue.swift in Sources */,
 				6CB465581C3D788300D16277 /* NewVirtualPeripheralController.swift in Sources */,
 				6CFFE93E1C44923100D061ED /* AlertUtil.swift in Sources */,
 				6CDD91601C35964400DBC2E2 /* AppDelegate.swift in Sources */,
