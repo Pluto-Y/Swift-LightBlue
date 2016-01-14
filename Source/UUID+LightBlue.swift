@@ -49,7 +49,10 @@ func == (leftUUID : CBUUID, rightUUID: CBUUID) -> Bool {
 }
 
 extension CBUUID {
-    
+    override public var description : String {
+        
+        return ""
+    }
 }
 
 
