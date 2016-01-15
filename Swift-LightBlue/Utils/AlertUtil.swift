@@ -2,7 +2,7 @@
 //  AlertUtil.swift
 //  Swift-LightBlue
 //
-//  Created by ChipSea on 16/1/12.
+//  Created by Pluto Y on 16/1/12.
 //  Copyright © 2016年 Pluto-y. All rights reserved.
 //
 
