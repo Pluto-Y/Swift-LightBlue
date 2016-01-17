@@ -4,7 +4,7 @@ Swift-LightBlue is the tool written in swift for the developers to know the most
 
 
 ## Features(Developing)
-____
+
 The LightBlue has two mode, Central and Peripheral.
 **The device as central:**
 - [x] Scan the nearby peripherals and show some basic information of the peripherals.
@@ -27,21 +27,20 @@ The LightBlue has two mode, Central and Peripheral.
 - [ ] Share the app to others.
 
 ## Requirements
-___
+
 * iOS 7.0+ 
 * Xcode 7.0 or above 
 * Bluetooth 4.0
 
 ## Future of Swift-Bluetooth
-___
+
 The project are developing for iOS, but i want to abstract a convenience bluetooth module for all platforms. Then I will send the module to the [Cocoapods](http://www.cocoapods.org). Finially, I will add more function for the bluetooth developer to debug the program not only for the software but also for the hardware. So if you have idea please contact me.
 
 ## Contact
-___
+
 Follow and contact me on [Sina Weibo](). If you find an issue, just [open a ticket on](https://github.com/Pluto-Y/Swift-LightBlue/issues/new) it. Pull requests are warmly welcome as well.
 
 ## License
-___
 
 The MIT License (MIT)
 
