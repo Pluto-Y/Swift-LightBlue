@@ -1,4 +1,4 @@
-![Swift-LightBlue-logo.png](https://github.com/Pluto-Y/Swift-LightBlue/master/images/logo.png)
+![Swift-LightBlue-logo.png](https://raw.githubusercontent.com/Pluto-Y/Swift-LightBlue/master/images/logo.png)
 
 Swift-LightBlue is the tool written in swift for the developers to know the most features `CoreBluetooth`. It also can help developers who design the bluetooth to debug hardware. On the other hand, it also can simulate a hard bluetooth to use. It is built on the top version of the `CoreBluetooth`. This project is heavily inspired by the popular [LightBlue](https://itunes.apple.com/cn/app/lightblue-bluetooth-low-energy/id557428110?mt=8). Most of features will been implemented in this tool. If you have something question about interfacing with Bluetooth, maybe this tool can help you find some questions. But the tool still be developing, if you occurs some quetions, please [issue me](https://github.com/Pluto-Y/Swift-LightBlue/issues).
 
