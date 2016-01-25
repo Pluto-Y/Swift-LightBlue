@@ -11,9 +11,10 @@
 		6C7526111C397A93009445CE /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7526101C397A93009445CE /* RootController.swift */; };
 		6C7526161C39883F009445CE /* NearbyPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7526151C39883F009445CE /* NearbyPeripheralCell.swift */; };
 		6C7526181C39899C009445CE /* VirtualPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7526171C39899C009445CE /* VirtualPeripheralCell.swift */; };
-		6C76ACC11C47EDD40017A521 /* UUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76ACC01C47EDD40017A521 /* UUID+LightBlue.swift */; };
-		6C76ACC31C4811EB0017A521 /* CBCharacteristic+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76ACC21C4811EB0017A521 /* CBCharacteristic+LightBlue.swift */; };
-		6C76ACC51C4875000017A521 /* CBService+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76ACC41C4875000017A521 /* CBService+LightBlue.swift */; };
+		6C76ACC11C47EDD40017A521 /* CBUUID+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76ACC01C47EDD40017A521 /* CBUUID+LightBlue.swift */; };
+		6CA9D7FE1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9D7FD1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift */; };
+		6CA9D8011C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9D7FF1C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift */; };
+		6CA9D8021C509C5700B5ACD1 /* CBService+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA9D8001C509C5700B5ACD1 /* CBService+LightBlue.swift */; };
 		6CB464AE1C3C276E00D16277 /* LogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB464AD1C3C276E00D16277 /* LogController.swift */; };
 		6CB464B21C3CCFD100D16277 /* UnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB464B11C3CCFD100D16277 /* UnavailableView.swift */; };
 		6CB465581C3D788300D16277 /* NewVirtualPeripheralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB465571C3D788300D16277 /* NewVirtualPeripheralController.swift */; };
@@ -53,9 +54,10 @@
 		6C7526101C397A93009445CE /* RootController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		6C7526151C39883F009445CE /* NearbyPeripheralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NearbyPeripheralCell.swift; path = Cell/NearbyPeripheralCell.swift; sourceTree = "<group>"; };
 		6C7526171C39899C009445CE /* VirtualPeripheralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VirtualPeripheralCell.swift; path = Cell/VirtualPeripheralCell.swift; sourceTree = "<group>"; };
-		6C76ACC01C47EDD40017A521 /* UUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UUID+LightBlue.swift"; path = "Source/UUID+LightBlue.swift"; sourceTree = "<group>"; };
-		6C76ACC21C4811EB0017A521 /* CBCharacteristic+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCharacteristic+LightBlue.swift"; sourceTree = "<group>"; };
-		6C76ACC41C4875000017A521 /* CBService+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBService+LightBlue.swift"; sourceTree = "<group>"; };
+		6C76ACC01C47EDD40017A521 /* CBUUID+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBUUID+LightBlue.swift"; path = "Source/CBUUID+LightBlue.swift"; sourceTree = "<group>"; };
+		6CA9D7FD1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBAdvertisementData+LightBlue.swift"; path = "Source/CBAdvertisementData+LightBlue.swift"; sourceTree = "<group>"; };
+		6CA9D7FF1C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBCharacteristic+LightBlue.swift"; path = "Source/CBCharacteristic+LightBlue.swift"; sourceTree = "<group>"; };
+		6CA9D8001C509C5700B5ACD1 /* CBService+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBService+LightBlue.swift"; path = "Source/CBService+LightBlue.swift"; sourceTree = "<group>"; };
 		6CB464AD1C3C276E00D16277 /* LogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogController.swift; sourceTree = "<group>"; };
 		6CB464B11C3CCFD100D16277 /* UnavailableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnavailableView.swift; path = View/UnavailableView.swift; sourceTree = "<group>"; };
 		6CB465571C3D788300D16277 /* NewVirtualPeripheralController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVirtualPeripheralController.swift; sourceTree = "<group>"; };
@@ -107,11 +109,12 @@
 		6C75260B1C397228009445CE /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6C76ACC01C47EDD40017A521 /* UUID+LightBlue.swift */,
+				6CA9D7FF1C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift */,
+				6CA9D8001C509C5700B5ACD1 /* CBService+LightBlue.swift */,
+				6C76ACC01C47EDD40017A521 /* CBUUID+LightBlue.swift */,
 				6C75260E1C3972CA009445CE /* BluetoothManager.swift */,
 				6CB655D11C4376C200128BC6 /* BluetoothDelegate.swift */,
-				6C76ACC21C4811EB0017A521 /* CBCharacteristic+LightBlue.swift */,
-				6C76ACC41C4875000017A521 /* CBService+LightBlue.swift */,
+				6CA9D7FD1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -339,14 +342,15 @@
 				6C75260F1C3972CA009445CE /* BluetoothManager.swift in Sources */,
 				6CB655D21C4376C200128BC6 /* BluetoothDelegate.swift in Sources */,
 				6CB464AE1C3C276E00D16277 /* LogController.swift in Sources */,
-				6C76ACC51C4875000017A521 /* CBService+LightBlue.swift in Sources */,
-				6C76ACC11C47EDD40017A521 /* UUID+LightBlue.swift in Sources */,
+				6C76ACC11C47EDD40017A521 /* CBUUID+LightBlue.swift in Sources */,
 				6CB465581C3D788300D16277 /* NewVirtualPeripheralController.swift in Sources */,
 				6CFFE93E1C44923100D061ED /* AlertUtil.swift in Sources */,
+				6CA9D8011C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift in Sources */,
 				6CDD91601C35964400DBC2E2 /* AppDelegate.swift in Sources */,
-				6C76ACC31C4811EB0017A521 /* CBCharacteristic+LightBlue.swift in Sources */,
 				6C7526161C39883F009445CE /* NearbyPeripheralCell.swift in Sources */,
 				6CB4656A1C3E253200D16277 /* ConnectingView.swift in Sources */,
+				6CA9D8021C509C5700B5ACD1 /* CBService+LightBlue.swift in Sources */,
+				6CA9D7FE1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift in Sources */,
 				6C7526111C397A93009445CE /* RootController.swift in Sources */,
 				6C7526181C39899C009445CE /* VirtualPeripheralCell.swift in Sources */,
 				6CB464B21C3CCFD100D16277 /* UnavailableView.swift in Sources */,
