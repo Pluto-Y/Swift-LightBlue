@@ -184,6 +184,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("MainController --> didDiscoverService:\(peripheral.services)")
         ConnectingView.hideConnectingView()
         let peripheralController = PeripheralController()
+        let peripheralInfo = nearbyPeripheralInfos[peripheral]
+        peripheralController.lastAdvertisementData = peripheralInfo!["advertisementData"] as? Dictionary<String, AnyObject>
         self.navigationController?.pushViewController(peripheralController, animated: true)
     }
     

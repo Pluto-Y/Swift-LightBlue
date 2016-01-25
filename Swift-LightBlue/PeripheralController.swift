@@ -15,6 +15,10 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     private var showAdvertisementData = false
     private var services : [CBService]?
     private var characteristicsDic = [CBUUID : [CBCharacteristic]]()
+    
+    var lastAdvertisementData : Dictionary<String, AnyObject>?
+    private var advertisementDataKeys : [String]?
+    
     @IBOutlet var peripheralNameLbl: UILabel!
     @IBOutlet var peripheralUUIDLbl: UILabel!
     @IBOutlet var connectFlagLbl: UILabel!
@@ -41,6 +45,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     // MARK: custom functions
     func initAll() {
         self.title = "Peripheral"
+        advertisementDataKeys = ([String](lastAdvertisementData!.keys)).sort()
         bluetoothManager.discoverCharacteristics()
         services = bluetoothManager.connectedPeripheral?.services
         peripheralNameLbl.text = bluetoothManager.connectedPeripheral?.name
@@ -73,7 +78,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             if showAdvertisementData {
-                return 3
+                return advertisementDataKeys!.count
             } else {
                 return 0
             }
@@ -94,9 +99,16 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             cell?.selectionStyle = .None
             cell?.accessoryType = .DisclosureIndicator
         }
-        let characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
-        cell?.textLabel?.text = "0x" + characteristic.UUID.UUIDString
-        cell?.detailTextLabel?.text = "Properties:" + getPropertiesString(characteristic)
+        if indexPath.section == 0 {
+            cell?.textLabel?.text = CBAdvertisementData.getAdvertisementDataStringValue(lastAdvertisementData!, key: advertisementDataKeys![indexPath.row])
+            cell?.textLabel?.adjustsFontSizeToFitWidth = true
+            
+            cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![indexPath.row])
+        } else {
+            let characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
+            cell?.textLabel?.text = "0x" + characteristic.UUID.UUIDString
+            cell?.detailTextLabel?.text = "Properties:" + characteristic.getPropertiesString()
+        }
         return cell!
     }
     
@@ -114,12 +126,17 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             serviceNameLbl.text = "ADVERTISEMENT DATA"
             let showBtn = UIButton(type: .System)
             showBtn.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width - 80, 20, 60, 20)
-            showBtn.setTitle("Show", forState: .Normal)
+            if showAdvertisementData {
+                showBtn.setTitle("Hide", forState: .Normal)
+            } else {
+                showBtn.setTitle("Show", forState: .Normal)
+            }
+
             showBtn.addTarget(self, action: Selector("showAdvertisementDataBtnClick"), forControlEvents: .TouchUpInside)
             view.addSubview(showBtn)
         } else {
             let service = bluetoothManager.connectedPeripheral!.services![section - 1]
-            serviceNameLbl.text = "UUID:" + service.UUID.UUIDString
+            serviceNameLbl.text = "UUID:" + service.serviceName
         }
         
         return view
@@ -128,6 +145,14 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     // Need overide this method for fix start section from 1(not 0) in the method 'tableView:viewForHeaderInSection:' after iOS 7
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            
+        } else {
+            print("Click at section: \(indexPath.section), row: \(indexPath.row)")
+        }
     }
     
     // MARK: BluetoothDelegate
