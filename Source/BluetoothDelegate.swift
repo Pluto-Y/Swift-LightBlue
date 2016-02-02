@@ -91,4 +91,18 @@ import CoreBluetooth
      - parameter error: The error message
      */
     optional func didFailToDiscoverDescriptors(error: NSError)
+    
+    /**
+     The callback function invoked when peripheral read value for the characteristic successfully
+     
+     - parameter characteristic: The characteristic withe the value
+     */
+    optional func didReadValueForCharacteristic(characteristic: CBCharacteristic)
+    
+    /**
+     The callback function invoked when failed to read value for the characteristic
+     
+     - parameter error: The error message
+     */
+    optional func didFailToReadValueForCharacteristic(error: NSError)
 }

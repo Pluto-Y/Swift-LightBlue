@@ -140,6 +140,13 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         }
     }
     
+    func readValueForCharacteristic(characteristic: CBCharacteristic) {
+        if connectedPeripheral == nil {
+            return
+        }
+        connectedPeripheral?.readValueForCharacteristic(characteristic)
+    }
+    
     // MARK: Delegate
     /**
     Invoked whenever the central manager's state has been updated.
@@ -274,7 +281,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     }
     
     /**
-     This method is invoked where the peripheral has been disconnected.
+     This method is invoked when the peripheral has been disconnected.
      
      - parameter central:    The central manager providing this information
      - parameter peripheral: The disconnected peripheral
@@ -284,6 +291,24 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         print("Bluetooth Manager --> didDisconnectPeripheral")
         connected = false
         self.delegate?.didDisconnectPeripheral?(peripheral)
+    }
+    
+    /**
+     Thie method is invoked when the user call the peripheral.readValueForCharacteristic
+     
+     - parameter peripheral:     The periphreal which call the method
+     - parameter characteristic: The characteristic with the new value
+     - parameter error:          The error message
+     */
+    public func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        print("Bluetooth Manager --> didUpdateValueForCharacteristic")
+        if error != nil {
+            print("Bluetooth Manager --> Failed to read value for the characteristic. Error:\(error!.localizedDescription)")
+            delegate?.didFailToReadValueForCharacteristic?(error!)
+            return
+        }
+        delegate?.didReadValueForCharacteristic?(characteristic)
+        
     }
     
 }
