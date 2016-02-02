@@ -103,6 +103,8 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
             cell?.leftBtn.setTitle("Write new value", forState: .Normal)
             cell?.setLeftAction({ () -> () in
                 print("Write new value")
+                let controller = EditValueController()
+                self.navigationController?.pushViewController(controller, animated: true)
             })
             return cell!
         } else if headerTitles[indexPath.section].rangeOfString("READ") != nil || headerTitles[indexPath.section].rangeOfString("VALUES") != nil{

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6C130A281C609D3B00E827B1 /* Characteristic2BtnsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C130A261C609D3B00E827B1 /* Characteristic2BtnsCell.swift */; };
 		6C130A291C609D3B00E827B1 /* Characteristic2BtnsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C130A271C609D3B00E827B1 /* Characteristic2BtnsCell.xib */; };
+		6C130A2C1C6139E200E827B1 /* EditValueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C130A2A1C6139E200E827B1 /* EditValueController.swift */; };
+		6C130A2D1C6139E200E827B1 /* EditValueController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C130A2B1C6139E200E827B1 /* EditValueController.xib */; };
 		6C195EB11C57C2BC00AEF1DA /* CharacteristicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C195EB01C57C2BC00AEF1DA /* CharacteristicController.swift */; };
 		6C195EB31C57C2D200AEF1DA /* CharacteristicController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C195EB21C57C2D200AEF1DA /* CharacteristicController.xib */; };
 		6C75260F1C3972CA009445CE /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75260E1C3972CA009445CE /* BluetoothManager.swift */; };
@@ -56,6 +58,8 @@
 /* Begin PBXFileReference section */
 		6C130A261C609D3B00E827B1 /* Characteristic2BtnsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Characteristic2BtnsCell.swift; path = Cell/Characteristic2BtnsCell.swift; sourceTree = "<group>"; };
 		6C130A271C609D3B00E827B1 /* Characteristic2BtnsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Characteristic2BtnsCell.xib; path = Cell/Characteristic2BtnsCell.xib; sourceTree = "<group>"; };
+		6C130A2A1C6139E200E827B1 /* EditValueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditValueController.swift; sourceTree = "<group>"; };
+		6C130A2B1C6139E200E827B1 /* EditValueController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditValueController.xib; sourceTree = "<group>"; };
 		6C195EB01C57C2BC00AEF1DA /* CharacteristicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacteristicController.swift; sourceTree = "<group>"; };
 		6C195EB21C57C2D200AEF1DA /* CharacteristicController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacteristicController.xib; sourceTree = "<group>"; };
 		6C75260E1C3972CA009445CE /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = Source/BluetoothManager.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				6CB655D81C438F1E00128BC6 /* PeripheralController.xib */,
 				6C195EB01C57C2BC00AEF1DA /* CharacteristicController.swift */,
 				6C195EB21C57C2D200AEF1DA /* CharacteristicController.xib */,
+				6C130A2A1C6139E200E827B1 /* EditValueController.swift */,
+				6C130A2B1C6139E200E827B1 /* EditValueController.xib */,
 			);
 			path = "Swift-LightBlue";
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 				6CDD916A1C35964400DBC2E2 /* LaunchScreen.storyboard in Resources */,
 				6CB655DA1C438F1E00128BC6 /* PeripheralController.xib in Resources */,
 				6C195EB31C57C2D200AEF1DA /* CharacteristicController.xib in Resources */,
+				6C130A2D1C6139E200E827B1 /* EditValueController.xib in Resources */,
 				6CDD91671C35964400DBC2E2 /* Assets.xcassets in Resources */,
 				6C130A291C609D3B00E827B1 /* Characteristic2BtnsCell.xib in Resources */,
 				6CDD91651C35964400DBC2E2 /* Main.storyboard in Resources */,
@@ -362,6 +369,7 @@
 				6CFFE93E1C44923100D061ED /* AlertUtil.swift in Sources */,
 				6CA9D8011C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift in Sources */,
 				6CDD91601C35964400DBC2E2 /* AppDelegate.swift in Sources */,
+				6C130A2C1C6139E200E827B1 /* EditValueController.swift in Sources */,
 				6C7526161C39883F009445CE /* NearbyPeripheralCell.swift in Sources */,
 				6CB4656A1C3E253200D16277 /* ConnectingView.swift in Sources */,
 				6CA9D8021C509C5700B5ACD1 /* CBService+LightBlue.swift in Sources */,
