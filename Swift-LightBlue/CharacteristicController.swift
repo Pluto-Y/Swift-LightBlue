@@ -24,12 +24,15 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var characteristicUUIDLbl: UILabel!
     @IBOutlet var peripheralStatusLbl: UILabel!
     @IBOutlet var characteristicInfosTb: UITableView!
+    @IBOutlet var tableViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initAll()
     }
     
+    // MARK: Custom functions
+    /// Initialize function of this controller
     private func initAll() {
         assert(characteristic != nil, "The Characteristic CAN'T be nil")
         self.title = characteristic?.name
@@ -66,6 +69,15 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         headerTitles.append("PROPERTIES")
         
     }
+    
+    private func reloadTableView() {
+        characteristicInfosTb.reloadData()
+        
+        // Fix the contentSize.height is greater than frame.size.height bug(Approximately 20 unit)
+        tableViewHeight.constant = characteristicInfosTb.contentSize.height
+    }
+    
+    
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -175,7 +187,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         let lbl = UILabel()
-        lbl.frame = CGRectMake(20, 0, UIScreen.mainScreen().bounds.size.width - 20, 30)
+        lbl.frame = CGRectMake(10, 0, UIScreen.mainScreen().bounds.size.width - 20, 30)
         lbl.text = headerTitles[section]
         view.addSubview(lbl)
         return view
@@ -192,7 +204,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     func didDiscoverDescriptors(characteristic: CBCharacteristic) {
         print("CharacteristicController --> didDiscoverDescriptors")
         self.characteristic = characteristic
-        characteristicInfosTb.reloadData()
+        reloadTableView()
     }
     
     func didReadValueForCharacteristic(characteristic: CBCharacteristic) {
@@ -200,13 +212,14 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSS"
         let timeStr = formatter.stringFromDate(NSDate())
-        if let data = characteristic.value {
+        if characteristic.value != nil && characteristic.value!.length != 0 {
+            let data = characteristic.value!
             let rangeOfData = Range(start: data.description.startIndex.advancedBy(1), end: data.description.endIndex.predecessor())
             timeAndValues[timeStr] = "0x" + data.description.substringWithRange(rangeOfData)
         } else {
             timeAndValues[timeStr] = "No value"
         }
         times.append(timeStr)
-        characteristicInfosTb.reloadData()
+        reloadTableView()
     }
 }

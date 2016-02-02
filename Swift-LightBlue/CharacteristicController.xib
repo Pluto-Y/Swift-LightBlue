@@ -12,6 +12,7 @@
                 <outlet property="characteristicUUIDLbl" destination="gZA-d6-xtK" id="mwr-jZ-7ui"/>
                 <outlet property="peripheralNameLbl" destination="hS6-n6-3XC" id="66W-Yf-hw3"/>
                 <outlet property="peripheralStatusLbl" destination="akf-M1-1ZI" id="1sI-2j-8Dk"/>
+                <outlet property="tableViewHeight" destination="5QW-BL-VV4" id="i28-S3-r2j"/>
                 <outlet property="view" destination="iN0-l3-epB" id="fpV-Ne-gWx"/>
             </connections>
         </placeholder>

@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Le4-GL-Qcj">
-                        <rect key="frame" x="20" y="1" width="67" height="28"/>
+                        <rect key="frame" x="10" y="1" width="67" height="28"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <state key="normal" title="Read again"/>
                     </button>
@@ -27,7 +27,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="sle-A7-q8Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Th-TK-6oD"/>
-                    <constraint firstItem="Le4-GL-Qcj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="PYe-Me-WK1"/>
+                    <constraint firstItem="Le4-GL-Qcj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="PYe-Me-WK1"/>
                     <constraint firstItem="Le4-GL-Qcj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jEi-vt-Az9"/>
                     <constraint firstAttribute="trailing" secondItem="sle-A7-q8Y" secondAttribute="trailing" constant="5" id="qsa-nm-jC6"/>
                 </constraints>
