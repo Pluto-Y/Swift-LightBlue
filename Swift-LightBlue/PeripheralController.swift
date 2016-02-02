@@ -36,12 +36,6 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         bluetoothManager.delegate = self
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        bluetoothManager.disconnectPeripheral()
-    }
-    
-    
     // MARK: custom functions
     func initAll() {
         self.title = "Peripheral"
@@ -70,6 +64,25 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         
         // Fix the contentSize.height is greater than frame.size.height bug(Approximately 20 unit)
         tableViewHeight.constant = dataTableView.contentSize.height
+    }
+    
+    /**
+     According the characteristic property array get the properties string
+     
+     - parameter array: characteristic property array
+     
+     - returns: properties string
+     */
+    func getPropertiesFromArray(array : [String]) -> String {
+        var propertiesString = "Properties:"
+        let containWrite = array.contains("Write")
+        for property in array {
+            if containWrite && property == "Write Without Response" {
+                continue
+            }
+            propertiesString += " " + property
+        }
+        return propertiesString
     }
     
     
@@ -106,8 +119,8 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![indexPath.row])
         } else {
             let characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
-            cell?.textLabel?.text = "0x" + characteristic.UUID.UUIDString
-            cell?.detailTextLabel?.text = "Properties:" + characteristic.getPropertiesString()
+            cell?.textLabel?.text = characteristic.name
+            cell?.detailTextLabel?.text = getPropertiesFromArray(characteristic.getProperties())
         }
         return cell!
     }
@@ -136,7 +149,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             view.addSubview(showBtn)
         } else {
             let service = bluetoothManager.connectedPeripheral!.services![section - 1]
-            serviceNameLbl.text = "UUID:" + service.serviceName
+            serviceNameLbl.text = service.name
         }
         
         return view
@@ -152,6 +165,9 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             
         } else {
             print("Click at section: \(indexPath.section), row: \(indexPath.row)")
+            let controller = CharacteristicController()
+            controller.characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     

@@ -10,10 +10,20 @@ import CoreBluetooth
 
 extension CBCharacteristic {
     
+    /// Obtain the name of the characteristic according to the UUID, if the UUID is the standard defined in the `Bluetooth Developer Portal` then return the name
+    public var name : String {
+        if self.UUID.name != "" {
+            return self.UUID.name
+        } else {
+            return "0x" + self.UUID.UUIDString
+        }
+    }
+    
+    
     /**
-     Obtain the properties string  accordint to the `self.properties`.
+     Obtain the properties string array according to the `self.properties`.
      */
-    func getPropertiesString() -> String {
+    func getProperties() -> [String] {
         let properties = self.properties.rawValue
         let broadcast = CBCharacteristicProperties.Broadcast.rawValue
         let read = CBCharacteristicProperties.Read.rawValue
@@ -25,38 +35,39 @@ extension CBCharacteristic {
         let extendedProperties = CBCharacteristicProperties.ExtendedProperties.rawValue
         let notifyEncryptionRequired = CBCharacteristicProperties.NotifyEncryptionRequired.rawValue
         let indicateEncryptionRequired = CBCharacteristicProperties.IndicateEncryptionRequired.rawValue
-        var propertiesString = ""
+        var resultProperties = [String]()
         if properties & broadcast > 0 {
-            propertiesString += " Broadcast"
+            resultProperties.append("Broadcast")
         }
         if properties & read > 0 {
-            propertiesString += " Read"
-        }
-        if properties & writeWithoutResponse > 0 {
-            propertiesString += " WriteWithoutResponse"
+            resultProperties.append("Read")
         }
         if properties & write > 0 {
-            propertiesString += " Write"
+            resultProperties.append("Write")
         }
+        if properties & writeWithoutResponse > 0 {
+            resultProperties.append("Write Without Response")
+        }
+        
         if properties & notify > 0 {
-            propertiesString += " Notify"
+            resultProperties.append("Notify")
         }
         if properties & indicate > 0 {
-            propertiesString += " Indicate"
+            resultProperties.append("Indicate")
         }
         if properties & authenticatedSignedWrites > 0 {
-            propertiesString += " AuthenticatedSignedWrites"
+            resultProperties.append("Authenticated Signed Writes")
         }
         if properties & extendedProperties > 0 {
-            propertiesString += " ExtendedProperties"
+            resultProperties.append("Extended Properties")
         }
         if properties & notifyEncryptionRequired > 0 {
-            propertiesString += " NotifyEncryptionRequired"
+            resultProperties.append("Notify Encryption Required")
         }
         if properties & indicateEncryptionRequired > 0 {
-            propertiesString += " IndicateEncryptionRequired"
+            resultProperties.append("Indicate Encryption Required")
         }
-        return propertiesString
+        return resultProperties
     }
 
 }

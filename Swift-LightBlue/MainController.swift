@@ -26,6 +26,9 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if bluetoothManager.connectedPeripheral != nil {
+            bluetoothManager.disconnectPeripheral()
+        }
         bluetoothManager.delegate = self
     }
     

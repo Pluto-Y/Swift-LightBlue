@@ -12,6 +12,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     
     var _manager : CBCentralManager?
     var delegate : BluetoothDelegate?
+    private(set) var connected = false
     private var timeoutMonitor : NSTimer? /// Timeout monitor of connect to peripheral
     private var interrogateMonitor : NSTimer? /// Timeout monitor of interrogate the peripheral
     private var isConnecting = false
@@ -86,6 +87,17 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             _manager?.cancelPeripheralConnection(connectedPeripheral!)
             startScanPeripheral()
             connectedPeripheral = nil
+        }
+    }
+    
+    /**
+     The method provides for the user who want to obtain the descriptor
+     
+     - parameter characteristic: The character which user want to obtain descriptor
+     */
+    func discoverDescriptor(characteristic: CBCharacteristic) {
+        if connectedPeripheral != nil  {
+            connectedPeripheral?.discoverDescriptorsForCharacteristic(characteristic)
         }
     }
     
@@ -177,6 +189,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             timeoutMonitor!.invalidate()
             timeoutMonitor = nil
         }
+        connected = true
         connectedPeripheral = peripheral
         delegate?.didConnectedPeripheral?(peripheral)
         stopScanPeripheral()
@@ -199,6 +212,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             timeoutMonitor!.invalidate()
             timeoutMonitor = nil
         }
+        connected = false
         delegate?.failToConnectPeripheral?(peripheral, error: error!)
     }
     
@@ -243,6 +257,23 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     }
     
     /**
+     This method is invoked when the peripheral has found the descriptor for the characteristic
+     
+     - parameter peripheral:     The peripheral providing this information
+     - parameter characteristic: The characteristic which has the descriptor
+     - parameter error:          The error message
+     */
+    public func peripheral(peripheral: CBPeripheral, didDiscoverDescriptorsForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        print("Bluetooth Manager --> didDiscoverDescriptorsForCharacteristic")
+        if error != nil {
+            print("Bluetooth Manager --> Fail to discover descriptor for characteristic Error:\(error?.localizedDescription)")
+            delegate?.didFailToDiscoverDescriptors?(error!)
+            return
+        }
+        delegate?.didDiscoverDescriptors?(characteristic)
+    }
+    
+    /**
      This method is invoked where the peripheral has been disconnected.
      
      - parameter central:    The central manager providing this information
@@ -251,6 +282,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      */
     public func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         print("Bluetooth Manager --> didDisconnectPeripheral")
+        connected = false
         self.delegate?.didDisconnectPeripheral?(peripheral)
     }
     

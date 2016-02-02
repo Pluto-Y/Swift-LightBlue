@@ -2,7 +2,7 @@
 //  CBAdvertisementData+LightBlue.swift
 //  Swift-LightBlue
 //
-//  Created by ChipSea on 16/1/21.
+//  Created by Pluto Y on 16/1/21.
 //  Copyright © 2016年 Pluto-y. All rights reserved.
 //
 

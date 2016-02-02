@@ -65,7 +65,7 @@ import CoreBluetooth
     optional func didFailedToInterrogate(peripheral: CBPeripheral)
     
     /**
-     The callback function when discover characteritics successfuly.
+     The callback function when discover characteritics successfully.
      
      - parameter service: The service information include characteritics.
      */
@@ -77,4 +77,18 @@ import CoreBluetooth
      - parameter error: The error information.
      */
     optional func didFailToDiscoverCharacteritics(error: NSError)
+    
+    /**
+     The callback function when discover descriptor for characteristic successfully
+     
+     - parameter characteristic: The characteristic which has the descriptor
+     */
+    optional func didDiscoverDescriptors(characteristic: CBCharacteristic)
+    
+    /**
+     The callback function when failed to discover descriptor for characteristic
+     
+     - parameter error: The error message
+     */
+    optional func didFailToDiscoverDescriptors(error: NSError)
 }
