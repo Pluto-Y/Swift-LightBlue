@@ -152,6 +152,19 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         connectedPeripheral?.readValueForCharacteristic(characteristic)
     }
     
+    /**
+     Start or stop listening for the value update action
+     
+     - parameter enable:         If you want to start listening, the value is true, others is false
+     - parameter characteristic: The characteristic which provides notifications
+     */
+    func setNotification(enable: Bool, forCharacteristic characteristic: CBCharacteristic){
+        if connectedPeripheral == nil {
+            return
+        }
+        connectedPeripheral?.setNotifyValue(enable, forCharacteristic: characteristic)
+    }
+    
     // MARK: Delegate
     /**
     Invoked whenever the central manager's state has been updated.
