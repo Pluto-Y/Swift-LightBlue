@@ -13,6 +13,7 @@ static UIColor *sGrayColour = nil;
 
 @interface MRHexKeyboard () {
     __weak UITextField *_textField;
+    DoneAction doneAction;
 }
 
 - (void)createButtons;
@@ -43,6 +44,10 @@ static UIColor *sGrayColour = nil;
     }
     
     return self;
+}
+
+-(void)setDoneAction:(DoneAction)action {
+    doneAction = action;
 }
 
 - (void)createButtons
@@ -156,6 +161,9 @@ static UIColor *sGrayColour = nil;
         if (button.titleLabel.text) {
             if ([button.titleLabel.text isEqualToString:@"Done"]) {// The done button click
                 [_textField resignFirstResponder];
+                if (doneAction != nil) {
+                    doneAction();
+                }
             }
             else if (string.length == 0) {
                 [string appendFormat:@"0x%@", button.titleLabel.text];
