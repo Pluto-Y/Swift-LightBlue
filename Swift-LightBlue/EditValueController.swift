@@ -10,6 +10,8 @@ import UIKit
 
 class EditValueController: UIViewController {
 
+    @IBOutlet var valueInputTf: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAll()
@@ -17,6 +19,7 @@ class EditValueController: UIViewController {
     
     func initAll() {
         self.title = "Edit Value"
+        valueInputTf.inputView = MRHexKeyboard(textField: valueInputTf)
     }
 
 

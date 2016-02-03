@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditValueController" customModule="Swift_LightBlue" customModuleProvider="target">
             <connections>
+                <outlet property="valueInputTf" destination="lNH-Dk-X81" id="Anj-Qw-GFN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
