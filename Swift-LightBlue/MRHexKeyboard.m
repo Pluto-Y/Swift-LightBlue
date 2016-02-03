@@ -30,7 +30,7 @@ static UIColor *sGrayColour = nil;
 
 - (MRHexKeyboard *)initWithTextField:(UITextField *)textField
 {
-    self = [super initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kKeyboardHeight)];
+    self = [super initWithFrame:CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width, kKeyboardHeight)];
 
     if (self) {
         _textField = textField;
@@ -47,7 +47,7 @@ static UIColor *sGrayColour = nil;
 
 - (void)createButtons
 {
-    CGRect rect = CGRectMake(0.0f, 0.0f, (floor(self.bounds.size.width / 3.0f) + 0.3f), (((kKeyboardHeight - 5.0f) / 6.0f) + 0.3f));
+    CGRect rect = CGRectMake(0.0f, 0.0f, (floor(self.bounds.size.width / 3.0f) - 0.3), (((kKeyboardHeight - 5.0f) / 6.0f) + 0.3f));
 
     /* Makes the numerical buttons */
     for (NSInteger num = 1; num <= 15; num++) {
@@ -59,7 +59,7 @@ static UIColor *sGrayColour = nil;
     /* Makes the '0x' button */
     rect.origin = [self buttonOriginPointForNumber:16];
 
-    [self makeButtonWithRect:rect title:@"0x" grayBackground:YES];
+    [self makeButtonWithRect:rect title:@"Done" grayBackground:YES];
 
     /* Makes the '0' button */
     rect.origin = [self buttonOriginPointForNumber:17];
@@ -154,44 +154,22 @@ static UIColor *sGrayColour = nil;
         NSMutableString *string = [NSMutableString stringWithString:_textField.text];
 
         if (button.titleLabel.text) {
-            if ([button.titleLabel.text isEqualToString:@"0x"]) {
-                if (string.length == 0) {
-                    [string appendString:@"0x"];
-                }
-                else {
-                    [string appendString:@" 0x"];
-                }
+            if ([button.titleLabel.text isEqualToString:@"Done"]) {// The done button click
+                [_textField resignFirstResponder];
             }
             else if (string.length == 0) {
                 [string appendFormat:@"0x%@", button.titleLabel.text];
             }
             else {
-                if (string.length > 2) {
-                    NSString *lastTwoChars = [string substringFromIndex:(string.length - 2)];
-
-                    if ([lastTwoChars rangeOfString:@"x"].location == NSNotFound) {
-                        [string appendFormat:@" 0x%@", button.titleLabel.text];
-                    }
-                    else {
-                        [string appendString:button.titleLabel.text];
-                    }
-                }
-                else {
-                    [string appendString:button.titleLabel.text];
-                }
+                [string appendString:button.titleLabel.text];
             }
         }
-        else if (_textField.text.length > 0) {
+        else if (_textField.text.length > 0) { // The delete button click
             NSRange deleteRange;
             NSString *lastChar = [string substringFromIndex:(string.length - 1)];
 
             if ([lastChar isEqualToString:@"x"]) {
-                if (string.length > 2) {
-                    deleteRange = NSMakeRange((string.length - 3), 3);
-                }
-                else {
-                    deleteRange = NSMakeRange((string.length - 2), 2);
-                }
+                deleteRange = NSMakeRange((string.length - 2), 2);
             }
             else {
                 deleteRange = NSMakeRange((string.length - 1), 1);
