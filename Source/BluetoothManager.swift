@@ -165,6 +165,20 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         connectedPeripheral?.setNotifyValue(enable, forCharacteristic: characteristic)
     }
     
+    /**
+     Write value to the peripheral which is connected
+     
+     - parameter data:           The data which will be written to peripheral
+     - parameter characteristic: The characteristic information
+     - parameter type:           The write of the operation
+     */
+    func writeValue(data: NSData, forCahracteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
+        if connectedPeripheral == nil {
+            return
+        }
+        connectedPeripheral?.writeValue(data, forCharacteristic: characteristic, type: type)
+    }
+    
     // MARK: Delegate
     /**
     Invoked whenever the central manager's state has been updated.
