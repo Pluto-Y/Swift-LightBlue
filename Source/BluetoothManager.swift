@@ -140,6 +140,11 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         }
     }
     
+    /**
+     Read characteristic value from the peripheral
+     
+     - parameter characteristic: The characteristic which user should 
+     */
     func readValueForCharacteristic(characteristic: CBCharacteristic) {
         if connectedPeripheral == nil {
             return
