@@ -18,6 +18,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     var headerTitles = [String]()
     var timeAndValues = [String: String]()
     var times = [String]()
+    private var isListening = false
     
     @IBOutlet var peripheralNameLbl: UILabel!
     @IBOutlet var characteristicNameLbl: UILabel!
@@ -146,9 +147,20 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 }
                 if headerTitles[indexPath.section].rangeOfString("VALUES") != nil {
                     cell?.rightBtn.hidden = false
-                    cell?.rightBtn.setTitle("Listen for notifications", forState: .Normal)
+                    if !isListening {
+                        cell?.rightBtn.setTitle("Listen for notifications", forState: .Normal)
+                    } else {
+                        cell?.rightBtn.setTitle("Stop listening", forState: .Normal)
+                    }
                     cell?.setRightAction({ () -> () in
                         print("Listen for notifications")
+                        self.isListening = !self.isListening
+                        if !self.isListening {
+                            cell?.rightBtn.setTitle("Listen for notifications", forState: .Normal)
+                        } else {
+                            cell?.rightBtn.setTitle("Stop listening", forState: .Normal)
+                        }
+                        self.bluetoothManager.setNotification(self.isListening, forCharacteristic: self.characteristic!)
                     })
                 } else {
                     cell?.rightBtn.hidden = true
