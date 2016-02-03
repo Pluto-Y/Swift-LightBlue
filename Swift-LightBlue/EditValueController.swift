@@ -19,7 +19,11 @@ class EditValueController: UIViewController {
     
     func initAll() {
         self.title = "Edit Value"
-        valueInputTf.inputView = MRHexKeyboard(textField: valueInputTf)
+        let inputView = MRHexKeyboard(textField: valueInputTf)
+        inputView.setDoneAction { () -> Void in
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        valueInputTf.inputView = inputView
     }
 
 
