@@ -119,6 +119,12 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
             cell?.setLeftAction({ () -> () in
                 print("Write new value")
                 let controller = EditValueController()
+                controller.characteristic = self.characteristic!
+                if self.characteristic!.getProperties().contains("Write Without Response") {
+                    controller.writeType = .WithoutResponse
+                } else {
+                    controller.writeType = .WithResponse
+                }
                 self.navigationController?.pushViewController(controller, animated: true)
             })
             return cell!
