@@ -10,13 +10,13 @@ Finally, if you like this project, please star it.
 The LightBlue has two mode, Central and Peripheral.
 
 **The device as central:**
-- [x] Scan the nearby peripherals and show some basic informations of the peripherals.
-- [x] Obtain the advertisement datas.
+- [x] Scan the nearby peripherals and show some basic information of the peripherals.
+- [x] Obtain the advertisement data.
 - [x] Connect the peripheral and interrogate it.
 - [x] Discover all the services and characteristics.
 - [x] Decode the characteristic and service properties.
-- [ ] Read the data from the peripheral.
-- [ ] Write the data to the peripheral.
+- [x] Read the data from the peripheral.
+- [x] Write the data to the peripheral.
 - [ ] Monitor some actions from the `CoreBluetooth`.
 
 **The device as peripheral:**
@@ -31,13 +31,13 @@ The LightBlue has two mode, Central and Peripheral.
 
 ## Requirements
 
-* iOS 7.0+
+* iOS 9.0+
 * Xcode 7.0 or above
 * Bluetooth 4.0
 
 ## Future of Swift-Bluetooth
 
-For the present, this project are developing for iOS, but I want to abstract a convenience bluetooth module for all platforms. Then I will send the module to the [Cocoapods](http://www.cocoapods.org). Finially, I will add more functions for the bluetooth developer to debug the program not only for the software but also for the hardware. So if you have ideas please contact me.
+Presently, this project is developing for iOS, but I want to abstract a convenience bluetooth module for all platforms. Then I will send the module to the [Cocoapods](http://www.cocoapods.org). Finally, I will add more functions for the bluetooth developer to debug the program not only for the software, but also for the hardware. So if you have ideas please contact me.
 
 ## Contact
 
