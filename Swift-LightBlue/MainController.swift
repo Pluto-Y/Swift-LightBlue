@@ -26,6 +26,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        // If is return from NewVirtualPeripheralController, it should reload the navigationBar
+        // It's used to avoid occuring some wrong when return back.
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         if bluetoothManager.connectedPeripheral != nil {
             bluetoothManager.disconnectPeripheral()
         }
