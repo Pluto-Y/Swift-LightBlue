@@ -15,8 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleNotification(_:)), name: nil, object: BluetoothManager.getInstance())
         return true
+    }
+    
+    func handleNotification(notif: NSNotification) {
+        switch notif.name {
+        case PeripheralNotificationKeys.DisconnectNotif.rawValue:
+            print("\(PeripheralNotificationKeys.DisconnectNotif.rawValue)")
+            if let topController = UIApplication.topViewController() {
+                AlertUtil.showCancelAlert("Disconnected Alert", message: "The peripheral has disconnected", cancelTitle: "Dismiss", viewController: topController)
+            }
+        default:
+            print("default")
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

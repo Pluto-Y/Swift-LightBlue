@@ -216,7 +216,6 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         print("CharacteristicController --> didDisconnectPeripheral")
         peripheralStatusLbl.text = "Disconnected. Data is Stale."
         peripheralStatusLbl.textColor = UIColor.redColor()
-        AlertUtil.showCancelAlert("Disconnected Alert", message: "The peripheral has disconnected", cancelTitle: "Dismiss", viewController: self)
     }
     
     func didDiscoverDescriptors(characteristic: CBCharacteristic) {

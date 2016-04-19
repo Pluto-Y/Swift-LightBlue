@@ -38,6 +38,8 @@
 		6CDD91751C35964400DBC2E2 /* Swift_LightBlueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDD91741C35964400DBC2E2 /* Swift_LightBlueTests.swift */; };
 		6CDD91801C35964400DBC2E2 /* Swift_LightBlueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDD917F1C35964400DBC2E2 /* Swift_LightBlueUITests.swift */; };
 		6CFFE93E1C44923100D061ED /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFFE93D1C44923100D061ED /* AlertUtil.swift */; };
+		6FD459361CC69AF100BDBEDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD459351CC69AF100BDBEDC /* Constants.swift */; };
+		6FD459391CC69DF100BDBEDC /* UIApplication+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD459381CC69DF100BDBEDC /* UIApplication+LightBlue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		6CDD917F1C35964400DBC2E2 /* Swift_LightBlueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_LightBlueUITests.swift; sourceTree = "<group>"; };
 		6CDD91811C35964400DBC2E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CFFE93D1C44923100D061ED /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertUtil.swift; path = Utils/AlertUtil.swift; sourceTree = "<group>"; };
+		6FD459351CC69AF100BDBEDC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Source/Constants.swift; sourceTree = "<group>"; };
+		6FD459381CC69DF100BDBEDC /* UIApplication+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+LightBlue.swift"; path = "Extension/UIApplication+LightBlue.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 				6C75260E1C3972CA009445CE /* BluetoothManager.swift */,
 				6CB655D11C4376C200128BC6 /* BluetoothDelegate.swift */,
 				6CA9D7FD1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift */,
+				6FD459351CC69AF100BDBEDC /* Constants.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 		6CDD915E1C35964400DBC2E2 /* Swift-LightBlue */ = {
 			isa = PBXGroup;
 			children = (
+				6FD459371CC69DA400BDBEDC /* Extension */,
 				6CFFE93C1C44920C00D061ED /* Utils */,
 				6CB464B01C3CCF5600D16277 /* View */,
 				6C7526121C39875B009445CE /* Cell */,
@@ -231,6 +237,14 @@
 				6CFFE93D1C44923100D061ED /* AlertUtil.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		6FD459371CC69DA400BDBEDC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6FD459381CC69DF100BDBEDC /* UIApplication+LightBlue.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CDD91621C35964400DBC2E2 /* MainController.swift in Sources */,
+				6FD459361CC69AF100BDBEDC /* Constants.swift in Sources */,
 				6C130A311C614ECF00E827B1 /* MRHexKeyboard.m in Sources */,
 				6CB655D91C438F1E00128BC6 /* PeripheralController.swift in Sources */,
 				6C75260F1C3972CA009445CE /* BluetoothManager.swift in Sources */,
@@ -378,6 +393,7 @@
 				6CB464AE1C3C276E00D16277 /* LogController.swift in Sources */,
 				6C76ACC11C47EDD40017A521 /* CBUUID+LightBlue.swift in Sources */,
 				6CB465581C3D788300D16277 /* NewVirtualPeripheralController.swift in Sources */,
+				6FD459391CC69DF100BDBEDC /* UIApplication+LightBlue.swift in Sources */,
 				6C130A281C609D3B00E827B1 /* Characteristic2BtnsCell.swift in Sources */,
 				6CFFE93E1C44923100D061ED /* AlertUtil.swift in Sources */,
 				6CA9D8011C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift in Sources */,

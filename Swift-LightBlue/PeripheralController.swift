@@ -176,7 +176,6 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         print("PeripheralController --> didDisconnectPeripheral")
         connectFlagLbl.text = "Disconnected. Data is Stale."
         connectFlagLbl.textColor = UIColor.redColor()
-        AlertUtil.showCancelAlert("Disconnected Alert", message: "The peripheral has disconnected", cancelTitle: "Dismiss", viewController: self)
         
     }
     

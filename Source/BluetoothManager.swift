@@ -8,11 +8,6 @@
 
 import CoreBluetooth
 
-enum LightBlueNotificationKeys : String {
-    case DisconnectNotif = "disconnectNotif"
-//    case 
-}
-
 public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var _manager : CBCentralManager?
@@ -20,6 +15,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     private(set) var connected = false
     private var timeoutMonitor : NSTimer? /// Timeout monitor of connect to peripheral
     private var interrogateMonitor : NSTimer? /// Timeout monitor of interrogate the peripheral
+    private let notifCenter = NSNotificationCenter.defaultCenter()
     private var isConnecting = false
     var logs = [String]()
     private(set) var connectedPeripheral : CBPeripheral?
@@ -328,6 +324,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         print("Bluetooth Manager --> didDisconnectPeripheral")
         connected = false
         self.delegate?.didDisconnectPeripheral?(peripheral)
+        notifCenter.postNotificationName(PeripheralNotificationKeys.DisconnectNotif.rawValue, object: self)
     }
     
     /**
