@@ -22,8 +22,8 @@ public class Characteristic2BtnsCell: UITableViewCell {
 
     override public func awakeFromNib() {
         super.awakeFromNib()
-        leftBtn.addTarget(self, action: Selector("leftBtnClick:"), forControlEvents: .TouchUpInside)
-        rightBtn.addTarget(self, action: Selector("rightBtnClick:"), forControlEvents: .TouchUpInside)
+        leftBtn.addTarget(self, action: #selector(self.leftBtnClick(_:)), forControlEvents: .TouchUpInside)
+        rightBtn.addTarget(self, action: #selector(self.rightBtnClick(_:)), forControlEvents: .TouchUpInside)
     }
     
     public func enableBtns() {

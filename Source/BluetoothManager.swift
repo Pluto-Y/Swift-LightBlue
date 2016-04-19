@@ -8,6 +8,11 @@
 
 import CoreBluetooth
 
+enum LightBlueNotificationKeys : String {
+    case DisconnectNotif = "disconnectNotif"
+//    case 
+}
+
 public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var _manager : CBCentralManager?
@@ -75,7 +80,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         if !isConnecting {
             isConnecting = true
             _manager?.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnDisconnectionKey : true])
-            timeoutMonitor = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "connectTimeout:", userInfo: peripheral, repeats: false)
+            timeoutMonitor = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(self.connectTimeout(_:)), userInfo: peripheral, repeats: false)
         }
     }
     
@@ -234,7 +239,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         stopScanPeripheral()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
-        interrogateMonitor = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector("integrrogateTimeout:"), userInfo: peripheral, repeats: false)
+        interrogateMonitor = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(self.integrrogateTimeout(_:)), userInfo: peripheral, repeats: false)
     }
     
     /**

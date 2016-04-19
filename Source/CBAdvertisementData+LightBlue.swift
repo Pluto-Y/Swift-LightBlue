@@ -44,8 +44,7 @@ public class CBAdvertisementData {
                 if serviceUUIDs == nil {
                     return "";
                 }
-                
-                for(var i = 0 ; i < serviceUUIDs!.count; i++) {
+                for i in 0..<serviceUUIDs!.count {
                     resultString = resultString! + "\(serviceUUIDs!.objectAtIndex(i)),"
                 }
                 resultString = resultString!.substringToIndex(resultString!.endIndex.advancedBy(-1))

@@ -145,7 +145,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
                 showBtn.setTitle("Show", forState: .Normal)
             }
 
-            showBtn.addTarget(self, action: Selector("showAdvertisementDataBtnClick"), forControlEvents: .TouchUpInside)
+            showBtn.addTarget(self, action: #selector(self.showAdvertisementDataBtnClick), forControlEvents: .TouchUpInside)
             view.addSubview(showBtn)
         } else {
             let service = bluetoothManager.connectedPeripheral!.services![section - 1]
