@@ -16,8 +16,8 @@ class ConnectingView: UIView {
     let tipLbl = UILabel()
     let tipNameLbl = UILabel()
     
-    private init() {
-        super.init(frame: UIScreen.mainScreen().bounds)
+    fileprivate init() {
+        super.init(frame: UIScreen.main.bounds)
         self.initAll()
     }
 
@@ -29,54 +29,54 @@ class ConnectingView: UIView {
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = UIColor.whiteColor()
+        contentView.backgroundColor = UIColor.white
         
         
         tipLbl.translatesAutoresizingMaskIntoConstraints = false
         tipLbl.text = "Connecting..."
-        tipLbl.font = UIFont.systemFontOfSize(18)
+        tipLbl.font = UIFont.systemFont(ofSize: 18)
         contentView.addSubview(tipLbl)
         
         tipNameLbl.translatesAutoresizingMaskIntoConstraints = false
         tipNameLbl.text = "Pluto Y-BLE"
-        tipNameLbl.font = UIFont.systemFontOfSize(16)
+        tipNameLbl.font = UIFont.systemFont(ofSize: 16)
         contentView.addSubview(tipNameLbl)
         
         let activityIndicatorView =  UIActivityIndicatorView()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView.activityIndicatorViewStyle = .Gray
+        activityIndicatorView.activityIndicatorViewStyle = .gray
         activityIndicatorView.startAnimating()
         contentView.addSubview(activityIndicatorView)
         
         self.addSubview(contentView)
         
-        let contentViewLeading = contentView.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: 50)
-        let contentViewTrailing = contentView.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor, constant: -50)
-        let contentViewHeight = contentView.heightAnchor.constraintEqualToConstant(120)
-        let contentViewCenterY = contentView.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor, constant: -90)
-        NSLayoutConstraint.activateConstraints([contentViewLeading, contentViewTrailing, contentViewHeight, contentViewCenterY])
+        let contentViewLeading = contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50)
+        let contentViewTrailing = contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50)
+        let contentViewHeight = contentView.heightAnchor.constraint(equalToConstant: 120)
+        let contentViewCenterY = contentView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -90)
+        NSLayoutConstraint.activate([contentViewLeading, contentViewTrailing, contentViewHeight, contentViewCenterY])
         
-        let tipLblTop = tipLbl.topAnchor.constraintEqualToAnchor(contentView.topAnchor, constant: 20)
-        let tipLblCenterX = tipLbl.centerXAnchor.constraintEqualToAnchor(contentView.centerXAnchor)
-        let tipLblWidth = tipLbl.widthAnchor.constraintGreaterThanOrEqualToConstant(20)
-        NSLayoutConstraint.activateConstraints([tipLblTop, tipLblCenterX, tipLblWidth])
+        let tipLblTop = tipLbl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20)
+        let tipLblCenterX = tipLbl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        let tipLblWidth = tipLbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
+        NSLayoutConstraint.activate([tipLblTop, tipLblCenterX, tipLblWidth])
         
-        let tipNameLblTop = tipNameLbl.topAnchor.constraintEqualToAnchor(tipLbl.bottomAnchor, constant: 10)
-        let tipNameLblCenterX = tipNameLbl.centerXAnchor.constraintEqualToAnchor(tipLbl.centerXAnchor)
-        let tipNameLblWidth = tipNameLbl.widthAnchor.constraintGreaterThanOrEqualToConstant(20)
-        NSLayoutConstraint.activateConstraints([tipNameLblTop, tipNameLblCenterX, tipNameLblWidth])
+        let tipNameLblTop = tipNameLbl.topAnchor.constraint(equalTo: tipLbl.bottomAnchor, constant: 10)
+        let tipNameLblCenterX = tipNameLbl.centerXAnchor.constraint(equalTo: tipLbl.centerXAnchor)
+        let tipNameLblWidth = tipNameLbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
+        NSLayoutConstraint.activate([tipNameLblTop, tipNameLblCenterX, tipNameLblWidth])
         
-        let activityViewTop = activityIndicatorView.topAnchor.constraintEqualToAnchor(tipNameLbl.bottomAnchor, constant: 10)
-        let activityViewCenterX = activityIndicatorView.centerXAnchor.constraintEqualToAnchor(tipNameLbl.centerXAnchor)
-        let activityViewWidth = activityIndicatorView.widthAnchor.constraintEqualToConstant(10)
-        NSLayoutConstraint.activateConstraints([activityViewTop, activityViewWidth, activityViewCenterX])
+        let activityViewTop = activityIndicatorView.topAnchor.constraint(equalTo: tipNameLbl.bottomAnchor, constant: 10)
+        let activityViewCenterX = activityIndicatorView.centerXAnchor.constraint(equalTo: tipNameLbl.centerXAnchor)
+        let activityViewWidth = activityIndicatorView.widthAnchor.constraint(equalToConstant: 10)
+        NSLayoutConstraint.activate([activityViewTop, activityViewWidth, activityViewCenterX])
     }
     
     /**
      Show the ConnectingView
      */
     static func showConnectingView() -> ConnectingView {
-        if let window = UIApplication.sharedApplication().keyWindow {
+        if let window = UIApplication.shared.keyWindow {
             window.addSubview(Static.connectingView)
         }
         return Static.connectingView

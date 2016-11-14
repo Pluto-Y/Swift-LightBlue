@@ -12,7 +12,7 @@ class RootController : UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.translucent = false
+        self.navigationBar.isTranslucent = false
     }
     
 }

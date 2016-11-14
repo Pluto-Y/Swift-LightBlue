@@ -17,7 +17,7 @@ import CoreBluetooth
      
      - parameter state: The newest state
      */
-    optional func didUpdateState(state: CBCentralManagerState)
+    @objc optional func didUpdateState(_ state: CBCentralManagerState)
     
     /**
      The callback function when peripheral has been found.
@@ -26,14 +26,14 @@ import CoreBluetooth
      - parameter advertisementData: The advertisement data.
      - parameter RSSI:              The signal strength.
      */
-    optional func didDiscoverPeripheral(peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
+    @objc optional func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
     
     /**
      The callback function when central manager connected the peripheral successfully.
      
      - parameter connectedPeripheral: The peripheral which connected successfully.
      */
-    optional func didConnectedPeripheral(connectedPeripheral: CBPeripheral)
+    @objc optional func didConnectedPeripheral(_ connectedPeripheral: CBPeripheral)
     
     /**
      The callback function when central manager failed to connect the peripheral.
@@ -41,68 +41,68 @@ import CoreBluetooth
      - parameter connectedPeripheral: The peripheral which connected failure.
      - parameter error:               The connected failed error message.
      */
-    optional func failToConnectPeripheral(peripheral: CBPeripheral, error: NSError)
+    @objc optional func failToConnectPeripheral(_ peripheral: CBPeripheral, error: Error)
     
     /**
      The callback function when the services has been discovered.
      
      - parameter peripheral: Peripheral which provide this information and contain services information
      */
-    optional func didDiscoverServices(peripheral: CBPeripheral)
+    @objc optional func didDiscoverServices(_ peripheral: CBPeripheral)
     
     /**
     The callback function when the peripheral disconnected.
     
     - parameter peripheral: The peripheral which provide this action
     */
-    optional func didDisconnectPeripheral(peripheral: CBPeripheral)
+    @objc optional func didDisconnectPeripheral(_ peripheral: CBPeripheral)
     
     /**
      The callback function when interrogate the peripheral is timeout
      
      - parameter peripheral: The peripheral which is failed to discover service
      */
-    optional func didFailedToInterrogate(peripheral: CBPeripheral)
+    @objc optional func didFailedToInterrogate(_ peripheral: CBPeripheral)
     
     /**
      The callback function when discover characteritics successfully.
      
      - parameter service: The service information include characteritics.
      */
-    optional func didDiscoverCharacteritics(service: CBService)
+    @objc optional func didDiscoverCharacteritics(_ service: CBService)
     
     /**
      The callback function when peripheral failed to discover charateritics.
      
      - parameter error: The error information.
      */
-    optional func didFailToDiscoverCharacteritics(error: NSError)
+    @objc optional func didFailToDiscoverCharacteritics(_ error: Error)
     
     /**
      The callback function when discover descriptor for characteristic successfully
      
      - parameter characteristic: The characteristic which has the descriptor
      */
-    optional func didDiscoverDescriptors(characteristic: CBCharacteristic)
+    @objc optional func didDiscoverDescriptors(_ characteristic: CBCharacteristic)
     
     /**
      The callback function when failed to discover descriptor for characteristic
      
      - parameter error: The error message
      */
-    optional func didFailToDiscoverDescriptors(error: NSError)
+    @objc optional func didFailToDiscoverDescriptors(_ error: Error)
     
     /**
      The callback function invoked when peripheral read value for the characteristic successfully
      
      - parameter characteristic: The characteristic withe the value
      */
-    optional func didReadValueForCharacteristic(characteristic: CBCharacteristic)
+    @objc optional func didReadValueForCharacteristic(_ characteristic: CBCharacteristic)
     
     /**
      The callback function invoked when failed to read value for the characteristic
      
      - parameter error: The error message
      */
-    optional func didFailToReadValueForCharacteristic(error: NSError)
+    @objc optional func didFailToReadValueForCharacteristic(_ error: Error)
 }

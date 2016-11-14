@@ -12,10 +12,10 @@ extension CBCharacteristic {
     
     /// Obtain the name of the characteristic according to the UUID, if the UUID is the standard defined in the `Bluetooth Developer Portal` then return the name
     public var name : String {
-        if self.UUID.name != "" {
-            return self.UUID.name
+        if self.uuid.name != "" {
+            return self.uuid.name
         } else {
-            return "0x" + self.UUID.UUIDString
+            return "0x" + self.uuid.uuidString
         }
     }
     
@@ -25,16 +25,16 @@ extension CBCharacteristic {
      */
     func getProperties() -> [String] {
         let properties = self.properties.rawValue
-        let broadcast = CBCharacteristicProperties.Broadcast.rawValue
-        let read = CBCharacteristicProperties.Read.rawValue
-        let writeWithoutResponse = CBCharacteristicProperties.WriteWithoutResponse.rawValue
-        let write = CBCharacteristicProperties.Write.rawValue
-        let notify = CBCharacteristicProperties.Notify.rawValue
-        let indicate = CBCharacteristicProperties.Indicate.rawValue
-        let authenticatedSignedWrites = CBCharacteristicProperties.AuthenticatedSignedWrites.rawValue
-        let extendedProperties = CBCharacteristicProperties.ExtendedProperties.rawValue
-        let notifyEncryptionRequired = CBCharacteristicProperties.NotifyEncryptionRequired.rawValue
-        let indicateEncryptionRequired = CBCharacteristicProperties.IndicateEncryptionRequired.rawValue
+        let broadcast = CBCharacteristicProperties.broadcast.rawValue
+        let read = CBCharacteristicProperties.read.rawValue
+        let writeWithoutResponse = CBCharacteristicProperties.writeWithoutResponse.rawValue
+        let write = CBCharacteristicProperties.write.rawValue
+        let notify = CBCharacteristicProperties.notify.rawValue
+        let indicate = CBCharacteristicProperties.indicate.rawValue
+        let authenticatedSignedWrites = CBCharacteristicProperties.authenticatedSignedWrites.rawValue
+        let extendedProperties = CBCharacteristicProperties.extendedProperties.rawValue
+        let notifyEncryptionRequired = CBCharacteristicProperties.notifyEncryptionRequired.rawValue
+        let indicateEncryptionRequired = CBCharacteristicProperties.indicateEncryptionRequired.rawValue
         var resultProperties = [String]()
         if properties & broadcast > 0 {
             resultProperties.append("Broadcast")

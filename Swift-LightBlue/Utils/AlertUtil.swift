@@ -9,14 +9,14 @@
 import UIKit
 
 class AlertUtil: NSObject {
-    static func showCancelAlert(title: String, message: String, cancelTitle: String, viewController: UIViewController) {
+    static func showCancelAlert(_ title: String, message: String, cancelTitle: String, viewController: UIViewController) {
         // The system version is less than 9.0
-        if UIDevice.currentDevice().systemVersion.compare("9.0.0", options: NSStringCompareOptions.NumericSearch) == .OrderedAscending {
+        if UIDevice.current.systemVersion.compare("9.0.0", options: NSString.CompareOptions.numeric) == .orderedAscending {
             UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelTitle).show()
         } else { // The system version is greate than or equal 9.0
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: cancelTitle, style: .Cancel, handler: nil))
-            viewController.presentViewController(alertController, animated: true, completion: nil)
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: nil))
+            viewController.present(alertController, animated: true, completion: nil)
         }
     }
 }

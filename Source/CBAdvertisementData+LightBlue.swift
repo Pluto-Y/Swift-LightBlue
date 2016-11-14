@@ -9,9 +9,9 @@
 import Foundation
 import CoreBluetooth
 
-public class CBAdvertisementData {
+open class CBAdvertisementData {
     
-    class public func getAdvertisementDataName(key: String) -> String{
+    class open func getAdvertisementDataName(_ key: String) -> String{
         if key == CBAdvertisementDataLocalNameKey {
             return "Local Name"
         } else if key == CBAdvertisementDataTxPowerLevelKey {
@@ -32,7 +32,7 @@ public class CBAdvertisementData {
         return key
     }
     
-    class public func getAdvertisementDataStringValue(datas: [String : AnyObject?], key : String) -> String {
+    class open func getAdvertisementDataStringValue(_ datas: [String : AnyObject?], key : String) -> String {
         var resultString : String? = ""
         if key == CBAdvertisementDataLocalNameKey {
             resultString = datas[CBAdvertisementDataLocalNameKey] as? String
@@ -45,9 +45,9 @@ public class CBAdvertisementData {
                     return "";
                 }
                 for i in 0..<serviceUUIDs!.count {
-                    resultString = resultString! + "\(serviceUUIDs!.objectAtIndex(i)),"
+                    resultString = resultString! + "\(serviceUUIDs!.object(at: i)),"
                 }
-                resultString = resultString!.substringToIndex(resultString!.endIndex.advancedBy(-1))
+                resultString = resultString!.substring(to: resultString!.characters.index(resultString!.endIndex, offsetBy: -1))
             }
         } else if key == CBAdvertisementDataServiceDataKey {
             let data = (datas[CBAdvertisementDataServiceDataKey]!)! as? NSDictionary
@@ -55,9 +55,9 @@ public class CBAdvertisementData {
                 return ""
             }
             print("\(data!)")
-            resultString = data!.description.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+            resultString = data!.description.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         } else if key == CBAdvertisementDataManufacturerDataKey {
-            resultString = (datas[CBAdvertisementDataManufacturerDataKey] as? NSData)?.description
+            resultString = (datas[CBAdvertisementDataManufacturerDataKey] as? Data)?.description
         } else if key == CBAdvertisementDataOverflowServiceUUIDsKey {
             resultString = ""
         } else if key == CBAdvertisementDataIsConnectable{

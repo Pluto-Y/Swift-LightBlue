@@ -239,7 +239,7 @@ public let LBStandardCharacteristicUUIDObjectChanged                            
  Add equal operator function to the CBUUID.
  */
 func == (leftUUID : CBUUID, rightUUID: CBUUID) -> Bool {
-    return leftUUID.UUIDString.lowercaseString == rightUUID.UUIDString.lowercaseString
+    return leftUUID.uuidString.lowercased() == rightUUID.uuidString.lowercased()
 }
 
 extension CBUUID {

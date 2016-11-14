@@ -12,10 +12,10 @@ import CoreBluetooth
 extension CBService {
     /// Obtain the name of the characteristic according to the UUID, if the UUID is the standard defined in the `Bluetooth Developer Portal` then return the name
     public var name : String {
-        if self.UUID.name != "" {
-            return self.UUID.name
+        if self.uuid.name != "" {
+            return self.uuid.name
         } else {
-            return "UUID: " + self.UUID.UUIDString
+            return "UUID: " + self.uuid.uuidString
         }
     }
     

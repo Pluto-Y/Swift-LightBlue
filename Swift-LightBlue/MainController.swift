@@ -9,6 +9,26 @@
 import UIKit
 import CoreBluetooth
 import QuartzCore
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class MainController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluetoothDelegate {
     
@@ -24,7 +44,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.initAll()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // If is return from NewVirtualPeripheralController, it should reload the navigationBar
         // It's used to avoid occuring some wrong when return back.
@@ -46,14 +66,14 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /**
      Info bar btn item click
      */
-    @IBAction func infoClick(sender: AnyObject) {
+    @IBAction func infoClick(_ sender: AnyObject) {
         print("MainController --> infoClick")
     }
     
     // MARK: Delegates
     // MARK: UITableViewDelegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let peripheral = nearbyPeripherals[indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let peripheral = nearbyPeripherals[(indexPath as NSIndexPath).row]
         connectingView = ConnectingView.showConnectingView()
         connectingView?.tipNameLbl.text = peripheral.name
         bluetoothManager.connectPeripheral(peripheral)
@@ -61,10 +81,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // MARK： UITableViewDataSource
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NearbyPeripheralCell") as? NearbyPeripheralCell
-            let peripheral = nearbyPeripherals[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as? NearbyPeripheralCell
+            let peripheral = nearbyPeripherals[(indexPath as NSIndexPath).row]
             let peripheralInfo = nearbyPeripheralInfos[peripheral]
             
             cell?.yPeripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
@@ -79,7 +99,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // The signal strength img icon and the number of signal strength
             let RSSI = peripheralInfo!["RSSI"]! as! NSNumber
             cell?.ySignalStrengthLbl.text = "\(RSSI)"
-            switch labs(RSSI.longValue) {
+            switch labs(RSSI.intValue) {
             case 0...40:
                 cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_5")
             case 41...53:
@@ -100,15 +120,15 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // The tableview group header view
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0,0,0,0))
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         
-        let lblTitle = UILabel(frame: CGRectMake(20, 2, 120, 21))
-        lblTitle.font = UIFont.boldSystemFontOfSize(12)
+        let lblTitle = UILabel(frame: CGRect(x: 20, y: 2, width: 120, height: 21))
+        lblTitle.font = UIFont.boldSystemFont(ofSize: 12)
 
         if section == 0 {
             lblTitle.text = "Peripherals Nearby"
-            headerView.backgroundColor = UIColor.whiteColor()
+            headerView.backgroundColor = UIColor.white
         } else {
             lblTitle.text = "Virtual Peripherals"
             headerView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
@@ -117,25 +137,25 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return headerView
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return nearbyPeripherals.count
         }
         return 0
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     // MARK: BluetoothDelegate 
-    func didDiscoverPeripheral(peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         if !nearbyPeripherals.contains(peripheral) {
             nearbyPeripherals.append(peripheral)
-            nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData]
+            nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
         } else {
             nearbyPeripheralInfos[peripheral]!["RSSI"] = RSSI
-            nearbyPeripheralInfos[peripheral]!["advertisementData"] = advertisementData
+            nearbyPeripheralInfos[peripheral]!["advertisementData"] = advertisementData as AnyObject?
         }
         peripheralsTb.reloadData()
     }
@@ -145,24 +165,24 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      
      - parameter state: The bluetooth state
      */
-    func didUpdateState(state: CBCentralManagerState) {
+    func didUpdateState(_ state: CBCentralManagerState) {
         print("MainController --> didUpdateState:\(state)")
         switch state {
-        case .Resetting:
+        case .resetting:
             print("MainController --> State : Resetting")
-        case .PoweredOn:
+        case .poweredOn:
             bluetoothManager.startScanPeripheral()
             UnavailableView.hideUnavailableView()
-        case .PoweredOff:
+        case .poweredOff:
             print(" MainController -->State : Powered Off")
             fallthrough
-        case .Unauthorized:
+        case .unauthorized:
             print("MainController --> State : Unauthorized")
             fallthrough
-        case .Unknown:
+        case .unknown:
             print("MainController --> State : Unknown")
             fallthrough
-        case .Unsupported:
+        case .unsupported:
             print("MainController --> State : Unsupported")
             bluetoothManager.stopScanPeripheral()
             bluetoothManager.disconnectPeripheral()
@@ -177,7 +197,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      
      - parameter connectedPeripheral: The peripheral which connected successfully.
      */
-    func didConnectedPeripheral(connectedPeripheral: CBPeripheral) {
+    func didConnectedPeripheral(_ connectedPeripheral: CBPeripheral) {
         print("MainController --> didConnectedPeripheral")
         connectingView?.tipLbl.text = "Interrogating..."
     }
@@ -187,7 +207,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      
      - parameter services: The service instances which discovered by CoreBluetooth
      */
-    func didDiscoverServices(peripheral: CBPeripheral) {
+    func didDiscoverServices(_ peripheral: CBPeripheral) {
         print("MainController --> didDiscoverService:\(peripheral.services)")
         ConnectingView.hideConnectingView()
         let peripheralController = PeripheralController()
@@ -201,7 +221,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      
      - parameter peripheral: The peripheral which interrogation failed.
      */
-    func didFailedToInterrogate(peripheral: CBPeripheral) {
+    func didFailedToInterrogate(_ peripheral: CBPeripheral) {
         ConnectingView.hideConnectingView()
         AlertUtil.showCancelAlert("Connection Alert", message: "The perapheral disconnected while being interrogated.", cancelTitle: "Dismiss", viewController: self)
     }

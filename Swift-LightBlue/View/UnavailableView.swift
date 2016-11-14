@@ -16,7 +16,7 @@ class UnavailableView : UIView {
     }
     
     init() {
-        super.init(frame:UIScreen.mainScreen().bounds)
+        super.init(frame:UIScreen.main.bounds)
         self.initAll()
     }
 
@@ -35,46 +35,46 @@ class UnavailableView : UIView {
         self.addSubview(imgView)
         
         /// Create and add the constraints for the ImageView
-        let imgCenterX = imgView.centerXAnchor.constraintEqualToAnchor(self.centerXAnchor)
-        let imgCenterY = imgView.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor, constant: -60)
-        let imgWidth = imgView.widthAnchor.constraintEqualToConstant(160)
-        let imgHeight = imgView.heightAnchor.constraintEqualToAnchor(imgView.widthAnchor, multiplier: 1.0)
-        NSLayoutConstraint.activateConstraints([imgCenterX, imgCenterY, imgWidth, imgHeight])
+        let imgCenterX = imgView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let imgCenterY = imgView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -60)
+        let imgWidth = imgView.widthAnchor.constraint(equalToConstant: 160)
+        let imgHeight = imgView.heightAnchor.constraint(equalTo: imgView.widthAnchor, multiplier: 1.0)
+        NSLayoutConstraint.activate([imgCenterX, imgCenterY, imgWidth, imgHeight])
         
         /// Create the title tips Label
         let tip1Lbl = UILabel()
         tip1Lbl.translatesAutoresizingMaskIntoConstraints = false
         tip1Lbl.text = "LightBlue requires Bluetooth"
-        tip1Lbl.font = UIFont.systemFontOfSize(18, weight: UIFontWeightThin)
-        tip1Lbl.textColor = UIColor.blackColor()
+        tip1Lbl.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+        tip1Lbl.textColor = UIColor.black
         self.addSubview(tip1Lbl)
         
         /// Create and add the constraints for the title tips
-        let lblTop = tip1Lbl.topAnchor.constraintEqualToAnchor(imgView.bottomAnchor, constant: 10)
-        let lblCenterX = tip1Lbl.centerXAnchor.constraintEqualToAnchor(imgView.centerXAnchor)
-        let lblWidth = tip1Lbl.widthAnchor.constraintGreaterThanOrEqualToConstant(20)
-        NSLayoutConstraint.activateConstraints([lblTop, lblCenterX, lblWidth])
+        let lblTop = tip1Lbl.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 10)
+        let lblCenterX = tip1Lbl.centerXAnchor.constraint(equalTo: imgView.centerXAnchor)
+        let lblWidth = tip1Lbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
+        NSLayoutConstraint.activate([lblTop, lblCenterX, lblWidth])
         
         /// Create the detail tips Label
         let tip2Lbl = UILabel()
         tip2Lbl.translatesAutoresizingMaskIntoConstraints = false
         tip2Lbl.text = "Please enable Bluetooth to continue using this app"
-        tip2Lbl.font = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
-        tip2Lbl.textColor = UIColor.blackColor()
+        tip2Lbl.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
+        tip2Lbl.textColor = UIColor.black
         self.addSubview(tip2Lbl)
         
         /// Create and add constraints for the detail tips
-        let lbl2Top = tip2Lbl.topAnchor.constraintEqualToAnchor(tip1Lbl.bottomAnchor, constant: 10)
-        let lbl2CenterX = tip2Lbl.centerXAnchor.constraintEqualToAnchor(tip1Lbl.centerXAnchor)
-        let lbl2Width = tip2Lbl.widthAnchor.constraintGreaterThanOrEqualToConstant(20)
-        NSLayoutConstraint.activateConstraints([lbl2Top, lbl2CenterX, lbl2Width])
+        let lbl2Top = tip2Lbl.topAnchor.constraint(equalTo: tip1Lbl.bottomAnchor, constant: 10)
+        let lbl2CenterX = tip2Lbl.centerXAnchor.constraint(equalTo: tip1Lbl.centerXAnchor)
+        let lbl2Width = tip2Lbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
+        NSLayoutConstraint.activate([lbl2Top, lbl2CenterX, lbl2Width])
     }
     
     /**
      Show the UnavailableView
      */
     static func showUnavailableView() {
-        if let window = UIApplication.sharedApplication().keyWindow {
+        if let window = UIApplication.shared.keyWindow {
             window.addSubview(Static.unavailableView)
         }
     }

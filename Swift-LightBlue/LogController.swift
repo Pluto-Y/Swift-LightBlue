@@ -13,7 +13,7 @@ class LogController : UITableViewController {
     /**
      Back to preview controller
      */
-    @IBAction func closeClick(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func closeClick(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
 }

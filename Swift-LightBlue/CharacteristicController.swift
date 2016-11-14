@@ -18,7 +18,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     var headerTitles = [String]()
     var timeAndValues = [String: String]()
     var times = [String]()
-    private var isListening = false
+    fileprivate var isListening = false
     
     @IBOutlet var peripheralNameLbl: UILabel!
     @IBOutlet var characteristicNameLbl: UILabel!
@@ -34,14 +34,14 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Custom functions
     /// Initialize function of this controller
-    private func initAll() {
+    fileprivate func initAll() {
         assert(characteristic != nil, "The Characteristic CAN'T be nil")
         self.title = characteristic?.name
         bluetoothManager.delegate = self
         bluetoothManager.discoverDescriptor(characteristic!)
         peripheralNameLbl.text = bluetoothManager.connectedPeripheral?.name
         characteristicNameLbl.text = characteristic!.name
-        characteristicUUIDLbl.text = characteristic!.UUID.UUIDString
+        characteristicUUIDLbl.text = characteristic!.uuid.uuidString
         
         /// According to the properties create the header title array
         var headerTitle = ""
@@ -71,7 +71,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    private func reloadTableView() {
+    fileprivate func reloadTableView() {
         characteristicInfosTb.reloadData()
         
         // Fix the contentSize.height is greater than frame.size.height bug(Approximately 20 unit)
@@ -81,7 +81,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     
     
     // MARK: UITableViewDataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == headerTitles.count - 1 { // Last group is the properies
             return properties!.count
         } else if section == headerTitles.count - 2 { //Last group but one is the descriptors
@@ -96,105 +96,105 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         return 0
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return headerTitles.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if headerTitles[indexPath.section] == "WRITTEN VALUES" {
-            var cell = tableView.dequeueReusableCellWithIdentifier("characteristic2Btn") as? Characteristic2BtnsCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if headerTitles[(indexPath as NSIndexPath).section] == "WRITTEN VALUES" {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "characteristic2Btn") as? Characteristic2BtnsCell
             if cell == nil {
-                let array = NSBundle.mainBundle().loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
-                cell = array.first as? Characteristic2BtnsCell
-                cell?.selectionStyle = .None
+                let array = Bundle.main.loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
+                cell = array?.first as? Characteristic2BtnsCell
+                cell?.selectionStyle = .none
             }
-            cell?.leftBtn.hidden = false
-            cell?.rightBtn.hidden = true
+            cell?.leftBtn.isHidden = false
+            cell?.rightBtn.isHidden = true
             if bluetoothManager.connected {
                 cell?.enableBtns()
             } else {
                 cell?.disableBtns()
             }
-            cell?.leftBtn.setTitle("Write new value", forState: .Normal)
+            cell?.leftBtn.setTitle("Write new value", for: UIControlState())
             cell?.setLeftAction({ () -> () in
                 print("Write new value")
                 let controller = EditValueController()
                 controller.characteristic = self.characteristic!
                 if self.characteristic!.getProperties().contains("Write Without Response") {
-                    controller.writeType = .WithoutResponse
+                    controller.writeType = .withoutResponse
                 } else {
-                    controller.writeType = .WithResponse
+                    controller.writeType = .withResponse
                 }
                 self.navigationController?.pushViewController(controller, animated: true)
             })
             return cell!
-        } else if headerTitles[indexPath.section].rangeOfString("READ") != nil || headerTitles[indexPath.section].rangeOfString("VALUES") != nil{
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCellWithIdentifier("characteristic2Btn") as? Characteristic2BtnsCell
+        } else if headerTitles[(indexPath as NSIndexPath).section].range(of: "READ") != nil || headerTitles[(indexPath as NSIndexPath).section].range(of: "VALUES") != nil{
+            if (indexPath as NSIndexPath).row == 0 {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "characteristic2Btn") as? Characteristic2BtnsCell
                 if cell == nil {
-                    let array = NSBundle.mainBundle().loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
-                    cell = array.first as? Characteristic2BtnsCell
-                    cell?.selectionStyle = .None
+                    let array = Bundle.main.loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
+                    cell = array?.first as? Characteristic2BtnsCell
+                    cell?.selectionStyle = .none
                 }
                 if bluetoothManager.connected {
                     cell?.enableBtns()
                 } else {
                     cell?.disableBtns()
                 }
-                if headerTitles[indexPath.section].rangeOfString("READ") != nil {
-                    cell?.leftBtn.hidden = false
-                    cell?.leftBtn.setTitle("Read again", forState: .Normal)
+                if headerTitles[(indexPath as NSIndexPath).section].range(of: "READ") != nil {
+                    cell?.leftBtn.isHidden = false
+                    cell?.leftBtn.setTitle("Read again", for: UIControlState())
                     cell?.setLeftAction({ () -> () in
                         print("Read again")
-                        self.bluetoothManager.readValueForCharacteristic(self.characteristic!)
+                        self.bluetoothManager.readValueForCharacteristic(characteristic: self.characteristic!)
                     })
                 } else {
-                    cell?.leftBtn.hidden = true
+                    cell?.leftBtn.isHidden = true
                 }
-                if headerTitles[indexPath.section].rangeOfString("VALUES") != nil {
-                    cell?.rightBtn.hidden = false
+                if headerTitles[(indexPath as NSIndexPath).section].range(of: "VALUES") != nil {
+                    cell?.rightBtn.isHidden = false
                     if !isListening {
-                        cell?.rightBtn.setTitle("Listen for notifications", forState: .Normal)
+                        cell?.rightBtn.setTitle("Listen for notifications", for: UIControlState())
                     } else {
-                        cell?.rightBtn.setTitle("Stop listening", forState: .Normal)
+                        cell?.rightBtn.setTitle("Stop listening", for: UIControlState())
                     }
                     cell?.setRightAction({ () -> () in
                         print("Listen for notifications")
                         self.isListening = !self.isListening
                         if !self.isListening {
-                            cell?.rightBtn.setTitle("Listen for notifications", forState: .Normal)
+                            cell?.rightBtn.setTitle("Listen for notifications", for: UIControlState())
                         } else {
-                            cell?.rightBtn.setTitle("Stop listening", forState: .Normal)
+                            cell?.rightBtn.setTitle("Stop listening", for: UIControlState())
                         }
-                        self.bluetoothManager.setNotification(self.isListening, forCharacteristic: self.characteristic!)
+                        self.bluetoothManager.setNotification(enable: self.isListening, forCharacteristic: self.characteristic!)
                     })
                 } else {
-                    cell?.rightBtn.hidden = true
+                    cell?.rightBtn.isHidden = true
                 }
                 return cell!
             } else {
-                var cell = tableView.dequeueReusableCellWithIdentifier("characteristicCell")
+                var cell = tableView.dequeueReusableCell(withIdentifier: "characteristicCell")
                 if cell == nil {
-                    cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "characteristicCell")
-                    cell?.selectionStyle = .None
+                    cell = UITableViewCell(style: .subtitle, reuseIdentifier: "characteristicCell")
+                    cell?.selectionStyle = .none
                 }
-                cell?.textLabel?.text = timeAndValues[times[indexPath.row - 1]]
-                if timeAndValues[times[indexPath.row - 1]] != "No value" {
-                    cell?.detailTextLabel?.text = times[indexPath.row - 1]
+                cell?.textLabel?.text = timeAndValues[times[(indexPath as NSIndexPath).row - 1]]
+                if timeAndValues[times[(indexPath as NSIndexPath).row - 1]] != "No value" {
+                    cell?.detailTextLabel?.text = times[(indexPath as NSIndexPath).row - 1]
                 }
                 return cell!
             }
         } else {
-            var cell = tableView.dequeueReusableCellWithIdentifier("characteristicCell")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "characteristicCell")
             if cell == nil {
-                cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "characteristicCell")
-                cell?.selectionStyle = .None
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: "characteristicCell")
+                cell?.selectionStyle = .none
             }
-            if indexPath.section == headerTitles.count - 1 {
-                cell?.textLabel?.text = properties![indexPath.row]
-            } else if indexPath.section == headerTitles.count - 2 {
+            if (indexPath as NSIndexPath).section == headerTitles.count - 1 {
+                cell?.textLabel?.text = properties![(indexPath as NSIndexPath).row]
+            } else if (indexPath as NSIndexPath).section == headerTitles.count - 2 {
                 if let descriptor = characteristic!.descriptors {
-                    cell?.textLabel?.text = descriptor[indexPath.row].UUID.description
+                    cell?.textLabel?.text = descriptor[(indexPath as NSIndexPath).row].uuid.description
                 }
                 
             }
@@ -202,37 +202,37 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         let lbl = UILabel()
-        lbl.frame = CGRectMake(10, 0, UIScreen.mainScreen().bounds.size.width - 20, 30)
+        lbl.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.size.width - 20, height: 30)
         lbl.text = headerTitles[section]
         view.addSubview(lbl)
         return view
     }
     
     // MARK: BluetoothDelegate
-    func didDisconnectPeripheral(peripheral: CBPeripheral) {
+    func didDisconnectPeripheral(_ peripheral: CBPeripheral) {
         print("CharacteristicController --> didDisconnectPeripheral")
         peripheralStatusLbl.text = "Disconnected. Data is Stale."
-        peripheralStatusLbl.textColor = UIColor.redColor()
+        peripheralStatusLbl.textColor = UIColor.red
     }
     
-    func didDiscoverDescriptors(characteristic: CBCharacteristic) {
+    func didDiscoverDescriptors(_ characteristic: CBCharacteristic) {
         print("CharacteristicController --> didDiscoverDescriptors")
         self.characteristic = characteristic
         reloadTableView()
     }
     
-    func didReadValueForCharacteristic(characteristic: CBCharacteristic) {
+    func didReadValueForCharacteristic(_ characteristic: CBCharacteristic) {
         print("CharacteristicController --> didReadValueForCharacteristic")
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSS"
-        let timeStr = formatter.stringFromDate(NSDate())
-        if characteristic.value != nil && characteristic.value!.length != 0 {
+        let timeStr = formatter.string(from: Date())
+        if characteristic.value != nil && characteristic.value!.count != 0 {
             let data = characteristic.value!
-            let rangeOfData = Range(start: data.description.startIndex.advancedBy(1), end: data.description.endIndex.predecessor())
-            timeAndValues[timeStr] = "0x" + data.description.substringWithRange(rangeOfData)
+            let rangeOfData = (data.description.characters.index(data.description.startIndex, offsetBy: 1) ..< data.description.characters.index(before: data.description.endIndex))
+            timeAndValues[timeStr] = "0x" + data.description.substring(with: rangeOfData)
         } else {
             timeAndValues[timeStr] = "No value"
         }

@@ -13,9 +13,15 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     var _manager : CBCentralManager?
     var delegate : BluetoothDelegate?
     private(set) var connected = false
-    private var timeoutMonitor : NSTimer? /// Timeout monitor of connect to peripheral
-    private var interrogateMonitor : NSTimer? /// Timeout monitor of interrogate the peripheral
-    private let notifCenter = NSNotificationCenter.defaultCenter()
+    var state: CBCentralManagerState? {
+        guard _manager != nil else {
+            return nil
+        }
+        return CBCentralManagerState(rawValue: (_manager?.state.rawValue)!)
+    }
+    private var timeoutMonitor : Timer? /// Timeout monitor of connect to peripheral
+    private var interrogateMonitor : Timer? /// Timeout monitor of interrogate the peripheral
+    private let notifCenter = NotificationCenter.default
     private var isConnecting = false
     var logs = [String]()
     private(set) var connectedPeripheral : CBPeripheral?
@@ -23,15 +29,22 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     
     /// Save the single instance
     static private var instance : BluetoothManager {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var sharedInstance : BluetoothManager? = nil
-        }
-        dispatch_once(&Static.onceToken) { () -> Void in
-            Static.sharedInstance = BluetoothManager()
-            Static.sharedInstance?.initCBCentralManager()
-        }
-        return Static.sharedInstance!
+//        struct Static {
+//            static var onceToken : dispatch_once_t = 0
+//            static var sharedInstance : BluetoothManager? = nil
+//        }
+//        dispatch_once(&Static.onceToken) { () -> Void in
+//            Static.sharedInstance = BluetoothManager()
+//            Static.sharedInstance?.initCBCentralManager()
+//        }
+        return sharedInstance
+    }
+    
+    private static let sharedInstance = BluetoothManager()
+    
+    private override init() {
+        super.init()
+        initCBCentralManager()
     }
     
     // MARK: Custom functions
@@ -40,7 +53,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     */
     func initCBCentralManager() {
         var dic : [String : AnyObject] = Dictionary()
-        dic[CBCentralManagerOptionShowPowerAlertKey] = false
+        dic[CBCentralManagerOptionShowPowerAlertKey] = false as AnyObject?
         _manager = CBCentralManager(delegate: self, queue:nil, options: dic)
     }
     
@@ -57,7 +70,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      The method provides for starting scan near by peripheral
      */
     func startScanPeripheral() {
-        _manager?.scanForPeripheralsWithServices(nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
+        _manager?.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
     }
     
     /**
@@ -72,11 +85,11 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      
      - parameter peripher: The peripheral you want to connect
      */
-    func connectPeripheral(peripheral: CBPeripheral) {
+    func connectPeripheral(_ peripheral: CBPeripheral) {
         if !isConnecting {
             isConnecting = true
-            _manager?.connectPeripheral(peripheral, options: [CBConnectPeripheralOptionNotifyOnDisconnectionKey : true])
-            timeoutMonitor = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(self.connectTimeout(_:)), userInfo: peripheral, repeats: false)
+            _manager?.connect(peripheral, options: [CBConnectPeripheralOptionNotifyOnDisconnectionKey : true])
+            timeoutMonitor = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.connectTimeout(_:)), userInfo: peripheral, repeats: false)
         }
     }
     
@@ -96,9 +109,9 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      
      - parameter characteristic: The character which user want to obtain descriptor
      */
-    func discoverDescriptor(characteristic: CBCharacteristic) {
+    func discoverDescriptor(_ characteristic: CBCharacteristic) {
         if connectedPeripheral != nil  {
-            connectedPeripheral?.discoverDescriptorsForCharacteristic(characteristic)
+            connectedPeripheral?.discoverDescriptors(for: characteristic)
         }
     }
     
@@ -107,10 +120,10 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      
      - parameter timer: The timer touch off this selector
      */
-    @objc private func connectTimeout(timer : NSTimer) {
+    @objc func connectTimeout(_ timer : Timer) {
         if isConnecting {
             isConnecting = false
-            connectPeripheral((timer.userInfo as! CBPeripheral))
+            connectPeripheral(timer.userInfo as! CBPeripheral)
             timeoutMonitor = nil
         }
     }
@@ -120,7 +133,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      
      - parameter timer: The timer touch off this selector
      */
-    @objc private func integrrogateTimeout(timer: NSTimer) {
+    @objc func integrrogateTimeout(_ timer: Timer) {
         disconnectPeripheral()
         delegate?.didFailedToInterrogate?((timer.userInfo as! CBPeripheral))
     }
@@ -137,7 +150,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
             return;
         }
         for service in services! {
-            connectedPeripheral!.discoverCharacteristics(nil, forService: service)
+            connectedPeripheral!.discoverCharacteristics(nil, for: service)
         }
     }
     
@@ -150,7 +163,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         if connectedPeripheral == nil {
             return
         }
-        connectedPeripheral?.readValueForCharacteristic(characteristic)
+        connectedPeripheral?.readValue(for: characteristic)
     }
     
     /**
@@ -163,7 +176,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         if connectedPeripheral == nil {
             return
         }
-        connectedPeripheral?.setNotifyValue(enable, forCharacteristic: characteristic)
+        connectedPeripheral?.setNotifyValue(enable, for: characteristic)
     }
     
     /**
@@ -173,33 +186,35 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter characteristic: The characteristic information
      - parameter type:           The write of the operation
      */
-    func writeValue(data: NSData, forCahracteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
+    func writeValue(data: Data, forCahracteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
         if connectedPeripheral == nil {
             return
         }
-        connectedPeripheral?.writeValue(data, forCharacteristic: characteristic, type: type)
+        connectedPeripheral?.writeValue(data, for: characteristic, type: type)
     }
     
     // MARK: Delegate
     /**
     Invoked whenever the central manager's state has been updated.
      */
-    public func centralManagerDidUpdateState(central: CBCentralManager) {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-        case .PoweredOff:
+        case .poweredOff:
             print("State : Powered Off")
-        case .PoweredOn:
+        case .poweredOn:
             print("State : Powered On")
-        case .Resetting:
+        case .resetting:
             print("State : Resetting")
-        case .Unauthorized:
+        case .unauthorized:
             print("State : Unauthorized")
-        case .Unknown:
+        case .unknown:
             print("State : Unknown")
-        case .Unsupported:
+        case .unsupported:
             print("State : Unsupported")
         }
-        delegate?.didUpdateState?(central.state)
+        if let state = self.state {
+            delegate?.didUpdateState?(state)
+        }
     }
     
     /**
@@ -211,7 +226,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter RSSI:              The current RSSI of peripheral, in dBm. A value of 127 is reserved and indicates the RSSI
      *								was not available.
      */
-    public func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    @nonobjc public func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         print("Bluetooth Manager --> didDiscoverPeripheral, RSSI:\(RSSI)")
         delegate?.didDiscoverPeripheral?(peripheral, advertisementData: advertisementData, RSSI: RSSI)
     }
@@ -222,7 +237,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter central:    The central manager providing this information.
      - parameter peripheral: The peripheral that has connected.
      */
-    public func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
+    public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Bluetooth Manager --> didConnectPeripheral")
         isConnecting = false
         if timeoutMonitor != nil {
@@ -235,7 +250,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         stopScanPeripheral()
         peripheral.delegate = self
         peripheral.discoverServices(nil)
-        interrogateMonitor = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(self.integrrogateTimeout(_:)), userInfo: peripheral, repeats: false)
+        interrogateMonitor = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.integrrogateTimeout(_:)), userInfo: peripheral, repeats: false)
     }
     
     /**
@@ -245,7 +260,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter peripheral: The peripheral that you tried to connect.
      - parameter error:      The error infomation about connecting failed.
      */
-    public func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("Bluetooth Manager --> didFailToConnectPeripheral")
         isConnecting = false
         if timeoutMonitor != nil {
@@ -262,7 +277,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter peripheral: The peripheral with service informations.
      - parameter error:      Errot message when discovered services.
      */
-    public func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         print("Bluetooth Manager --> didDiscoverServices")
         connectedPeripheral = peripheral
         if error != nil {
@@ -286,7 +301,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter service:    The service included the characteristics.
      - parameter error:      If an error occurred, the cause of the failure.
      */
-    public func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("Bluetooth Manager --> didDiscoverCharacteristicsForService")
         if error != nil {
             print("Bluetooth Manager --> Fail to discover characteristics! Error: \(error?.localizedDescription)")
@@ -303,7 +318,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter characteristic: The characteristic which has the descriptor
      - parameter error:          The error message
      */
-    public func peripheral(peripheral: CBPeripheral, didDiscoverDescriptorsForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
         print("Bluetooth Manager --> didDiscoverDescriptorsForCharacteristic")
         if error != nil {
             print("Bluetooth Manager --> Fail to discover descriptor for characteristic Error:\(error?.localizedDescription)")
@@ -320,11 +335,11 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter peripheral: The disconnected peripheral
      - parameter error:      The error message
      */
-    public func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Bluetooth Manager --> didDisconnectPeripheral")
         connected = false
         self.delegate?.didDisconnectPeripheral?(peripheral)
-        notifCenter.postNotificationName(PeripheralNotificationKeys.DisconnectNotif.rawValue, object: self)
+        notifCenter.post(name: NSNotification.Name(rawValue: PeripheralNotificationKeys.DisconnectNotif.rawValue), object: self)
     }
     
     /**
@@ -334,7 +349,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter characteristic: The characteristic with the new value
      - parameter error:          The error message
      */
-    public func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+    public func peripheral(_ peripheral: CBPeripheral, characteristic: CBCharacteristic, error: NSError?) {
         print("Bluetooth Manager --> didUpdateValueForCharacteristic")
         if error != nil {
             print("Bluetooth Manager --> Failed to read value for the characteristic. Error:\(error!.localizedDescription)")

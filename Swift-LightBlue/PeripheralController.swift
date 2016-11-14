@@ -11,13 +11,13 @@ import CoreBluetooth
 
 class PeripheralController : UIViewController, UITableViewDelegate, UITableViewDataSource, BluetoothDelegate {
     
-    private let bluetoothManager = BluetoothManager.getInstance()
-    private var showAdvertisementData = false
-    private var services : [CBService]?
-    private var characteristicsDic = [CBUUID : [CBCharacteristic]]()
+    fileprivate let bluetoothManager = BluetoothManager.getInstance()
+    fileprivate var showAdvertisementData = false
+    fileprivate var services : [CBService]?
+    fileprivate var characteristicsDic = [CBUUID : [CBCharacteristic]]()
     
     var lastAdvertisementData : Dictionary<String, AnyObject>?
-    private var advertisementDataKeys : [String]?
+    fileprivate var advertisementDataKeys : [String]?
     
     @IBOutlet var peripheralNameLbl: UILabel!
     @IBOutlet var peripheralUUIDLbl: UILabel!
@@ -31,7 +31,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         initAll()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         bluetoothManager.delegate = self
     }
@@ -39,11 +39,11 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     // MARK: custom functions
     func initAll() {
         self.title = "Peripheral"
-        advertisementDataKeys = ([String](lastAdvertisementData!.keys)).sort()
+        advertisementDataKeys = ([String](lastAdvertisementData!.keys)).sorted()
         bluetoothManager.discoverCharacteristics()
         services = bluetoothManager.connectedPeripheral?.services
         peripheralNameLbl.text = bluetoothManager.connectedPeripheral?.name
-        peripheralUUIDLbl.text = bluetoothManager.connectedPeripheral?.identifier.UUIDString
+        peripheralUUIDLbl.text = bluetoothManager.connectedPeripheral?.identifier.uuidString
         reloadTableView()
     }
     
@@ -73,7 +73,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
      
      - returns: properties string
      */
-    func getPropertiesFromArray(array : [String]) -> String {
+    func getPropertiesFromArray(_ array : [String]) -> String {
         var propertiesString = "Properties:"
         let containWrite = array.contains("Write")
         for property in array {
@@ -88,7 +88,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: Delegate
     // Mark: UITableViewDelegate
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             if showAdvertisementData {
                 return advertisementDataKeys!.count
@@ -96,56 +96,56 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
                 return 0
             }
         }
-        let characteristics = characteristicsDic[services![section - 1].UUID]
+        let characteristics = characteristicsDic[services![section - 1].uuid]
         return characteristics == nil ? 0 : characteristics!.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         print("numberOfSectionsInTableView:\(bluetoothManager.connectedPeripheral!.services!.count + 1)")
         return bluetoothManager.connectedPeripheral!.services!.count + 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("serviceCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "serviceCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "serviceCell")
-            cell?.selectionStyle = .None
-            cell?.accessoryType = .DisclosureIndicator
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "serviceCell")
+            cell?.selectionStyle = .none
+            cell?.accessoryType = .disclosureIndicator
         }
-        if indexPath.section == 0 {
-            cell?.textLabel?.text = CBAdvertisementData.getAdvertisementDataStringValue(lastAdvertisementData!, key: advertisementDataKeys![indexPath.row])
+        if (indexPath as NSIndexPath).section == 0 {
+            cell?.textLabel?.text = CBAdvertisementData.getAdvertisementDataStringValue(lastAdvertisementData!, key: advertisementDataKeys![(indexPath as NSIndexPath).row])
             cell?.textLabel?.adjustsFontSizeToFitWidth = true
             
-            cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![indexPath.row])
+            cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![(indexPath as NSIndexPath).row])
         } else {
-            let characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
+            let characteristic = characteristicsDic[services![(indexPath as NSIndexPath).section - 1].uuid]![(indexPath as NSIndexPath).row]
             cell?.textLabel?.text = characteristic.name
             cell?.detailTextLabel?.text = getPropertiesFromArray(characteristic.getProperties())
         }
         return cell!
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         print("section:\(section)")
-        let view = UIView(frame: CGRectMake(0, 0, 0, 0))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         view.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
         
-        let serviceNameLbl = UILabel(frame: CGRectMake(10, 20, UIScreen.mainScreen().bounds.size.width - 100, 20))
-        serviceNameLbl.font = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
+        let serviceNameLbl = UILabel(frame: CGRect(x: 10, y: 20, width: UIScreen.main.bounds.size.width - 100, height: 20))
+        serviceNameLbl.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightMedium)
         
         view.addSubview(serviceNameLbl)
         
         if section == 0 {
             serviceNameLbl.text = "ADVERTISEMENT DATA"
-            let showBtn = UIButton(type: .System)
-            showBtn.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width - 80, 20, 60, 20)
+            let showBtn = UIButton(type: .system)
+            showBtn.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 20, width: 60, height: 20)
             if showAdvertisementData {
-                showBtn.setTitle("Hide", forState: .Normal)
+                showBtn.setTitle("Hide", for: UIControlState())
             } else {
-                showBtn.setTitle("Show", forState: .Normal)
+                showBtn.setTitle("Show", for: UIControlState())
             }
 
-            showBtn.addTarget(self, action: #selector(self.showAdvertisementDataBtnClick), forControlEvents: .TouchUpInside)
+            showBtn.addTarget(self, action: #selector(self.showAdvertisementDataBtnClick), for: .touchUpInside)
             view.addSubview(showBtn)
         } else {
             let service = bluetoothManager.connectedPeripheral!.services![section - 1]
@@ -156,32 +156,32 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // Need overide this method for fix start section from 1(not 0) in the method 'tableView:viewForHeaderInSection:' after iOS 7
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 0 {
             
         } else {
-            print("Click at section: \(indexPath.section), row: \(indexPath.row)")
+            print("Click at section: \((indexPath as NSIndexPath).section), row: \((indexPath as NSIndexPath).row)")
             let controller = CharacteristicController()
-            controller.characteristic = characteristicsDic[services![indexPath.section - 1].UUID]![indexPath.row]
+            controller.characteristic = characteristicsDic[services![(indexPath as NSIndexPath).section - 1].uuid]![(indexPath as NSIndexPath).row]
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
     // MARK: BluetoothDelegate
-    func didDisconnectPeripheral(peripheral: CBPeripheral) {
+    func didDisconnectPeripheral(_ peripheral: CBPeripheral) {
         print("PeripheralController --> didDisconnectPeripheral")
         connectFlagLbl.text = "Disconnected. Data is Stale."
-        connectFlagLbl.textColor = UIColor.redColor()
+        connectFlagLbl.textColor = UIColor.red
         
     }
     
-    func didDiscoverCharacteritics(service: CBService) {
+    func didDiscoverCharacteritics(_ service: CBService) {
         print("Service.characteristics:\(service.characteristics)")
-        characteristicsDic[service.UUID] = service.characteristics
+        characteristicsDic[service.uuid] = service.characteristics
         reloadTableView()
     }
     

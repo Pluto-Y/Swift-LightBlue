@@ -27,18 +27,18 @@ class EditValueController: UIViewController, BluetoothDelegate {
         self.title = "Edit Value"
         bluetoothManager.delegate = self
         let inputView = MRHexKeyboard(textField: valueInputTf)
-        inputView.setDoneAction { () -> Void in
+        inputView?.setDoneAction { () -> Void in
             if let textContent = self.valueInputTf.text {
                 if textContent == "" {
                     return
                 }
-                var hexString = textContent.substringFromIndex(textContent.startIndex.advancedBy(2))
+                var hexString = textContent.substring(from: textContent.characters.index(textContent.startIndex, offsetBy: 2))
                 if hexString.characters.count % 2 != 0 {
                     hexString = "0" + hexString
                 }
                 let data = hexString.dataFromHexadecimalString()
-                self.bluetoothManager.writeValue(data!, forCahracteristic: self.characteristic!, type: self.writeType!)
-                self.navigationController?.popViewControllerAnimated(true)
+                self.bluetoothManager.writeValue(data: data!, forCahracteristic: self.characteristic!, type: self.writeType!)
+                self.navigationController?.popViewController(animated: true)
             }
         }
         valueInputTf.inputView = inputView
@@ -57,14 +57,14 @@ extension String {
     ///
     /// - returns: NSData represented by this hexadecimal string. Returns nil if string contains characters outside the 0-9 and a-f range.
     
-    func dataFromHexadecimalString() -> NSData? {
-        let trimmedString = self.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<> ")).stringByReplacingOccurrencesOfString(" ", withString: "")
+    func dataFromHexadecimalString() -> Data? {
+        let trimmedString = self.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
         
         // make sure the cleaned up string consists solely of hex digits, and that we have even number of them
         
-        let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .CaseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .caseInsensitive)
         
-        let found = regex.firstMatchInString(trimmedString, options: [], range: NSMakeRange(0, trimmedString.characters.count))
+        let found = regex.firstMatch(in: trimmedString, options: [], range: NSMakeRange(0, trimmedString.characters.count))
         if found == nil || found?.range.location == NSNotFound || trimmedString.characters.count % 2 != 0 {
             return nil
         }
@@ -73,12 +73,20 @@ extension String {
         
         let data = NSMutableData(capacity: trimmedString.characters.count / 2)
         
-        for var index = trimmedString.startIndex; index < trimmedString.endIndex; index = index.successor().successor() {
-            let byteString = trimmedString.substringWithRange(Range<String.Index>(start: index, end: index.successor().successor()))
+        var index = trimmedString.startIndex
+        while index < trimmedString.endIndex {
+            let byteString = trimmedString.substring(with: (index ..< trimmedString.index(after: trimmedString.index(after: index))))
             let num = UInt8(byteString.withCString { strtoul($0, nil, 16) })
-            data?.appendBytes([num] as [UInt8], length: 1)
+            data?.append([num] as [UInt8], length: 1)
+            index = trimmedString.index(after: trimmedString.index(after: index))
         }
         
-        return data
+//        for var index = trimmedString.startIndex; index < trimmedString.endIndex; index = trimmedString.index(after: trimmedString.index(after: index)) {
+//            let byteString = trimmedString.substring(with: (index ..< trimmedString.index(after: trimmedString.index(after: index))))
+//            let num = UInt8(byteString.withCString { strtoul($0, nil, 16) })
+//            data?.append([num] as [UInt8], length: 1)
+//        }
+        
+        return data as Data?
     }
 }

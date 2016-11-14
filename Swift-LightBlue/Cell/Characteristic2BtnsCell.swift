@@ -10,47 +10,47 @@ import UIKit
 
 
 
-public class Characteristic2BtnsCell: UITableViewCell {
+open class Characteristic2BtnsCell: UITableViewCell {
     
     
     @IBOutlet var leftBtn: UIButton!
     @IBOutlet var rightBtn: UIButton!
     
-    private var leftAction: (() -> ())?
-    private var rightAction: (() -> ())?
+    fileprivate var leftAction: (() -> ())?
+    fileprivate var rightAction: (() -> ())?
     
 
-    override public func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
-        leftBtn.addTarget(self, action: #selector(self.leftBtnClick(_:)), forControlEvents: .TouchUpInside)
-        rightBtn.addTarget(self, action: #selector(self.rightBtnClick(_:)), forControlEvents: .TouchUpInside)
+        leftBtn.addTarget(self, action: #selector(self.leftBtnClick(_:)), for: .touchUpInside)
+        rightBtn.addTarget(self, action: #selector(self.rightBtnClick(_:)), for: .touchUpInside)
     }
     
-    public func enableBtns() {
-        leftBtn.enabled = true
-        rightBtn.enabled = true
+    open func enableBtns() {
+        leftBtn.isEnabled = true
+        rightBtn.isEnabled = true
     }
     
-    public func disableBtns() {
-        leftBtn.enabled = false
-        rightBtn.enabled = false
+    open func disableBtns() {
+        leftBtn.isEnabled = false
+        rightBtn.isEnabled = false
     }
     
-    public func setLeftAction(action: (() -> ())) {
+    open func setLeftAction(_ action: @escaping (() -> ())) {
         self.leftAction = action
     }
     
-    public func setRightAction(action: () -> ()) {
+    open func setRightAction(_ action: @escaping () -> ()) {
         self.rightAction = action
     }
     
-    func leftBtnClick(sender: AnyObject?) {
+    func leftBtnClick(_ sender: AnyObject?) {
         if let action = leftAction {
             action()
         }
     }
     
-    func rightBtnClick(sender: AnyObject?) {
+    func rightBtnClick(_ sender: AnyObject?) {
         if let action = rightAction {
             action()
         }

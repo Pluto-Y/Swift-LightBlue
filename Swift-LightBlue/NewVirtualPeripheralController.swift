@@ -10,7 +10,7 @@ import UIKit
 
 class NewVirtualPeripheralController : UITableViewController {
     
-    private let virtualPeripheralNames = ["Alert Notification", "Blood Pressure", "Cycling Power", "Cycling Speed and Cadence", "Find Me", "Glucose", "HID OVER GATT", "Hleath Thermometer", "Heart Rate", "Location and Navigation", "Phone Alert Status", "Polar HR Sensor", "Proximity", "Running Speed and Cadence", "Scan Parameters", "Temperature Alarm Service", "Time"]
+    fileprivate let virtualPeripheralNames = ["Alert Notification", "Blood Pressure", "Cycling Power", "Cycling Speed and Cadence", "Find Me", "Glucose", "HID OVER GATT", "Hleath Thermometer", "Heart Rate", "Location and Navigation", "Phone Alert Status", "Polar HR Sensor", "Proximity", "Running Speed and Cadence", "Scan Parameters", "Temperature Alarm Service", "Time"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,27 +30,27 @@ class NewVirtualPeripheralController : UITableViewController {
     /**
      Cancel add new virtual peripheral
      */
-    @IBAction func cancelClick(sender: AnyObject) {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func cancelClick(_ sender: AnyObject) {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK: Delegate
     // MARK: UITableViewDelegate & UITableViewDataSource
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return virtualPeripheralNames.count;
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("newVirtualPeripheralCell")
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "newVirtualPeripheralCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "newVirtualPeripheralCell")
-            cell?.selectionStyle = .None
+            cell = UITableViewCell(style: .default, reuseIdentifier: "newVirtualPeripheralCell")
+            cell?.selectionStyle = .none
         }
-        cell?.textLabel?.text = virtualPeripheralNames[indexPath.row]
+        cell?.textLabel?.text = virtualPeripheralNames[(indexPath as NSIndexPath).row]
         return cell!
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("didSelectRowAtIndexPath, row:\(indexPath.row)")
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didSelectRowAtIndexPath, row:\((indexPath as NSIndexPath).row)")
     }
 }
