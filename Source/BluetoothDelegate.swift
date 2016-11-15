@@ -26,7 +26,7 @@ import CoreBluetooth
      - parameter advertisementData: The advertisement data.
      - parameter RSSI:              The signal strength.
      */
-    @objc optional func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)
+    @objc optional func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber)
     
     /**
      The callback function when central manager connected the peripheral successfully.

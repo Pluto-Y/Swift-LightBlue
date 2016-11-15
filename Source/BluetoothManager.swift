@@ -29,14 +29,6 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     
     /// Save the single instance
     static private var instance : BluetoothManager {
-//        struct Static {
-//            static var onceToken : dispatch_once_t = 0
-//            static var sharedInstance : BluetoothManager? = nil
-//        }
-//        dispatch_once(&Static.onceToken) { () -> Void in
-//            Static.sharedInstance = BluetoothManager()
-//            Static.sharedInstance?.initCBCentralManager()
-//        }
         return sharedInstance
     }
     
@@ -52,9 +44,10 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     Initialize CBCentralManager instance
     */
     func initCBCentralManager() {
-        var dic : [String : AnyObject] = Dictionary()
-        dic[CBCentralManagerOptionShowPowerAlertKey] = false as AnyObject?
-        _manager = CBCentralManager(delegate: self, queue:nil, options: dic)
+        var dic : [String : Any] = Dictionary()
+        dic[CBCentralManagerOptionShowPowerAlertKey] = false
+        _manager = CBCentralManager(delegate: self, queue: nil, options: dic)
+        
     }
     
     /**
@@ -226,7 +219,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter RSSI:              The current RSSI of peripheral, in dBm. A value of 127 is reserved and indicates the RSSI
      *								was not available.
      */
-    @nonobjc public func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print("Bluetooth Manager --> didDiscoverPeripheral, RSSI:\(RSSI)")
         delegate?.didDiscoverPeripheral?(peripheral, advertisementData: advertisementData, RSSI: RSSI)
     }
