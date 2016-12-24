@@ -47,7 +47,7 @@ open class CBAdvertisementData {
                 for i in 0..<serviceUUIDs!.count {
                     resultString = resultString! + "\(serviceUUIDs!.object(at: i)),"
                 }
-                resultString = resultString!.substring(to: resultString!.characters.index(resultString!.endIndex, offsetBy: -1))
+                resultString?.removeLast();
             }
         } else if key == CBAdvertisementDataServiceDataKey {
             let data = (datas[CBAdvertisementDataServiceDataKey]!)! as? NSDictionary

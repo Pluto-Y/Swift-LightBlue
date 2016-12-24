@@ -149,7 +149,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // MARK: BluetoothDelegate 
-    func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
+    func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
         if !nearbyPeripherals.contains(peripheral) {
             nearbyPeripherals.append(peripheral)
             nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
@@ -208,7 +208,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      - parameter services: The service instances which discovered by CoreBluetooth
      */
     func didDiscoverServices(_ peripheral: CBPeripheral) {
-        print("MainController --> didDiscoverService:\(peripheral.services)")
+        print("MainController --> didDiscoverService:\(peripheral.services?.description ?? "Unknow Service")")
         ConnectingView.hideConnectingView()
         let peripheralController = PeripheralController()
         let peripheralInfo = nearbyPeripheralInfos[peripheral]

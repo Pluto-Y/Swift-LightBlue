@@ -231,8 +231,8 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         let timeStr = formatter.string(from: Date())
         if characteristic.value != nil && characteristic.value!.count != 0 {
             let data = characteristic.value!
-            let rangeOfData = (data.description.characters.index(data.description.startIndex, offsetBy: 1) ..< data.description.characters.index(before: data.description.endIndex))
-            timeAndValues[timeStr] = "0x" + data.description.substring(with: rangeOfData)
+            let rangeOfData = (data.description.index(after: data.description.startIndex) ..< data.description.index(before: data.description.endIndex))
+            timeAndValues[timeStr] = "0x" + data.description[rangeOfData]
         } else {
             timeAndValues[timeStr] = "No value"
         }

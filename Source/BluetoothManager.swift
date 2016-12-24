@@ -274,7 +274,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
         print("Bluetooth Manager --> didDiscoverServices")
         connectedPeripheral = peripheral
         if error != nil {
-            print("Bluetooth Manager --> Discover Services Error, error:\(error?.localizedDescription)")
+            print("Bluetooth Manager --> Discover Services Error, error:\(error?.localizedDescription ?? "")")
             return ;
         }
         
@@ -297,7 +297,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("Bluetooth Manager --> didDiscoverCharacteristicsForService")
         if error != nil {
-            print("Bluetooth Manager --> Fail to discover characteristics! Error: \(error?.localizedDescription)")
+            print("Bluetooth Manager --> Fail to discover characteristics! Error: \(error?.localizedDescription ?? "")")
             delegate?.didFailToDiscoverCharacteritics?(error!)
             return
         }
@@ -314,7 +314,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverDescriptorsFor characteristic: CBCharacteristic, error: Error?) {
         print("Bluetooth Manager --> didDiscoverDescriptorsForCharacteristic")
         if error != nil {
-            print("Bluetooth Manager --> Fail to discover descriptor for characteristic Error:\(error?.localizedDescription)")
+            print("Bluetooth Manager --> Fail to discover descriptor for characteristic Error:\(error?.localizedDescription ?? "")")
             delegate?.didFailToDiscoverDescriptors?(error!)
             return
         }

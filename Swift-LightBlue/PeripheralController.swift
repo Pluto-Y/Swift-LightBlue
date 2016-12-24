@@ -180,7 +180,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func didDiscoverCharacteritics(_ service: CBService) {
-        print("Service.characteristics:\(service.characteristics)")
+        print("Service.characteristics:\(service.characteristics?.description ?? "Unknow Characteristics")")
         characteristicsDic[service.uuid] = service.characteristics
         reloadTableView()
     }
