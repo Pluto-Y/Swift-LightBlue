@@ -179,7 +179,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter characteristic: The characteristic information
      - parameter type:           The write of the operation
      */
-    func writeValue(data: Data, forCahracteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
+    func writeValue(data: Data, forCharacteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
         if connectedPeripheral == nil {
             return
         }
