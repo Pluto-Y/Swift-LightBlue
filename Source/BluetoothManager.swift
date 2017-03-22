@@ -342,7 +342,7 @@ public class BluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheral
      - parameter characteristic: The characteristic with the new value
      - parameter error:          The error message
      */
-    public func peripheral(_ peripheral: CBPeripheral, characteristic: CBCharacteristic, error: NSError?) {
+    public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         print("Bluetooth Manager --> didUpdateValueForCharacteristic")
         if error != nil {
             print("Bluetooth Manager --> Failed to read value for the characteristic. Error:\(error!.localizedDescription)")
