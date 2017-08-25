@@ -37,7 +37,7 @@ class EditValueController: UIViewController, BluetoothDelegate {
                     hexString = "0" + hexString
                 }
                 let data = hexString.dataFromHexadecimalString()
-                self.bluetoothManager.writeValue(data: data!, forCahracteristic: self.characteristic!, type: self.writeType!)
+                self.bluetoothManager.writeValue(data: data!, forCharacteristic: self.characteristic!, type: self.writeType!)
                 self.navigationController?.popViewController(animated: true)
             }
         }
