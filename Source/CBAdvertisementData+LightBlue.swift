@@ -23,7 +23,7 @@ open class CBAdvertisementData {
         } else if key == CBAdvertisementDataManufacturerDataKey {
             return "Manufacturer Data"
         } else if key == CBAdvertisementDataOverflowServiceUUIDsKey {
-            return "Overfolow Service UUIDs"
+            return "Overflow Service UUIDs"
         } else if key == CBAdvertisementDataIsConnectable{
             return "Device is Connectable"
         } else if key == CBAdvertisementDataSolicitedServiceUUIDsKey {
