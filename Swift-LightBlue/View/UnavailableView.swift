@@ -45,7 +45,7 @@ class UnavailableView : UIView {
         let tip1Lbl = UILabel()
         tip1Lbl.translatesAutoresizingMaskIntoConstraints = false
         tip1Lbl.text = "LightBlue requires Bluetooth"
-        tip1Lbl.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+        tip1Lbl.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
         tip1Lbl.textColor = UIColor.black
         self.addSubview(tip1Lbl)
         
@@ -59,7 +59,7 @@ class UnavailableView : UIView {
         let tip2Lbl = UILabel()
         tip2Lbl.translatesAutoresizingMaskIntoConstraints = false
         tip2Lbl.text = "Please enable Bluetooth to continue using this app"
-        tip2Lbl.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
+        tip2Lbl.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.light)
         tip2Lbl.textColor = UIColor.black
         self.addSubview(tip2Lbl)
         

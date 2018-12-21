@@ -44,7 +44,7 @@ class ConnectingView: UIView {
         
         let activityIndicatorView =  UIActivityIndicatorView()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView.activityIndicatorViewStyle = .gray
+        activityIndicatorView.style = .gray
         activityIndicatorView.startAnimating()
         contentView.addSubview(activityIndicatorView)
         

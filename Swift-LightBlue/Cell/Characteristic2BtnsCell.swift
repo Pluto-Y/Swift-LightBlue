@@ -44,13 +44,13 @@ open class Characteristic2BtnsCell: UITableViewCell {
         self.rightAction = action
     }
     
-    func leftBtnClick(_ sender: AnyObject?) {
+    @objc func leftBtnClick(_ sender: AnyObject?) {
         if let action = leftAction {
             action()
         }
     }
     
-    func rightBtnClick(_ sender: AnyObject?) {
+    @objc func rightBtnClick(_ sender: AnyObject?) {
         if let action = rightAction {
             action()
         }

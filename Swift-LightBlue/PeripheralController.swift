@@ -50,7 +50,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     /**
      The callback function of the Show Advertisement Data button click
      */
-    func showAdvertisementDataBtnClick() {
+    @objc func showAdvertisementDataBtnClick() {
         print("PeripheralController --> showAdvertisementDataBtnClick")
         showAdvertisementData = !showAdvertisementData
         reloadTableView()
@@ -131,7 +131,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         view.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
         
         let serviceNameLbl = UILabel(frame: CGRect(x: 10, y: 20, width: UIScreen.main.bounds.size.width - 100, height: 20))
-        serviceNameLbl.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightMedium)
+        serviceNameLbl.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
         
         view.addSubview(serviceNameLbl)
         
@@ -140,9 +140,9 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             let showBtn = UIButton(type: .system)
             showBtn.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 20, width: 60, height: 20)
             if showAdvertisementData {
-                showBtn.setTitle("Hide", for: UIControlState())
+                showBtn.setTitle("Hide", for: UIControl.State())
             } else {
-                showBtn.setTitle("Show", for: UIControlState())
+                showBtn.setTitle("Show", for: UIControl.State())
             }
 
             showBtn.addTarget(self, action: #selector(self.showAdvertisementDataBtnClick), for: .touchUpInside)

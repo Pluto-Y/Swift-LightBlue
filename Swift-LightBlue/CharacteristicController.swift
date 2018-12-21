@@ -115,7 +115,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
             } else {
                 cell?.disableBtns()
             }
-            cell?.leftBtn.setTitle("Write new value", for: UIControlState())
+            cell?.leftBtn.setTitle("Write new value", for: UIControl.State())
             cell?.setLeftAction({ () -> () in
                 print("Write new value")
                 let controller = EditValueController()
@@ -143,7 +143,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 }
                 if headerTitles[(indexPath as NSIndexPath).section].range(of: "READ") != nil {
                     cell?.leftBtn.isHidden = false
-                    cell?.leftBtn.setTitle("Read again", for: UIControlState())
+                    cell?.leftBtn.setTitle("Read again", for: UIControl.State())
                     cell?.setLeftAction({ () -> () in
                         print("Read again")
                         self.bluetoothManager.readValueForCharacteristic(characteristic: self.characteristic!)
@@ -154,17 +154,17 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 if headerTitles[(indexPath as NSIndexPath).section].range(of: "VALUES") != nil {
                     cell?.rightBtn.isHidden = false
                     if !isListening {
-                        cell?.rightBtn.setTitle("Listen for notifications", for: UIControlState())
+                        cell?.rightBtn.setTitle("Listen for notifications", for: UIControl.State())
                     } else {
-                        cell?.rightBtn.setTitle("Stop listening", for: UIControlState())
+                        cell?.rightBtn.setTitle("Stop listening", for: UIControl.State())
                     }
                     cell?.setRightAction({ () -> () in
                         print("Listen for notifications")
                         self.isListening = !self.isListening
                         if !self.isListening {
-                            cell?.rightBtn.setTitle("Listen for notifications", for: UIControlState())
+                            cell?.rightBtn.setTitle("Listen for notifications", for: UIControl.State())
                         } else {
-                            cell?.rightBtn.setTitle("Stop listening", for: UIControlState())
+                            cell?.rightBtn.setTitle("Stop listening", for: UIControl.State())
                         }
                         self.bluetoothManager.setNotification(enable: self.isListening, forCharacteristic: self.characteristic!)
                     })
