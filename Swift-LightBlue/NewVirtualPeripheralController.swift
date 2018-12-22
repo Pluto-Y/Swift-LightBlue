@@ -45,7 +45,7 @@ struct VirtualPeripheral {
         var characteristics1: [CBCharacteristic] = []
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
-        characteristics1.append(CBMutableCharacteristic(type: CBUUID.iEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
@@ -79,7 +79,7 @@ struct VirtualPeripheral {
         var characteristics1: [CBCharacteristic] = []
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
-        characteristics1.append(CBMutableCharacteristic(type: CBUUID.iEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
         characteristics1.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
@@ -89,10 +89,10 @@ struct VirtualPeripheral {
         service1.characteristics = characteristics1
         let service2 = CBMutableService(type: CBUUID.cyclingSpeedAndCadenceUUID, primary: true)
         var characteristics2: [CBCharacteristic] = []
-        characteristics2.append(CBMutableCharacteristic(type: CBUUID.cSCFeatureUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.CSCFeatureUUID, properties: .read, value: nil, permissions: []))
         characteristics2.append(CBMutableCharacteristic(type: CBUUID.sensorLocationUUID, properties: .read, value: nil, permissions: []))
-        characteristics2.append(CBMutableCharacteristic(type: CBUUID.cSCMeasurementUUID, properties: .notify, value: nil, permissions: []))
-        characteristics2.append(CBMutableCharacteristic(type: CBUUID.sCControlPointUUID, properties: [.write, .indicate], value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.CSCMeasurementUUID, properties: .notify, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.SCControlPointUUID, properties: [.write, .indicate], value: nil, permissions: []))
         service2.characteristics = characteristics2
         return VirtualPeripheral("Cycling Speed and Cadence", uuid: CBUUID(), services: [service1, service2])
     }()
@@ -106,13 +106,135 @@ struct VirtualPeripheral {
     }()
     
     static let glucosePeripheral: VirtualPeripheral = {
-       
+        let service1 = CBMutableService(type: CBUUID.glucoseUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.glucoseMeasurementContextUUID, properties: .notify, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.glucoseFeatureUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.glucoseMeasurementUUID, properties: .notify, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.recordAccessControlPointUUID, properties: [.write, .indicate], value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        let service2 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics2: [CBCharacteristic] = []
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.manufacturerNameStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.firmwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.systemIDUUID, properties: .read, value: nil, permissions: []))
+        service2.characteristics = characteristics2
+        return VirtualPeripheral("Glucose", uuid: CBUUID(), services: [service1, service2])
+    }()
+    
+    static let HIDOVERGATTPeripheral: VirtualPeripheral = {
+        let service1 = CBMutableService(type: CBUUID.humanInterfaceDeviceUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.reportUUID, properties: [.read, .notify], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.HIDInformationUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.bootKeyboardInputReportUUID, properties: [.read, .notify], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.bootKeyboardOutputReportUUID, properties: [.read, .write], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.reportMapUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.protocolModeUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.bootMouseInputReportUUID, properties: [.read, .notify], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.HIDControlPointUUID, properties: [], value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        let service2 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics2: [CBCharacteristic] = []
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.manufacturerNameStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.firmwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.systemIDUUID, properties: .read, value: nil, permissions: []))
+        service2.characteristics = characteristics2
+        let service3 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics3: [CBCharacteristic] = []
+        characteristics3.append(CBMutableCharacteristic(type: CBUUID.batteryLevelUUID, properties: .read, value: nil, permissions: []))
+        service3.characteristics = characteristics3
+        let service4 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics4: [CBCharacteristic] = []
+        characteristics4.append(CBMutableCharacteristic(type: CBUUID.scanIntervalWindowUUID, properties: [], value: nil, permissions: []))
+        characteristics4.append(CBMutableCharacteristic(type: CBUUID.scanRefreshUUID, properties: .notify, value: nil, permissions: []))
+        service4.characteristics = characteristics4
+        return VirtualPeripheral("HID OVER GATT", uuid: CBUUID(), services: [service1, service2, service3, service4])
+    }()
+    
+    static let healthThermometerPeripheral: VirtualPeripheral = {
+        let service1 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.manufacturerNameStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.firmwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.systemIDUUID, properties: .read, value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        let service2 = CBMutableService(type: CBUUID.healthThermometerUUID, primary: true)
+        var characteristics2: [CBCharacteristic] = []
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.intermediateTemperatureUUID, properties: .notify, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.temperatureMeasurementUUID, properties: .indicate, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.temperatureTypeUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.measurementIntervalUUID, properties: .read, value: nil, permissions: []))
+        service2.characteristics = characteristics2
+        return VirtualPeripheral("Health Thermometer", uuid: CBUUID(), services: [service1, service2])
+    }()
+    
+    static let heartRatePeripheral: VirtualPeripheral = {
+        let service1 = CBMutableService(type: CBUUID.deviceInformationUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.hardwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.modelNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.PnPIDUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.softwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.serialNumberStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.manufacturerNameStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.firmwareRevisionStringUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.systemIDUUID, properties: .read, value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        let service2 = CBMutableService(type: CBUUID.heartRateUUID, primary: true)
+        var characteristics2: [CBCharacteristic] = []
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.heartRateControlPointUUID, properties: .write, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.bodySensorLocationUUID, properties: .read, value: nil, permissions: []))
+        characteristics2.append(CBMutableCharacteristic(type: CBUUID.heartRateMeasurementUUID, properties: .notify, value: nil, permissions: []))
+        service2.characteristics = characteristics2
+        return VirtualPeripheral("Heart Rate", uuid: CBUUID(), services: [service1, service2])
+    }()
+    
+    static let locationAndNavigationPeripheral: VirtualPeripheral = {
+        let service1 = CBMutableService(type: CBUUID.locationAndNavigationUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.LNFeatureUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.navigationUUID, properties: .notify, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.LNControlPointUUID, properties: [.write, .indicate], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.positionQualityUUID, properties: .read, value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.locationAndSpeedUUID, properties: .notify, value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        return VirtualPeripheral("Location and Navigation", uuid: CBUUID(), services: [service1])
+    }()
+    
+    static let phoneAlertStatusPeripheral: VirtualPeripheral = {
+        let service1 = CBMutableService(type: CBUUID.phoneAlertStatusServiceUUID, primary: true)
+        var characteristics1: [CBCharacteristic] = []
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.ringerSettingUUID, properties: [.read, .notify], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.ringerControlPointUUID, properties: [], value: nil, permissions: []))
+        characteristics1.append(CBMutableCharacteristic(type: CBUUID.alertStatusUUID, properties: [.read, .notify], value: nil, permissions: []))
+        service1.characteristics = characteristics1
+        return VirtualPeripheral("Phone Alert Status", uuid: CBUUID(), services: [service1])
     }()
 }
 
 class NewVirtualPeripheralController : UITableViewController {
     
-    fileprivate let peripherals: [VirtualPeripheral] = [.blankPeripheral, .alertNotificationPeripheral, .bloodPressurePeripheral, .cyclingPowerPeripheral, .cyclingSpeedAndCadencePeripheral, .findMePeripheral]
+    fileprivate let peripherals: [VirtualPeripheral] = [.blankPeripheral, .alertNotificationPeripheral, .bloodPressurePeripheral, .cyclingPowerPeripheral, .cyclingSpeedAndCadencePeripheral, .findMePeripheral, .glucosePeripheral, .HIDOVERGATTPeripheral, .healthThermometerPeripheral, .heartRatePeripheral, .locationAndNavigationPeripheral, .phoneAlertStatusPeripheral]
     
     override func viewDidLoad() {
         super.viewDidLoad()
