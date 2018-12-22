@@ -67,7 +67,7 @@ extension CBUUID {
 	static public let dayOfWeekUUID                                      = CBUUID(string: "2A09")
 	static public let dayDateTimeUUID                                    = CBUUID(string: "2A0A")
 	static public let exactTime256UUID                                   = CBUUID(string: "2A0C")
-	static public let dSTOffsetUUID                                      = CBUUID(string: "2A0D")
+	static public let DSTOffsetUUID                                      = CBUUID(string: "2A0D")
 	static public let timeZoneUUID                                       = CBUUID(string: "2A0E")
 	static public let localTimeInformationUUID                           = CBUUID(string: "2A0F")
 	static public let timeWithDSTUUID                                    = CBUUID(string: "2A11")
@@ -90,7 +90,7 @@ extension CBUUID {
 	static public let hardwareRevisionStringUUID                         = CBUUID(string: "2A27")
 	static public let softwareRevisionStringUUID                         = CBUUID(string: "2A28")
 	static public let manufacturerNameStringUUID                         = CBUUID(string: "2A29")
-	static public let iEEE11073_20601RegulatoryCertificationDataListUUID = CBUUID(string: "2A2A")
+	static public let IEEE11073_20601RegulatoryCertificationDataListUUID = CBUUID(string: "2A2A")
 	static public let currentTimeUUID                                    = CBUUID(string: "2A2B")
 	static public let magneticDeclinationUUID                            = CBUUID(string: "2A2C")
 	static public let scanRefreshUUID                                    = CBUUID(string: "2A31")
@@ -113,27 +113,27 @@ extension CBUUID {
 	static public let supportedNewAlertCategoryUUID                      = CBUUID(string: "2A47")
 	static public let supportedUnreadAlertCategoryUUID                   = CBUUID(string: "2A48")
 	static public let bloodPressureFeatureUUID                           = CBUUID(string: "2A49")
-	static public let hIDInformationUUID                                 = CBUUID(string: "2A4A")
+	static public let HIDInformationUUID                                 = CBUUID(string: "2A4A")
 	static public let reportMapUUID                                      = CBUUID(string: "2A4B")
-	static public let hIDControlPointUUID                                = CBUUID(string: "2A4C")
+	static public let HIDControlPointUUID                                = CBUUID(string: "2A4C")
 	static public let reportUUID                                         = CBUUID(string: "2A4D")
 	static public let protocolModeUUID                                   = CBUUID(string: "2A4E")
 	static public let scanIntervalWindowUUID                             = CBUUID(string: "2A4F")
 	static public let PnPIDUUID                                          = CBUUID(string: "2A50")
 	static public let glucoseFeatureUUID                                 = CBUUID(string: "2A51")
 	static public let recordAccessControlPointUUID                       = CBUUID(string: "2A52")
-	static public let rSCMeasurementUUID                                 = CBUUID(string: "2A53")
-	static public let rSCFeatureUUID                                     = CBUUID(string: "2A54")
-	static public let sCControlPointUUID                                 = CBUUID(string: "2A55")
+	static public let RSCMeasurementUUID                                 = CBUUID(string: "2A53")
+	static public let RSCFeatureUUID                                     = CBUUID(string: "2A54")
+	static public let SCControlPointUUID                                 = CBUUID(string: "2A55")
 	static public let digitalUUID                                        = CBUUID(string: "2A56")
 	static public let analogUUID                                         = CBUUID(string: "2A58")
 	static public let aggregateUUID                                      = CBUUID(string: "2A5A")
-	static public let cSCMeasurementUUID                                 = CBUUID(string: "2A5B")
-	static public let cSCFeatureUUID                                     = CBUUID(string: "2A5C")
+	static public let CSCMeasurementUUID                                 = CBUUID(string: "2A5B")
+	static public let CSCFeatureUUID                                     = CBUUID(string: "2A5C")
 	static public let sensorLocationUUID                                 = CBUUID(string: "2A5D")
-	static public let pLXSpot_CheckMeasurementUUID                       = CBUUID(string: "2A5E")
-	static public let pLXContinuousMeasurementUUID                       = CBUUID(string: "2A5F")
-	static public let pLXFeaturesUUID                                    = CBUUID(string: "2A60")
+	static public let PLXSpotCheckMeasurementUUID                       = CBUUID(string: "2A5E")
+	static public let PLXContinuousMeasurementUUID                       = CBUUID(string: "2A5F")
+	static public let PLXFeaturesUUID                                    = CBUUID(string: "2A60")
 	static public let cyclingPowerMeasurementUUID                        = CBUUID(string: "2A63")
 	static public let cyclingPowerVectorUUID                             = CBUUID(string: "2A64")
 	static public let cyclingPowerFeatureUUID                            = CBUUID(string: "2A65")
@@ -141,8 +141,8 @@ extension CBUUID {
 	static public let locationAndSpeedUUID                               = CBUUID(string: "2A67")
 	static public let navigationUUID                                     = CBUUID(string: "2A68")
 	static public let positionQualityUUID                                = CBUUID(string: "2A69")
-	static public let lNFeatureUUID                                      = CBUUID(string: "2A6A")
-	static public let lNControlPointUUID                                 = CBUUID(string: "2A6B")
+	static public let LNFeatureUUID                                      = CBUUID(string: "2A6A")
+	static public let LNControlPointUUID                                 = CBUUID(string: "2A6B")
 	static public let elevationUUID                                      = CBUUID(string: "2A6C")
 	static public let pressureUUID                                       = CBUUID(string: "2A6D")
 	static public let temperatureUUID                                    = CBUUID(string: "2A6E")
@@ -153,7 +153,7 @@ extension CBUUID {
 	static public let apparentWindDirectionUUID                          = CBUUID(string: "2A73")
 	static public let gustFactorUUID                                     = CBUUID(string: "2A74")
 	static public let pollenConcentrationUUID                            = CBUUID(string: "2A75")
-	static public let uVIndexUUID                                        = CBUUID(string: "2A76")
+	static public let UVIndexUUID                                        = CBUUID(string: "2A76")
 	static public let irradianceUUID                                     = CBUUID(string: "2A77")
 	static public let rainfallUUID                                       = CBUUID(string: "2A78")
 	static public let windChillUUID                                      = CBUUID(string: "2A79")
@@ -184,7 +184,7 @@ extension CBUUID {
 	static public let sportTypeforAerobicandAnaerobicThresholdsUUID      = CBUUID(string: "2A93")
 	static public let threeZoneHeartRateLimitsUUID                       = CBUUID(string: "2A94")
 	static public let twoZoneHeartRateLimitUUID                          = CBUUID(string: "2A95")
-	static public let vO2MaxUUID                                         = CBUUID(string: "2A96")
+	static public let VO2MaxUUID                                         = CBUUID(string: "2A96")
 	static public let waistCircumferenceUUID                             = CBUUID(string: "2A97")
 	static public let weightUUID                                         = CBUUID(string: "2A98")
 	static public let databaseChangeIncrementUUID                        = CBUUID(string: "2A99")
@@ -201,12 +201,12 @@ extension CBUUID {
 	static public let bondManagementControlPointUUID                     = CBUUID(string: "2AA4")
 	static public let bondManagementFeatureUUID                          = CBUUID(string: "2AA5")
 	static public let centralAddressResolutionUUID                       = CBUUID(string: "2AA6")
-	static public let cGMMeasurementUUID                                 = CBUUID(string: "2AA7")
-	static public let cGMFeatureUUID                                     = CBUUID(string: "2AA8")
-	static public let cGMStatusUUID                                      = CBUUID(string: "2AA9")
-	static public let cGMSessionStartTimeUUID                            = CBUUID(string: "2AAA")
-	static public let cGMSessionRunTimeUUID                              = CBUUID(string: "2AAB")
-	static public let cGMSpecificOpsControlPointUUID                     = CBUUID(string: "2AAC")
+	static public let CGMMeasurementUUID                                 = CBUUID(string: "2AA7")
+	static public let CGMFeatureUUID                                     = CBUUID(string: "2AA8")
+	static public let CGMStatusUUID                                      = CBUUID(string: "2AA9")
+	static public let CGMSessionStartTimeUUID                            = CBUUID(string: "2AAA")
+	static public let CGMSessionRunTimeUUID                              = CBUUID(string: "2AAB")
+	static public let CGMSpecificOpsControlPointUUID                     = CBUUID(string: "2AAC")
 	static public let indoorPositioningConfigurationUUID                 = CBUUID(string: "2AAD")
 	static public let latitudeUUID                                       = CBUUID(string: "2AAE")
 	static public let longitudeUUID                                      = CBUUID(string: "2AAF")
@@ -216,19 +216,19 @@ extension CBUUID {
 	static public let altitudeUUID                                       = CBUUID(string: "2AB3")
 	static public let uncertaintyUUID                                    = CBUUID(string: "2AB4")
 	static public let locationNameUUID                                   = CBUUID(string: "2AB5")
-	static public let uRIUUID                                            = CBUUID(string: "2AB6")
-	static public let hTTPHeadersUUID                                    = CBUUID(string: "2AB7")
-	static public let hTTPStatusCodeUUID                                 = CBUUID(string: "2AB8")
-	static public let hTTPEntityBodyUUID                                 = CBUUID(string: "2AB9")
-	static public let hTTPControlPointUUID                               = CBUUID(string: "2ABA")
-	static public let hTTPSSecurityUUID                                  = CBUUID(string: "2ABB")
-	static public let tDSControlPointUUID                                = CBUUID(string: "2ABC")
-	static public let oTSFeatureUUID                                     = CBUUID(string: "2ABD")
+	static public let URIUUID                                            = CBUUID(string: "2AB6")
+	static public let HTTPHeadersUUID                                    = CBUUID(string: "2AB7")
+	static public let HTTPStatusCodeUUID                                 = CBUUID(string: "2AB8")
+	static public let HTTPEntityBodyUUID                                 = CBUUID(string: "2AB9")
+	static public let HTTPControlPointUUID                               = CBUUID(string: "2ABA")
+	static public let HTTPSSecurityUUID                                  = CBUUID(string: "2ABB")
+	static public let TDSControlPointUUID                                = CBUUID(string: "2ABC")
+	static public let OTSFeatureUUID                                     = CBUUID(string: "2ABD")
 	static public let objectNameUUID                                     = CBUUID(string: "2ABE")
 	static public let objectTypeUUID                                     = CBUUID(string: "2ABF")
 	static public let objectSizeUUID                                     = CBUUID(string: "2AC0")
-	static public let objectFirst_CreatedUUID                            = CBUUID(string: "2AC1")
-	static public let objectLast_ModifiedUUID                            = CBUUID(string: "2AC2")
+	static public let objectFirstCreatedUUID                            = CBUUID(string: "2AC1")
+	static public let objectLastModifiedUUID                            = CBUUID(string: "2AC2")
 	static public let objectIDUUID                                       = CBUUID(string: "2AC3")
 	static public let objectPropertiesUUID                               = CBUUID(string: "2AC4")
 	static public let objectActionControlPointUUID                       = CBUUID(string: "2AC5")
@@ -346,7 +346,7 @@ extension CBUUID {
             return "Day Date Time"
         } else if self == CBUUID.exactTime256UUID {
             return "Exact Time 256"
-        } else if self == CBUUID.dSTOffsetUUID {
+        } else if self == CBUUID.DSTOffsetUUID {
             return "DST Offset"
         } else if self == CBUUID.timeZoneUUID {
             return "Time Zone"
@@ -392,7 +392,7 @@ extension CBUUID {
             return "Software Revision String"
         } else if self == CBUUID.manufacturerNameStringUUID {
             return "Manufacturer Name String"
-        } else if self == CBUUID.iEEE11073_20601RegulatoryCertificationDataListUUID {
+        } else if self == CBUUID.IEEE11073_20601RegulatoryCertificationDataListUUID {
             return "IEEE11073-20601 Regulatory Certification Data List"
         } else if self == CBUUID.currentTimeUUID {
             return "Current Time"
@@ -438,11 +438,11 @@ extension CBUUID {
             return "Supported Unread Alert Category"
         } else if self == CBUUID.bloodPressureFeatureUUID {
             return "Blood Pressure Feature"
-        } else if self == CBUUID.hIDInformationUUID {
+        } else if self == CBUUID.HIDInformationUUID {
             return "HID Information"
         } else if self == CBUUID.reportMapUUID {
             return "Report Map"
-        } else if self == CBUUID.hIDControlPointUUID {
+        } else if self == CBUUID.HIDControlPointUUID {
             return "HID Control Point"
         } else if self == CBUUID.reportUUID {
             return "Report"
@@ -456,11 +456,11 @@ extension CBUUID {
             return "Glucose Feature"
         } else if self == CBUUID.recordAccessControlPointUUID {
             return "Record Access Control Point"
-        } else if self == CBUUID.rSCMeasurementUUID {
+        } else if self == CBUUID.RSCMeasurementUUID {
             return "RSC Measurement"
-        } else if self == CBUUID.rSCFeatureUUID {
+        } else if self == CBUUID.RSCFeatureUUID {
             return "RSC Feature"
-        } else if self == CBUUID.sCControlPointUUID {
+        } else if self == CBUUID.SCControlPointUUID {
             return "SC Control Point"
         } else if self == CBUUID.digitalUUID {
             return "Digital"
@@ -468,17 +468,17 @@ extension CBUUID {
             return "Analog"
         } else if self == CBUUID.aggregateUUID {
             return "Aggregate"
-        } else if self == CBUUID.cSCMeasurementUUID {
+        } else if self == CBUUID.CSCMeasurementUUID {
             return "CSC Measurement"
-        } else if self == CBUUID.cSCFeatureUUID {
+        } else if self == CBUUID.CSCFeatureUUID {
             return "CSC Feature"
         } else if self == CBUUID.sensorLocationUUID {
             return "Sensor Location"
-        } else if self == CBUUID.pLXSpot_CheckMeasurementUUID {
+        } else if self == CBUUID.PLXSpotCheckMeasurementUUID {
             return "PLX Spot-Check Measurement"
-        } else if self == CBUUID.pLXContinuousMeasurementUUID {
+        } else if self == CBUUID.PLXContinuousMeasurementUUID {
             return "PLX Continuous Measurement"
-        } else if self == CBUUID.pLXFeaturesUUID {
+        } else if self == CBUUID.PLXFeaturesUUID {
             return "PLX Features"
         } else if self == CBUUID.cyclingPowerMeasurementUUID {
             return "Cycling Power Measurement"
@@ -494,9 +494,9 @@ extension CBUUID {
             return "Navigation"
         } else if self == CBUUID.positionQualityUUID {
             return "Position Quality"
-        } else if self == CBUUID.lNFeatureUUID {
+        } else if self == CBUUID.LNFeatureUUID {
             return "LN Feature"
-        } else if self == CBUUID.lNControlPointUUID {
+        } else if self == CBUUID.LNControlPointUUID {
             return "LN Control Point"
         } else if self == CBUUID.elevationUUID {
             return "Elevation"
@@ -518,7 +518,7 @@ extension CBUUID {
             return "Gust Factor"
         } else if self == CBUUID.pollenConcentrationUUID {
             return "Pollen Concentration"
-        } else if self == CBUUID.uVIndexUUID {
+        } else if self == CBUUID.UVIndexUUID {
             return "UVIndex"
         } else if self == CBUUID.irradianceUUID {
             return "Irradiance"
@@ -580,7 +580,7 @@ extension CBUUID {
             return "Three Zone Heart Rate Limits"
         } else if self == CBUUID.twoZoneHeartRateLimitUUID {
             return "Two Zone Heart Rate Limit"
-        } else if self == CBUUID.vO2MaxUUID {
+        } else if self == CBUUID.VO2MaxUUID {
             return "VO2Max"
         } else if self == CBUUID.waistCircumferenceUUID {
             return "Waist Circumference"
@@ -614,17 +614,17 @@ extension CBUUID {
             return "Bond Management Feature"
         } else if self == CBUUID.centralAddressResolutionUUID {
             return "Central Address Resolution"
-        } else if self == CBUUID.cGMMeasurementUUID {
+        } else if self == CBUUID.CGMMeasurementUUID {
             return "CGM Measurement"
-        } else if self == CBUUID.cGMFeatureUUID {
+        } else if self == CBUUID.CGMFeatureUUID {
             return "CGM Feature"
-        } else if self == CBUUID.cGMStatusUUID {
+        } else if self == CBUUID.CGMStatusUUID {
             return "CGM Status"
-        } else if self == CBUUID.cGMSessionStartTimeUUID {
+        } else if self == CBUUID.CGMSessionStartTimeUUID {
             return "CGM Session Start Time"
-        } else if self == CBUUID.cGMSessionRunTimeUUID {
+        } else if self == CBUUID.CGMSessionRunTimeUUID {
             return "CGM Session Run Time"
-        } else if self == CBUUID.cGMSpecificOpsControlPointUUID {
+        } else if self == CBUUID.CGMSpecificOpsControlPointUUID {
             return "CGM Specific Ops Control Point"
         } else if self == CBUUID.indoorPositioningConfigurationUUID {
             return "Indoor Positioning Configuration"
@@ -644,21 +644,21 @@ extension CBUUID {
             return "Uncertainty"
         } else if self == CBUUID.locationNameUUID {
             return "Location Name"
-        } else if self == CBUUID.uRIUUID {
+        } else if self == CBUUID.URIUUID {
             return "URI"
-        } else if self == CBUUID.hTTPHeadersUUID {
+        } else if self == CBUUID.HTTPHeadersUUID {
             return "HTTP Headers"
-        } else if self == CBUUID.hTTPStatusCodeUUID {
+        } else if self == CBUUID.HTTPStatusCodeUUID {
             return "HTTP StatusCode"
-        } else if self == CBUUID.hTTPEntityBodyUUID {
+        } else if self == CBUUID.HTTPEntityBodyUUID {
             return "HTTP EntityBody"
-        } else if self == CBUUID.hTTPControlPointUUID {
+        } else if self == CBUUID.HTTPControlPointUUID {
             return "HTTP ControlPoint"
-        } else if self == CBUUID.hTTPSSecurityUUID {
+        } else if self == CBUUID.HTTPSSecurityUUID {
             return "HTTPS Security"
-        } else if self == CBUUID.tDSControlPointUUID {
+        } else if self == CBUUID.TDSControlPointUUID {
             return "TDS Control Point"
-        } else if self == CBUUID.oTSFeatureUUID {
+        } else if self == CBUUID.OTSFeatureUUID {
             return "OTS Feature"
         } else if self == CBUUID.objectNameUUID {
             return "Object Name"
@@ -666,9 +666,9 @@ extension CBUUID {
             return "ObjectType"
         } else if self == CBUUID.objectSizeUUID {
             return "Object Size"
-        } else if self == CBUUID.objectFirst_CreatedUUID {
+        } else if self == CBUUID.objectFirstCreatedUUID {
             return "Object First-Created"
-        } else if self == CBUUID.objectLast_ModifiedUUID {
+        } else if self == CBUUID.objectLastModifiedUUID {
             return "Object Last-Modified"
         } else if self == CBUUID.objectIDUUID {
             return "Object ID"
