@@ -48,6 +48,11 @@ extension CBUUID {
     static public let httpProxyUUID                   = CBUUID(string: "1823")
     static public let transportDiscoveryUUID          = CBUUID(string: "1824")
     static public let objectTransferUUID              = CBUUID(string: "1825")
+    static public let fitnessMachineUUID              = CBUUID(string: "1826")
+    static public let meshProvisioningServiceUUID     = CBUUID(string: "1827")
+    static public let meshProxyServiceUUID            = CBUUID(string: "1828")
+    static public let reconnectionConfigurationUUID   = CBUUID(string: "1829")
+    static public let insulinDeliveryUUID             = CBUUID(string: "182A")
 }
 
 /**
@@ -235,6 +240,36 @@ extension CBUUID {
 	static public let objectListControlPointUUID                         = CBUUID(string: "2AC6")
 	static public let objectListFilterUUID                               = CBUUID(string: "2AC7")
 	static public let objectChangedUUID                                  = CBUUID(string: "2AC8")
+    static public let resolvablePrivateAddressOnlyUUID                   = CBUUID(string: "2AC9")
+    static public let fitnessMachineFeatureUUID                          = CBUUID(string: "2ACC")
+    static public let treadmillDataUUID                                  = CBUUID(string: "2ACD")
+    static public let crossTrainerDataUUID                               = CBUUID(string: "2ACE")
+    static public let stepClimberDataUUID                                = CBUUID(string: "2ACF")
+    static public let stairClimberDataUUID                               = CBUUID(string: "2AD0")
+    static public let rowerDataUUID                                      = CBUUID(string: "2AD1")
+    static public let indoorBikeDataUUID                                 = CBUUID(string: "2AD2")
+    static public let trainingStatusUUID                                 = CBUUID(string: "2AD3")
+    static public let supportedSpeedRangeUUID                            = CBUUID(string: "2AD4")
+    static public let supportedInclinationRangeUUID                      = CBUUID(string: "2AD5")
+    static public let supportedResistanceLevelRangeUUID                  = CBUUID(string: "2AD6")
+    static public let supportedHeartRateRangeUUID                        = CBUUID(string: "2AD7")
+    static public let supportedPowerRangeUUID                            = CBUUID(string: "2AD8")
+    static public let fitnessMachineControlPointUUID                     = CBUUID(string: "2AD9")
+    static public let fitnessMachineStatusUUID                           = CBUUID(string: "2ADA")
+    static public let dateUTCUUID                                        = CBUUID(string: "2AED")
+    static public let RCFeatureUUID                                      = CBUUID(string: "2B1D")
+    static public let RCSettingsUUID                                     = CBUUID(string: "2B1E")
+    static public let reconnectionConfigurationControlPointUUID          = CBUUID(string: "2B1F")
+    static public let IDDStatusChangedUUID                               = CBUUID(string: "2B20")
+    static public let IDDStatusUUID                                      = CBUUID(string: "2B21")
+    static public let IDDAnnunciationStatusUUID                          = CBUUID(string: "2B22")
+    static public let IDDFeaturesUUID                                    = CBUUID(string: "2B23")
+    static public let IDDStatusReaderControlPointUUID                    = CBUUID(string: "2B24")
+    static public let IDDCommandControlPointUUID                         = CBUUID(string: "2B25")
+    static public let IDDCommandDataUUID                                 = CBUUID(string: "2B26")
+    static public let IDDRecordAccessControlPointUUID                    = CBUUID(string: "2B27")
+    static public let IDDHistoryDataUUID                                 = CBUUID(string: "2B28")
+
 }
 
 /**
@@ -322,6 +357,16 @@ extension CBUUID {
             return "Transport Discovery"
         } else if self == CBUUID.objectTransferUUID {
             return "Object Transfer"
+        } else if self == CBUUID.fitnessMachineUUID {
+            return "itness Machine"
+        } else if self == CBUUID.meshProvisioningServiceUUID {
+            return "Mesh Provisioning Service"
+        } else if self == CBUUID.meshProxyServiceUUID {
+            return "Mesh Proxy Service"
+        } else if self == CBUUID.reconnectionConfigurationUUID {
+            return "Reconnection Configuration"
+        } else if self == CBUUID.insulinDeliveryUUID {
+            return "Insulin Delivery"
         } else if self == CBUUID.deviceNameUUID {
             return "Device Name"
         } else if self == CBUUID.appearanceUUID {
@@ -682,6 +727,64 @@ extension CBUUID {
             return "Object List Filter"
         } else if self == CBUUID.objectChangedUUID {
             return "Object Changed"
+        } else if self == CBUUID.resolvablePrivateAddressOnlyUUID {
+            return "Resolvable Private Address Only"
+        } else if self == CBUUID.fitnessMachineFeatureUUID {
+            return "Fitness Machine Feature"
+        } else if self == CBUUID.treadmillDataUUID {
+            return "Treadmill Data"
+        } else if self == CBUUID.crossTrainerDataUUID {
+            return "Cross Trainer Data"
+        } else if self == CBUUID.stepClimberDataUUID {
+            return "Step Climber Data"
+        } else if self == CBUUID.stairClimberDataUUID {
+            return "Stair Climber Data"
+        } else if self == CBUUID.rowerDataUUID {
+            return "Rower Data"
+        } else if self == CBUUID.indoorBikeDataUUID {
+            return "Indoor Bike Data"
+        } else if self == CBUUID.trainingStatusUUID {
+            return "Training Status"
+        } else if self == CBUUID.supportedSpeedRangeUUID {
+            return "Supported Speed Range"
+        } else if self == CBUUID.supportedInclinationRangeUUID {
+            return "Supported Inclination Range"
+        } else if self == CBUUID.supportedResistanceLevelRangeUUID {
+            return "Supported Resistance Level Range"
+        } else if self == CBUUID.supportedHeartRateRangeUUID {
+            return "Supported Heart Rate Range"
+        } else if self == CBUUID.supportedPowerRangeUUID {
+            return "Supported Power Range"
+        } else if self == CBUUID.fitnessMachineControlPointUUID {
+            return "Fitness Machine Control Point"
+        } else if self == CBUUID.fitnessMachineStatusUUID {
+            return "Fitness Machine Status"
+        } else if self == CBUUID.dateUTCUUID {
+            return "Date UTC"
+        } else if self == CBUUID.RCFeatureUUID {
+            return "RC Feature"
+        } else if self == CBUUID.RCSettingsUUID {
+            return "RC Settings"
+        } else if self == CBUUID.reconnectionConfigurationControlPointUUID {
+            return "Reconnection Configuration Control Point"
+        } else if self == CBUUID.IDDStatusChangedUUID {
+            return "IDD Status Changed"
+        } else if self == CBUUID.IDDStatusUUID {
+            return "IDD Status"
+        } else if self == CBUUID.IDDAnnunciationStatusUUID {
+            return "IDD Annunciation Status"
+        } else if self == CBUUID.IDDFeaturesUUID {
+            return "IDD Features"
+        } else if self == CBUUID.IDDStatusReaderControlPointUUID {
+            return "IDD Status Reader Control Point"
+        } else if self == CBUUID.IDDCommandControlPointUUID {
+            return "IDD Command Control Point"
+        } else if self == CBUUID.IDDCommandDataUUID {
+            return "IDD Command Data"
+        } else if self == CBUUID.IDDRecordAccessControlPointUUID {
+            return "IDD Record Access Control Point"
+        } else if self == CBUUID.IDDHistoryDataUUID {
+            return "IDD History Data"
         }
         return ""
     }
