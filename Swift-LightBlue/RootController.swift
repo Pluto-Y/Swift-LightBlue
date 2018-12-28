@@ -13,6 +13,7 @@ class RootController : UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isTranslucent = false
+        self.view.backgroundColor = .white
     }
     
 }
