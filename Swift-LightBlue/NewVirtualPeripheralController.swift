@@ -11,7 +11,14 @@ import CoreBluetooth
 
 class NewVirtualPeripheralController : UITableViewController {
     
+    fileprivate let cellReuseIdentifier = "VirtualPeripheralCell"
+    fileprivate weak var saveBarButtonItem: UIBarButtonItem?
     fileprivate let peripherals: [VirtualPeripheral] = [.blankPeripheral, .alertNotificationPeripheral, .bloodPressurePeripheral, .cyclingPowerPeripheral, .cyclingSpeedAndCadencePeripheral, .findMePeripheral, .glucosePeripheral, .HIDOVERGATTPeripheral, .healthThermometerPeripheral, .heartRatePeripheral, .locationAndNavigationPeripheral, .phoneAlertStatusPeripheral, .polarHRSensorPeripheral, .proximityPeripheral, .runningSpeedAndCadencePeripheral, .scanParametersPeripheral, .temperatureAlarmServicePeripheral, .timePeripheral]
+    fileprivate var selectedIndex: Int? {
+        didSet {
+            self.saveBarButtonItem?.isEnabled = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +30,22 @@ class NewVirtualPeripheralController : UITableViewController {
         // init prompt without animation and let the navigationBar do not overlap with uitableview
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        saveBarButtonItem = navigationItem.rightBarButtonItem
+        saveBarButtonItem?.isEnabled = false
     }
     
     // MARK: Callback functions
-    /**
-     Cancel add new virtual peripheral
-     */
-    @IBAction func cancelClick(_ sender: AnyObject) {
+    @IBAction func cancelClick(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func saveClick(_ sender: Any) {
+        guard let selectedIndex = selectedIndex else {
+            return;
+        }
+        VirtualPeripheralStore.shared.add(virtualPeripheral: peripherals[selectedIndex])
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -40,16 +56,22 @@ class NewVirtualPeripheralController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "newVirtualPeripheralCell")
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "newVirtualPeripheralCell")
-            cell?.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
+        
+        cell.textLabel?.text = peripherals[indexPath.row].name
+        
+        if selectedIndex == indexPath.row {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
-        cell?.textLabel?.text = peripherals[indexPath.row].name
-        return cell!
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAtIndexPath, row:\((indexPath as NSIndexPath).row)")
+        print("didSelectRowAtIndexPath, row:\(indexPath.row)")
+        selectedIndex = indexPath.row
+        tableView.reloadData()
     }
 }

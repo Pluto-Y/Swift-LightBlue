@@ -10,4 +10,9 @@ import Foundation
 
 class VirtualPeripheralStore: NSObject {
     
+    static let shared = VirtualPeripheralStore()
+    
+    func add(virtualPeripheral: VirtualPeripheral) {
+        
+    }
 }
