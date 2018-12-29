@@ -12,7 +12,7 @@ import CoreBluetooth
 class NewVirtualPeripheralController : UITableViewController {
     
     fileprivate let cellReuseIdentifier = "VirtualPeripheralCell"
-    fileprivate weak var saveBarButtonItem: UIBarButtonItem?
+    fileprivate var saveBarButtonItem: UIBarButtonItem?
     fileprivate let peripherals: [VirtualPeripheral] = [.blankPeripheral, .alertNotificationPeripheral, .bloodPressurePeripheral, .cyclingPowerPeripheral, .cyclingSpeedAndCadencePeripheral, .findMePeripheral, .glucosePeripheral, .HIDOVERGATTPeripheral, .healthThermometerPeripheral, .heartRatePeripheral, .locationAndNavigationPeripheral, .phoneAlertStatusPeripheral, .polarHRSensorPeripheral, .proximityPeripheral, .runningSpeedAndCadencePeripheral, .scanParametersPeripheral, .temperatureAlarmServicePeripheral, .timePeripheral]
     fileprivate var selectedIndex: Int? {
         didSet {
@@ -31,22 +31,28 @@ class NewVirtualPeripheralController : UITableViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
+        self.navigationItem.prompt = "Choose A Base Profile"
+        self.title = "New Virtual Peripheral"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick(_:)))
+        saveBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveClick(_:)))
+        navigationItem.rightBarButtonItem = saveBarButtonItem
+        
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         saveBarButtonItem = navigationItem.rightBarButtonItem
         saveBarButtonItem?.isEnabled = false
     }
     
     // MARK: Callback functions
-    @IBAction func cancelClick(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+    @objc func cancelClick(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func saveClick(_ sender: Any) {
+        
+    @objc func saveClick(_ sender: Any) {
         guard let selectedIndex = selectedIndex else {
             return;
         }
         VirtualPeripheralStore.shared.add(virtualPeripheral: peripherals[selectedIndex])
-        self.navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: Delegate
