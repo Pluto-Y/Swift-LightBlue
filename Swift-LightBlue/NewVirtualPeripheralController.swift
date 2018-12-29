@@ -70,7 +70,6 @@ class NewVirtualPeripheralController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelectRowAtIndexPath, row:\(indexPath.row)")
         selectedIndex = indexPath.row
         tableView.reloadData()
     }

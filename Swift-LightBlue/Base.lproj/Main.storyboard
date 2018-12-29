@@ -210,6 +210,11 @@
                                 <action selector="cancelClick:" destination="sh7-e3-Dez" id="rby-J0-EPf"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="1c8-BG-lCG">
+                            <connections>
+                                <action selector="saveClick:" destination="sh7-e3-Dez" id="1de-2w-lqK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBw-Kq-XeV" userLabel="First Responder" sceneMemberID="firstResponder"/>
