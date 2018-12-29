@@ -36,6 +36,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var connectingView : ConnectingView?
     var nearbyPeripherals : [CBPeripheral] = []
     var nearbyPeripheralInfos : [CBPeripheral:Dictionary<String, AnyObject>] = [CBPeripheral:Dictionary<String, AnyObject>]()
+    var cachedVirtualPeripherals: [VirtualPeripheral] {
+        return VirtualPeripheralStore.shared.cachedVirtualPeripheral
+    }
+    var selectedVirtualPeriperalIndex: Int = -1
     @IBOutlet var peripheralsTb: UITableView!
     
     
@@ -54,6 +58,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             bluetoothManager.disconnectPeripheral()
         }
         bluetoothManager.delegate = self
+        
+        peripheralsTb.reloadData()
     }
     
     // MARK: custom funcstions
@@ -64,27 +70,36 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     // MARK: callback functions
     /**
-     Info bar btn item click
+     Sort bar btn item click
      */
-    @IBAction func infoClick(_ sender: AnyObject) {
-        print("MainController --> infoClick")
+    @IBAction func sortClick(_ sender: AnyObject) {
+        print("MainController --> sortClick")
     }
     
     // MARK: Delegates
     // MARK: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let peripheral = nearbyPeripherals[(indexPath as NSIndexPath).row]
-        connectingView = ConnectingView.showConnectingView()
-        connectingView?.tipNameLbl.text = peripheral.name
-        bluetoothManager.connectPeripheral(peripheral)
-        bluetoothManager.stopScanPeripheral()
+        if indexPath.section == 0 {
+            let peripheral = nearbyPeripherals[indexPath.row]
+            connectingView = ConnectingView.showConnectingView()
+            connectingView?.tipNameLbl.text = peripheral.name
+            bluetoothManager.connectPeripheral(peripheral)
+            bluetoothManager.stopScanPeripheral()
+        } else if indexPath.section == 1 {
+            if indexPath.row == cachedVirtualPeripherals.count {
+                present(UINavigationController(rootViewController: NewVirtualPeripheralController()), animated: true, completion: nil)
+            } else {
+                selectedVirtualPeriperalIndex = indexPath.row
+                peripheralsTb.reloadData()
+            }
+        }
     }
     
     // MARK： UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath as NSIndexPath).section == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as? NearbyPeripheralCell
-            let peripheral = nearbyPeripherals[(indexPath as NSIndexPath).row]
+            let peripheral = nearbyPeripherals[indexPath.row]
             let peripheralInfo = nearbyPeripheralInfos[peripheral]
             
             cell?.yPeripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
@@ -114,6 +129,20 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_0")
             }
             return cell!
+        } else if indexPath.section == 1 {
+            if indexPath.row != cachedVirtualPeripherals.count {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "VirtualPeripheralCell") as? VirtualPeripheralCell
+                if indexPath.row != cachedVirtualPeripherals.count {
+                    let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
+                    cell?.checkIconImageView.image = indexPath.row == selectedVirtualPeriperalIndex ? UIImage(named: "icon_checked") : UIImage(named: "icon_uncheck")
+                    cell?.nameLabel.text = virtualPeripheral.name
+                    let suffix = virtualPeripheral.services.count <= 1 ? "Service" : "Services"
+                    cell?.serviceLabel.text = "\(virtualPeripheral.services.count) \(suffix)"
+                }
+                return cell!
+            } else {
+                return tableView.dequeueReusableCell(withIdentifier: "NewPeripheralCell") as! NewPeripheralCell
+            }
         } else {
             return UITableViewCell()
         }
@@ -140,6 +169,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return nearbyPeripherals.count
+        } else if section == 1 {
+            return cachedVirtualPeripherals.count + 1
         }
         return 0
     }
@@ -187,7 +218,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             bluetoothManager.stopScanPeripheral()
             bluetoothManager.disconnectPeripheral()
             ConnectingView.hideConnectingView()
-            UnavailableView.showUnavailableView()
+//            UnavailableView.showUnavailableView()
             
         }
     }
