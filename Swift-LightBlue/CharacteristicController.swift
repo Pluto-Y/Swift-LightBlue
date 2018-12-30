@@ -45,7 +45,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         
         /// According to the properties create the header title array
         var headerTitle = ""
-        properties = characteristic!.getProperties()
+        properties = characteristic!.getPropertiesString()
         if properties!.contains("Read") {
             headerTitle = "READ"
             if properties!.contains("Notify") {
@@ -120,7 +120,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 print("Write new value")
                 let controller = EditValueController()
                 controller.characteristic = self.characteristic!
-                if self.characteristic!.getProperties().contains("Write Without Response") {
+                if self.characteristic!.getPropertiesString().contains("Write Without Response") {
                     controller.writeType = .withoutResponse
                 } else {
                     controller.writeType = .withResponse

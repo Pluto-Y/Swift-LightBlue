@@ -19,52 +19,39 @@ extension CBCharacteristic {
         }
     }
     
-    
     /**
      Obtain the properties string array according to the `self.properties`.
      */
-    func getProperties() -> [String] {
-        let properties = self.properties.rawValue
-        let broadcast = CBCharacteristicProperties.broadcast.rawValue
-        let read = CBCharacteristicProperties.read.rawValue
-        let writeWithoutResponse = CBCharacteristicProperties.writeWithoutResponse.rawValue
-        let write = CBCharacteristicProperties.write.rawValue
-        let notify = CBCharacteristicProperties.notify.rawValue
-        let indicate = CBCharacteristicProperties.indicate.rawValue
-        let authenticatedSignedWrites = CBCharacteristicProperties.authenticatedSignedWrites.rawValue
-        let extendedProperties = CBCharacteristicProperties.extendedProperties.rawValue
-        let notifyEncryptionRequired = CBCharacteristicProperties.notifyEncryptionRequired.rawValue
-        let indicateEncryptionRequired = CBCharacteristicProperties.indicateEncryptionRequired.rawValue
+    func getPropertiesString() -> [String] {
         var resultProperties = [String]()
-        if properties & broadcast > 0 {
+        if properties.contains(.broadcast) {
             resultProperties.append("Broadcast")
         }
-        if properties & read > 0 {
+        if properties.contains(.read) {
             resultProperties.append("Read")
         }
-        if properties & write > 0 {
+        if properties.contains(.write) {
             resultProperties.append("Write")
         }
-        if properties & writeWithoutResponse > 0 {
+        if properties.contains(.writeWithoutResponse) {
             resultProperties.append("Write Without Response")
         }
-        
-        if properties & notify > 0 {
+        if properties.contains(.notify) {
             resultProperties.append("Notify")
         }
-        if properties & indicate > 0 {
+        if properties.contains(.indicate) {
             resultProperties.append("Indicate")
         }
-        if properties & authenticatedSignedWrites > 0 {
+        if properties.contains(.authenticatedSignedWrites) {
             resultProperties.append("Authenticated Signed Writes")
         }
-        if properties & extendedProperties > 0 {
+        if properties.contains(.extendedProperties) {
             resultProperties.append("Extended Properties")
         }
-        if properties & notifyEncryptionRequired > 0 {
+        if properties.contains(.notifyEncryptionRequired) {
             resultProperties.append("Notify Encryption Required")
         }
-        if properties & indicateEncryptionRequired > 0 {
+        if properties.contains(.indicateEncryptionRequired) {
             resultProperties.append("Indicate Encryption Required")
         }
         return resultProperties

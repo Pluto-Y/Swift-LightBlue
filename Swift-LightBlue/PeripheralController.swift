@@ -120,7 +120,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
         } else {
             let characteristic = characteristicsDic[services![(indexPath as NSIndexPath).section - 1].uuid]![(indexPath as NSIndexPath).row]
             cell?.textLabel?.text = characteristic.name
-            cell?.detailTextLabel?.text = getPropertiesFromArray(characteristic.getProperties())
+            cell?.detailTextLabel?.text = getPropertiesFromArray(characteristic.getPropertiesString())
         }
         return cell!
     }
