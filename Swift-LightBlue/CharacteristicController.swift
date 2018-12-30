@@ -14,7 +14,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     
     var bluetoothManager : BluetoothManager = BluetoothManager.getInstance()
     var characteristic : CBCharacteristic?
-    var properties : [String]?
+    var properties : CBCharacteristicProperties?
     var headerTitles = [String]()
     var timeAndValues = [String: String]()
     var times = [String]()
@@ -45,24 +45,24 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
         
         /// According to the properties create the header title array
         var headerTitle = ""
-        properties = characteristic!.getPropertiesString()
-        if properties!.contains("Read") {
+        properties = characteristic?.properties ?? []
+        if properties!.contains(.read) {
             headerTitle = "READ"
-            if properties!.contains("Notify") {
+            if properties!.contains(.notify) {
                 headerTitle += "/NOTIFIED VALUES"
-            } else if properties!.contains("Indicate") {
+            } else if properties!.contains(.indicate) {
                 headerTitle += "/INDICATED VALUES"
             }
         } else {
-            if properties!.contains("Notify") {
+            if properties!.contains(.notify) {
                 headerTitle += "NOTIFIED VALUES"
-            } else if properties!.contains("Indicate") {
+            } else if properties!.contains(.indicate) {
                 headerTitle += "INDICATED VALUES"
             }
         }
         headerTitles.append(headerTitle)
         headerTitle = ""
-        if properties!.contains("Write") || properties!.contains("Write Without Response") {
+        if properties!.contains(.write) || properties!.contains(.writeWithoutResponse) {
             headerTitles.append("WRITTEN VALUES")
         }
         /// But the Descriptiors and Properties always be there
@@ -83,7 +83,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == headerTitles.count - 1 { // Last group is the properies
-            return properties!.count
+            return characteristic!.getPropertiesString().count
         } else if section == headerTitles.count - 2 { //Last group but one is the descriptors
             if let descriptor = characteristic!.descriptors {
                 return descriptor.count
@@ -191,7 +191,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 cell?.selectionStyle = .none
             }
             if indexPath.section == headerTitles.count - 1 {
-                cell?.textLabel?.text = properties![indexPath.row]
+                cell?.textLabel?.text = characteristic!.getPropertiesString()[indexPath.row]
             } else if indexPath.section == headerTitles.count - 2 {
                 if let descriptor = characteristic!.descriptors {
                     cell?.textLabel?.text = descriptor[indexPath.row].uuid.description

@@ -28,18 +28,16 @@ class EditValueController: UIViewController, BluetoothDelegate {
         bluetoothManager.delegate = self
         let inputView = MRHexKeyboard(textField: valueInputTf)
         inputView?.setDoneAction { () -> Void in
-            if let textContent = self.valueInputTf.text {
-                if textContent == "" {
-                    return
-                }
-                var hexString = String(textContent[textContent.index(textContent.startIndex, offsetBy: 2)...])
-                if hexString.count % 2 != 0 {
-                    hexString = "0" + hexString
-                }
-                let data = hexString.dataFromHexadecimalString()
-                self.bluetoothManager.writeValue(data: data!, forCharacteristic: self.characteristic!, type: self.writeType!)
-                self.navigationController?.popViewController(animated: true)
+            guard let textContent = self.valueInputTf.text && textContent != "" else {
+                return
             }
+            var hexString = String(textContent[textContent.index(textContent.startIndex, offsetBy: 2)...])
+            if hexString.count % 2 != 0 {
+                hexString = "0" + hexString
+            }
+            let data = hexString.dataFromHexadecimalString()
+            self.bluetoothManager.writeValue(data: data!, forCharacteristic: self.characteristic!, type: self.writeType!)
+            self.navigationController?.popViewController(animated: true)
         }
         valueInputTf.inputView = inputView
     }

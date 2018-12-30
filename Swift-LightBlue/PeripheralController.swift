@@ -161,7 +161,9 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let indexPath.section != 0  else { return }
+        guard indexPath.section != 0  else {
+            return
+        }
         
         print("Click at section: \(indexPath.section), row: \(indexPath.row)")
         let controller = CharacteristicController()
