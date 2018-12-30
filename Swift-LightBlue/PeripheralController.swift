@@ -112,13 +112,13 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
             cell?.selectionStyle = .none
             cell?.accessoryType = .disclosureIndicator
         }
-        if (indexPath as NSIndexPath).section == 0 {
-            cell?.textLabel?.text = CBAdvertisementData.getAdvertisementDataStringValue(lastAdvertisementData!, key: advertisementDataKeys![(indexPath as NSIndexPath).row])
+        if indexPath.section == 0 {
+            cell?.textLabel?.text = CBAdvertisementData.getAdvertisementDataStringValue(lastAdvertisementData!, key: advertisementDataKeys![indexPath.row])
             cell?.textLabel?.adjustsFontSizeToFitWidth = true
             
-            cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![(indexPath as NSIndexPath).row])
+            cell?.detailTextLabel?.text = CBAdvertisementData.getAdvertisementDataName(advertisementDataKeys![indexPath.row])
         } else {
-            let characteristic = characteristicsDic[services![(indexPath as NSIndexPath).section - 1].uuid]![(indexPath as NSIndexPath).row]
+            let characteristic = characteristicsDic[services![indexPath.section - 1].uuid]![indexPath.row]
             cell?.textLabel?.text = characteristic.name
             cell?.detailTextLabel?.text = getPropertiesFromArray(characteristic.getPropertiesString())
         }
@@ -161,14 +161,12 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath as NSIndexPath).section == 0 {
-            
-        } else {
-            print("Click at section: \((indexPath as NSIndexPath).section), row: \((indexPath as NSIndexPath).row)")
-            let controller = CharacteristicController()
-            controller.characteristic = characteristicsDic[services![(indexPath as NSIndexPath).section - 1].uuid]![(indexPath as NSIndexPath).row]
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+        guard let indexPath.section != 0  else { return }
+        
+        print("Click at section: \(indexPath.section), row: \(indexPath.row)")
+        let controller = CharacteristicController()
+        controller.characteristic = characteristicsDic[services![indexPath.section - 1].uuid]![indexPath.row]
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: BluetoothDelegate

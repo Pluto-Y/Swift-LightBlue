@@ -101,7 +101,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if headerTitles[(indexPath as NSIndexPath).section] == "WRITTEN VALUES" {
+        if headerTitles[indexPath.section] == "WRITTEN VALUES" {
             var cell = tableView.dequeueReusableCell(withIdentifier: "characteristic2Btn") as? Characteristic2BtnsCell
             if cell == nil {
                 let array = Bundle.main.loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
@@ -128,8 +128,8 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 self.navigationController?.pushViewController(controller, animated: true)
             })
             return cell!
-        } else if headerTitles[(indexPath as NSIndexPath).section].range(of: "READ") != nil || headerTitles[(indexPath as NSIndexPath).section].range(of: "VALUES") != nil{
-            if (indexPath as NSIndexPath).row == 0 {
+        } else if headerTitles[indexPath.section].range(of: "READ") != nil || headerTitles[indexPath.section].range(of: "VALUES") != nil{
+            if indexPath.row == 0 {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "characteristic2Btn") as? Characteristic2BtnsCell
                 if cell == nil {
                     let array = Bundle.main.loadNibNamed("Characteristic2BtnsCell", owner: self, options: nil)
@@ -141,7 +141,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 } else {
                     cell?.disableBtns()
                 }
-                if headerTitles[(indexPath as NSIndexPath).section].range(of: "READ") != nil {
+                if headerTitles[indexPath.section].range(of: "READ") != nil {
                     cell?.leftBtn.isHidden = false
                     cell?.leftBtn.setTitle("Read again", for: UIControl.State())
                     cell?.setLeftAction({ () -> () in
@@ -151,7 +151,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 } else {
                     cell?.leftBtn.isHidden = true
                 }
-                if headerTitles[(indexPath as NSIndexPath).section].range(of: "VALUES") != nil {
+                if headerTitles[indexPath.section].range(of: "VALUES") != nil {
                     cell?.rightBtn.isHidden = false
                     if !isListening {
                         cell?.rightBtn.setTitle("Listen for notifications", for: UIControl.State())
@@ -178,9 +178,9 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                     cell = UITableViewCell(style: .subtitle, reuseIdentifier: "characteristicCell")
                     cell?.selectionStyle = .none
                 }
-                cell?.textLabel?.text = timeAndValues[times[(indexPath as NSIndexPath).row - 1]]
-                if timeAndValues[times[(indexPath as NSIndexPath).row - 1]] != "No value" {
-                    cell?.detailTextLabel?.text = times[(indexPath as NSIndexPath).row - 1]
+                cell?.textLabel?.text = timeAndValues[times[indexPath.row - 1]]
+                if timeAndValues[times[indexPath.row - 1]] != "No value" {
+                    cell?.detailTextLabel?.text = times[indexPath.row - 1]
                 }
                 return cell!
             }
@@ -190,11 +190,11 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "characteristicCell")
                 cell?.selectionStyle = .none
             }
-            if (indexPath as NSIndexPath).section == headerTitles.count - 1 {
-                cell?.textLabel?.text = properties![(indexPath as NSIndexPath).row]
-            } else if (indexPath as NSIndexPath).section == headerTitles.count - 2 {
+            if indexPath.section == headerTitles.count - 1 {
+                cell?.textLabel?.text = properties![indexPath.row]
+            } else if indexPath.section == headerTitles.count - 2 {
                 if let descriptor = characteristic!.descriptors {
-                    cell?.textLabel?.text = descriptor[(indexPath as NSIndexPath).row].uuid.description
+                    cell?.textLabel?.text = descriptor[indexPath.row].uuid.description
                 }
                 
             }

@@ -104,9 +104,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             cell?.yPeripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
             
-            let serviceUUIDs = peripheralInfo!["advertisementData"]!["kCBAdvDataServiceUUIDs"] as? NSArray
-            if serviceUUIDs != nil && serviceUUIDs?.count != 0 {
-                cell?.yServiceCountLbl.text = "\((serviceUUIDs?.count)!) service" + (serviceUUIDs?.count > 1 ? "s" : "")
+            if let serviceUUIDs = peripheralInfo!["advertisementData"]!["kCBAdvDataServiceUUIDs"] as? NSArray, serviceUUIDs.count != 0 {
+                cell?.yServiceCountLbl.text = "\(serviceUUIDs.count) service" + (serviceUUIDs.count > 1 ? "s" : "")
             } else {
                 cell?.yServiceCountLbl.text = "No service"
             }
