@@ -9,5 +9,11 @@
 import Foundation
 
 struct Preferences: Codable {
-    let filter: Int
+    var needFilter: Bool
+    var filter: Int
+    
+    init() {
+        self.needFilter = false
+        filter = -90
+    }
 }

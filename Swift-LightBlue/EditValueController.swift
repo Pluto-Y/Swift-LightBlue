@@ -28,7 +28,7 @@ class EditValueController: UIViewController, BluetoothDelegate {
         bluetoothManager.delegate = self
         let inputView = MRHexKeyboard(textField: valueInputTf)
         inputView?.setDoneAction { () -> Void in
-            guard let textContent = self.valueInputTf.text && textContent != "" else {
+            guard let textContent = self.valueInputTf.text, textContent != "" else {
                 return
             }
             var hexString = String(textContent[textContent.index(textContent.startIndex, offsetBy: 2)...])

@@ -378,6 +378,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9U2-9i-9nf">
                                                 <rect key="frame" x="306" y="7" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="didSwitchToggle:" destination="Fgk-N5-MJo" eventType="valueChanged" id="sAv-JK-xAp"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -400,14 +403,17 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lhj-eu-wU6">
                                         <rect key="frame" x="0.0" y="46" width="375" height="0.0"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manimum RSSI: -30 dB (5 bars)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49z-Rp-Vbd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manimum RSSI: -30 dB (5 bars)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49z-Rp-Vbd" userLabel="Minimum RSSI: -30 dB (5 bars)">
                                                 <rect key="frame" x="15" y="12" width="230" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-BI-OS2">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="-30" minValue="-100" maxValue="-30" translatesAutoresizingMaskIntoConstraints="NO" id="rkC-BI-OS2">
                                                 <rect key="frame" x="15" y="42" width="347" height="31"/>
+                                                <connections>
+                                                    <action selector="didSliderChang:" destination="Fgk-N5-MJo" eventType="valueChanged" id="nnT-yb-Qvx"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -461,6 +467,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Filter" id="Zwq-5d-QT3"/>
+                    <connections>
+                        <outlet property="filterValueSlider" destination="rkC-BI-OS2" id="KVb-gP-i7e"/>
+                        <outlet property="minimumRSSILabel" destination="49z-Rp-Vbd" id="vlA-Ol-fUF"/>
+                        <outlet property="needFilterSwitch" destination="9U2-9i-9nf" id="FVc-RY-hYU"/>
+                        <outletCollection property="needFilterLayoutConstraints" destination="WgQ-fv-iaI" collectionClass="NSMutableArray" id="gOX-Oz-acr"/>
+                        <outletCollection property="needFilterLayoutConstraints" destination="Vc4-9c-cWj" collectionClass="NSMutableArray" id="C8C-fv-7PX"/>
+                        <outletCollection property="notNeedFilterLayoutConstraints" destination="hNS-gP-IYC" collectionClass="NSMutableArray" id="5dm-3n-HAf"/>
+                        <outletCollection property="notNeedFilterLayoutConstraints" destination="BBF-E2-2es" collectionClass="NSMutableArray" id="U4z-6W-Jx5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uM3-TX-kiK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
