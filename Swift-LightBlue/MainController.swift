@@ -39,6 +39,9 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var cachedVirtualPeripherals: [VirtualPeripheral] {
         return VirtualPeripheralStore.shared.cachedVirtualPeripheral
     }
+    var preferences: Preferences? {
+        return PreferencesStore.shared.preferences
+    }
     var selectedVirtualPeriperalIndex: Int = -1
     @IBOutlet var peripheralsTb: UITableView!
     
@@ -54,6 +57,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // It's used to avoid occuring some wrong when return back.
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        nearbyPeripherals.removeAll()
+        nearbyPeripheralInfos.removeAll()
         if bluetoothManager.connectedPeripheral != nil {
             bluetoothManager.disconnectPeripheral()
         }
@@ -181,8 +186,15 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: BluetoothDelegate 
     func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
         if !nearbyPeripherals.contains(peripheral) {
-            nearbyPeripherals.append(peripheral)
-            nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
+            if let preference = preferences, preference.needFilter {
+                if RSSI.intValue != 127, RSSI.intValue > preference.filter {
+                    nearbyPeripherals.append(peripheral)
+                    nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
+                }
+            } else {
+                nearbyPeripherals.append(peripheral)
+                nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
+            }
         } else {
             nearbyPeripheralInfos[peripheral]!["RSSI"] = RSSI
             nearbyPeripheralInfos[peripheral]!["advertisementData"] = advertisementData as AnyObject?
