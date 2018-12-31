@@ -16,6 +16,34 @@ class FilterViewController : UIViewController {
     @IBOutlet weak var filterValueSlider: UISlider!
     @IBOutlet weak var minimumRSSILabel: UILabel!
     
+    var needFilter: Bool {
+        get {
+            return PreferencesStore.shared.preferences?.needFilter ?? false
+        }
+        set(newValue) {
+            guard let _ = PreferencesStore.shared.preferences else {
+                PreferencesStore.shared.preferences = Preferences()
+                PreferencesStore.shared.preferences!.needFilter = newValue
+                return
+            }
+            PreferencesStore.shared.preferences!.needFilter = newValue
+        }
+    }
+    var filterValue: Int {
+        get {
+            return PreferencesStore.shared.preferences?.filter ?? -90
+        }
+        set(newValue) {
+            guard let _ = PreferencesStore.shared.preferences else {
+                PreferencesStore.shared.preferences = Preferences()
+                PreferencesStore.shared.preferences!.needFilter = true
+                PreferencesStore.shared.preferences!.filter = newValue
+                return
+            }
+            PreferencesStore.shared.preferences!.filter = newValue
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initAll()
@@ -33,9 +61,9 @@ class FilterViewController : UIViewController {
     }
     
     private func initAll() {
-        if let needFilter = PreferencesStore.shared.preferences?.needFilter, needFilter {
+        if needFilter {
             needFilterSwitch.isOn = true
-            filterValueSlider.value = Float(PreferencesStore.shared.preferences!.filter)
+            filterValueSlider.value = Float(filterValue)
         } else {
             needFilterSwitch.isOn = false
         }
@@ -46,10 +74,6 @@ class FilterViewController : UIViewController {
         if needFilterSwitch.isOn {
             NSLayoutConstraint.deactivate(self.notNeedFilterLayoutConstraints)
             NSLayoutConstraint.activate(self.needFilterLayoutConstraints)
-            
-            guard let filterValue = PreferencesStore.shared.preferences?.filter else {
-                return
-            }
             
             let minimumValue = abs(Int(filterValue))
             var barValue = 0
@@ -75,15 +99,12 @@ class FilterViewController : UIViewController {
     }
     
     @IBAction func didSwitchToggle(_ sw: UISwitch) {
-        if PreferencesStore.shared.preferences == nil {
-            PreferencesStore.shared.preferences = Preferences()
-        }
-        PreferencesStore.shared.preferences?.needFilter = sw.isOn
+        needFilter = sw.isOn
         reloadViews()
     }
     
     @IBAction func didSliderChang(_ slider: UISlider) {
-        PreferencesStore.shared.preferences?.filter = Int(slider.value)
+        filterValue = Int(slider.value)
         reloadViews()
     }
 }
