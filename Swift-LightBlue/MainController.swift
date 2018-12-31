@@ -10,32 +10,51 @@ import UIKit
 import CoreBluetooth
 import QuartzCore
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
 class MainController: UIViewController, UITableViewDelegate, UITableViewDataSource, BluetoothDelegate {
     
+    fileprivate class PeripheralInfos: Equatable, Hashable {
+        let peripheral: CBPeripheral
+        var RSSI: Int = 0
+        var advertisementData: [String: Any] = [:]
+        
+        init(_ peripheral: CBPeripheral) {
+            self.peripheral = peripheral
+        }
+        
+        static func == (lhs: PeripheralInfos, rhs: PeripheralInfos) -> Bool {
+            return lhs.peripheral.isEqual(rhs.peripheral)
+        }
+        
+        var hashValue: Int {
+            return peripheral.hash
+        }
+    }
+    
     let bluetoothManager = BluetoothManager.getInstance()
-    var connectingView : ConnectingView?
-    var nearbyPeripherals : [CBPeripheral] = []
-    var nearbyPeripheralInfos : [CBPeripheral:Dictionary<String, AnyObject>] = [CBPeripheral:Dictionary<String, AnyObject>]()
+    var connectingView: ConnectingView?
+    fileprivate var nearbyPeripheralInfos: [PeripheralInfos] = []
+//    var nearbyPeripherals: [CBPeripheral] = []
+//    var nearbyPeripheralInfos: [CBPeripheral:Dictionary<String, AnyObject>] = [CBPeripheral:Dictionary<String, AnyObject>]()
     var cachedVirtualPeripherals: [VirtualPeripheral] {
         return VirtualPeripheralStore.shared.cachedVirtualPeripheral
     }
@@ -57,7 +76,6 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // It's used to avoid occuring some wrong when return back.
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        nearbyPeripherals.removeAll()
         nearbyPeripheralInfos.removeAll()
         if bluetoothManager.connectedPeripheral != nil {
             bluetoothManager.disconnectPeripheral()
@@ -85,7 +103,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let peripheral = nearbyPeripherals[indexPath.row]
+            let peripheral = nearbyPeripheralInfos[indexPath.row].peripheral
             connectingView = ConnectingView.showConnectingView()
             connectingView?.tipNameLbl.text = peripheral.name
             bluetoothManager.connectPeripheral(peripheral)
@@ -104,21 +122,22 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as? NearbyPeripheralCell
-            let peripheral = nearbyPeripherals[indexPath.row]
-            let peripheralInfo = nearbyPeripheralInfos[peripheral]
+            let peripheralInfo = nearbyPeripheralInfos[indexPath.row]
+            let peripheral = peripheralInfo.peripheral
+            
             
             cell?.yPeripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
             
-            if let serviceUUIDs = peripheralInfo!["advertisementData"]!["kCBAdvDataServiceUUIDs"] as? NSArray, serviceUUIDs.count != 0 {
+            if let serviceUUIDs = peripheralInfo.advertisementData["kCBAdvDataServiceUUIDs"] as? NSArray, serviceUUIDs.count != 0 {
                 cell?.yServiceCountLbl.text = "\(serviceUUIDs.count) service" + (serviceUUIDs.count > 1 ? "s" : "")
             } else {
                 cell?.yServiceCountLbl.text = "No service"
             }
             
             // The signal strength img icon and the number of signal strength
-            let RSSI = peripheralInfo!["RSSI"]! as! NSNumber
+            let RSSI = peripheralInfo.RSSI
             cell?.ySignalStrengthLbl.text = "\(RSSI)"
-            switch labs(RSSI.intValue) {
+            switch labs(RSSI) {
             case 0...40:
                 cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_5")
             case 41...53:
@@ -172,7 +191,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return nearbyPeripherals.count
+            return nearbyPeripheralInfos.count
         } else if section == 1 {
             return cachedVirtualPeripherals.count + 1
         }
@@ -185,19 +204,26 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // MARK: BluetoothDelegate 
     func didDiscoverPeripheral(_ peripheral: CBPeripheral, advertisementData: [String : Any], RSSI: NSNumber) {
-        if !nearbyPeripherals.contains(peripheral) {
+        let peripheralInfo = PeripheralInfos(peripheral)
+        if !nearbyPeripheralInfos.contains(peripheralInfo) {
             if let preference = preferences, preference.needFilter {
                 if RSSI.intValue != 127, RSSI.intValue > preference.filter {
-                    nearbyPeripherals.append(peripheral)
-                    nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
+                    peripheralInfo.RSSI = RSSI.intValue
+                    peripheralInfo.advertisementData = advertisementData
+                    nearbyPeripheralInfos.append(peripheralInfo)
                 }
             } else {
-                nearbyPeripherals.append(peripheral)
-                nearbyPeripheralInfos[peripheral] = ["RSSI": RSSI, "advertisementData": advertisementData as AnyObject]
+                peripheralInfo.RSSI = RSSI.intValue
+                peripheralInfo.advertisementData = advertisementData
+                nearbyPeripheralInfos.append(peripheralInfo)
             }
         } else {
-            nearbyPeripheralInfos[peripheral]!["RSSI"] = RSSI
-            nearbyPeripheralInfos[peripheral]!["advertisementData"] = advertisementData as AnyObject?
+            guard let index = nearbyPeripheralInfos.firstIndex(of: peripheralInfo) else {
+                return
+            }
+            let originPeripheralInfo = nearbyPeripheralInfos[index]
+            originPeripheralInfo.RSSI = RSSI.intValue
+            originPeripheralInfo.advertisementData = advertisementData
         }
         peripheralsTb.reloadData()
     }
@@ -251,10 +277,15 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      */
     func didDiscoverServices(_ peripheral: CBPeripheral) {
         print("MainController --> didDiscoverService:\(peripheral.services?.description ?? "Unknow Service")")
+        
+        let tmp = PeripheralInfos(peripheral)
+        guard let index = nearbyPeripheralInfos.firstIndex(of: tmp) else {
+            return
+        }
         ConnectingView.hideConnectingView()
         let peripheralController = PeripheralController()
-        let peripheralInfo = nearbyPeripheralInfos[peripheral]
-        peripheralController.lastAdvertisementData = peripheralInfo!["advertisementData"] as? Dictionary<String, AnyObject>
+        let peripheralInfo = nearbyPeripheralInfos[index]
+        peripheralController.lastAdvertisementData = peripheralInfo.advertisementData
         self.navigationController?.pushViewController(peripheralController, animated: true)
     }
     

@@ -16,7 +16,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     fileprivate var services : [CBService]?
     fileprivate var characteristicsDic = [CBUUID : [CBCharacteristic]]()
     
-    var lastAdvertisementData : Dictionary<String, AnyObject>?
+    var lastAdvertisementData : Dictionary<String, Any>?
     fileprivate var advertisementDataKeys : [String]?
     
     @IBOutlet var peripheralNameLbl: UILabel!
