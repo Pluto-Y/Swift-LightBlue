@@ -99,6 +99,20 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
      */
     @IBAction func sortClick(_ sender: AnyObject) {
         print("MainController --> sortClick")
+        nearbyPeripheralInfos = nearbyPeripheralInfos.filter { (peripheralInfo) -> Bool in
+            guard peripheralInfo.RSSI != 127 else {
+                return false
+            }
+            
+            guard let preferences = self.preferences, preferences.needFilter, peripheralInfo.RSSI >= preferences.filter  else {
+                return true
+            }
+            
+            return false
+        }.sorted {
+            $0.RSSI > $1.RSSI
+        }
+        peripheralsTb.reloadData()
     }
     
     // MARK: Delegates
