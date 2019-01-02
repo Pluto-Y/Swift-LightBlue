@@ -114,8 +114,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if indexPath.row == cachedVirtualPeripherals.count {
                 present(UINavigationController(rootViewController: NewVirtualPeripheralController()), animated: true, completion: nil)
             } else {
-                selectedVirtualPeriperalIndex = indexPath.row
-                peripheralsTb.reloadData()
+                let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
+                let viewController = VirtualPeripheralViewController()
+                viewController.virtualPeripheral = virtualPeripheral
+                navigationController?.pushViewController(viewController, animated: true)
             }
         }
     }

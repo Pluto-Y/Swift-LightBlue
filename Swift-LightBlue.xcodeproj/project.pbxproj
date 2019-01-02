@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5D8D58D721D5E75000BDD71F /* VirtualPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8D58D621D5E75000BDD71F /* VirtualPeripheral.swift */; };
 		5D8D58DA21D5E75000BDD71F /* VirtualPeripheralStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8D58D921D5E75000BDD71F /* VirtualPeripheralStore.swift */; };
+		5DBAA11D21DCC9AE00FE075F /* VirtualPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */; };
+		5DBAA11E21DCC9AE00FE075F /* VirtualPeripheralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */; };
 		5DC750B821DF64A90012B16C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DC750B721DF64A90012B16C /* Assets.xcassets */; };
 		5DC750BA21DF653A0012B16C /* NewPeripheralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC750B921DF653A0012B16C /* NewPeripheralCell.swift */; };
 		5DC750BC21DF67320012B16C /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC750BB21DF67320012B16C /* FilterViewController.swift */; };
@@ -71,6 +73,8 @@
 /* Begin PBXFileReference section */
 		5D8D58D621D5E75000BDD71F /* VirtualPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheral.swift; sourceTree = "<group>"; };
 		5D8D58D921D5E75000BDD71F /* VirtualPeripheralStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralStore.swift; sourceTree = "<group>"; };
+		5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralViewController.swift; sourceTree = "<group>"; };
+		5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VirtualPeripheralViewController.xib; sourceTree = "<group>"; };
 		5DC750B721DF64A90012B16C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DC750B921DF653A0012B16C /* NewPeripheralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPeripheralCell.swift; sourceTree = "<group>"; };
 		5DC750BB21DF67320012B16C /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 				5D8D58D821D5E75000BDD71F /* Store */,
 				6CFFE93C1C44920C00D061ED /* Utils */,
 				6CB464B01C3CCF5600D16277 /* View */,
+				5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */,
+				5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */,
 			);
 			path = "Swift-LightBlue";
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				6C130A291C609D3B00E827B1 /* Characteristic2BtnsCell.xib in Resources */,
 				6CDD91651C35964400DBC2E2 /* Main.storyboard in Resources */,
 				5DC750B821DF64A90012B16C /* Assets.xcassets in Resources */,
+				5DBAA11E21DCC9AE00FE075F /* VirtualPeripheralViewController.xib in Resources */,
 				6C130A331C614ED900E827B1 /* deleteButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,6 +465,7 @@
 				6CA9D7FE1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift in Sources */,
 				6C195EB11C57C2BC00AEF1DA /* CharacteristicController.swift in Sources */,
 				6C7526111C397A93009445CE /* RootController.swift in Sources */,
+				5DBAA11D21DCC9AE00FE075F /* VirtualPeripheralViewController.swift in Sources */,
 				6C7526181C39899C009445CE /* VirtualPeripheralCell.swift in Sources */,
 				6CB464B21C3CCFD100D16277 /* UnavailableView.swift in Sources */,
 				5DC750C621E213ED0012B16C /* Preferences.swift in Sources */,
