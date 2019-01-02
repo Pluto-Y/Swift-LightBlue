@@ -10,9 +10,9 @@ import UIKit
 
 class NearbyPeripheralCell : UITableViewCell {
     
-    @IBOutlet var ySignalStrengthImg: UIImageView!
-    @IBOutlet var ySignalStrengthLbl: UILabel!
-    @IBOutlet var yPeripheralNameLbl: UILabel!
-    @IBOutlet var yServiceCountLbl: UILabel!
+    @IBOutlet var signalStrengthImg: UIImageView!
+    @IBOutlet var signalStrengthLbl: UILabel!
+    @IBOutlet var peripheralNameLbl: UILabel!
+    @IBOutlet var serviceCountLbl: UILabel!
     
 }

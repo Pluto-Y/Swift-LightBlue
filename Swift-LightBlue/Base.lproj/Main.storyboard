@@ -151,15 +151,15 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="dO7-HA-Eyu"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNB-UP-TCk">
-                                                    <rect key="frame" x="53" y="34.5" width="79" height="20.5"/>
+                                                    <rect key="frame" x="53" y="34.5" width="80" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="dg3-Vq-1kA"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="me4-ZJ-OGe">
@@ -189,13 +189,13 @@
                                             <constraint firstItem="me4-ZJ-OGe" firstAttribute="centerY" secondItem="QYL-LJ-kfh" secondAttribute="centerY" id="O36-aC-B0V"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="yPeripheralNameLbl" destination="JwO-Nw-gQr" id="QOP-ps-uJX"/>
-                                            <outlet property="yServiceCountLbl" destination="eNB-UP-TCk" id="u5x-Al-A73"/>
-                                            <outlet property="ySignalStrengthImg" destination="mK7-3n-3uW" id="M7X-wm-Rl4"/>
-                                            <outlet property="ySignalStrengthLbl" destination="Maq-eI-AaJ" id="RWS-d2-gIM"/>
+                                            <outlet property="peripheralNameLbl" destination="JwO-Nw-gQr" id="QOP-ps-uJX"/>
+                                            <outlet property="serviceCountLbl" destination="eNB-UP-TCk" id="u5x-Al-A73"/>
+                                            <outlet property="signalStrengthImg" destination="mK7-3n-3uW" id="M7X-wm-Rl4"/>
+                                            <outlet property="signalStrengthLbl" destination="Maq-eI-AaJ" id="RWS-d2-gIM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="VirtualPeripheralCell" id="R1N-2w-dbX" customClass="VirtualPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VirtualPeripheralCell" id="R1N-2w-dbX" customClass="VirtualPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="85" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R1N-2w-dbX" id="e4n-6Y-apf">
@@ -254,7 +254,7 @@
                                             <outlet property="serviceLabel" destination="zM0-xP-ZIq" id="aVE-bN-vcQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewPeripheralCell" id="IIh-H5-nDK" customClass="NewPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewPeripheralCell" id="IIh-H5-nDK" customClass="NewPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="145" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIh-H5-nDK" id="nqE-om-q1i">

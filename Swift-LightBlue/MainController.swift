@@ -123,48 +123,56 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK： UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as? NearbyPeripheralCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as! NearbyPeripheralCell
             let peripheralInfo = nearbyPeripheralInfos[indexPath.row]
             let peripheral = peripheralInfo.peripheral
             
             
-            cell?.yPeripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
+            cell.peripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
             
             if let serviceUUIDs = peripheralInfo.advertisementData["kCBAdvDataServiceUUIDs"] as? NSArray, serviceUUIDs.count != 0 {
-                cell?.yServiceCountLbl.text = "\(serviceUUIDs.count) service" + (serviceUUIDs.count > 1 ? "s" : "")
+                cell.serviceCountLbl.text = "\(serviceUUIDs.count) service" + (serviceUUIDs.count > 1 ? "s" : "")
             } else {
-                cell?.yServiceCountLbl.text = "No service"
+                cell.serviceCountLbl.text = "No service"
             }
             
-            // The signal strength img icon and the number of signal strength
             let RSSI = peripheralInfo.RSSI
-            cell?.ySignalStrengthLbl.text = "\(RSSI)"
+            
+            if RSSI == 127 {
+                cell.signalStrengthLbl.text = "---"
+                cell.serviceCountLbl.alpha = 0.4
+                cell.peripheralNameLbl.alpha = 0.4
+            } else {
+                cell.signalStrengthLbl.text = "\(RSSI)"
+                cell.serviceCountLbl.alpha = 1.0
+                cell.peripheralNameLbl.alpha = 1.0
+            }
+            
+            // The signal strength img icon
             switch labs(RSSI) {
             case 0...40:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_5")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_5")
             case 41...53:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_4")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_4")
             case 54...65:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_3")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_3")
             case 66...77:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_2")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_2")
             case 77...89:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_1")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_1")
             default:
-                cell?.ySignalStrengthImg.image = UIImage(named: "signal_strength_0")
+                cell.signalStrengthImg.image = UIImage(named: "signal_strength_0")
             }
-            return cell!
+            return cell
         } else if indexPath.section == 1 {
             if indexPath.row != cachedVirtualPeripherals.count {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "VirtualPeripheralCell") as? VirtualPeripheralCell
-                if indexPath.row != cachedVirtualPeripherals.count {
-                    let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
-                    cell?.checkIconImageView.image = indexPath.row == selectedVirtualPeriperalIndex ? UIImage(named: "icon_checked") : UIImage(named: "icon_uncheck")
-                    cell?.nameLabel.text = virtualPeripheral.name
-                    let suffix = virtualPeripheral.services.count <= 1 ? "Service" : "Services"
-                    cell?.serviceLabel.text = "\(virtualPeripheral.services.count) \(suffix)"
-                }
-                return cell!
+                let cell = tableView.dequeueReusableCell(withIdentifier: "VirtualPeripheralCell") as! VirtualPeripheralCell
+                let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
+                cell.checkIconImageView.image = indexPath.row == selectedVirtualPeriperalIndex ? UIImage(named: "icon_checked") : UIImage(named: "icon_uncheck")
+                cell.nameLabel.text = virtualPeripheral.name
+                let suffix = virtualPeripheral.services.count <= 1 ? "Service" : "Services"
+                cell.serviceLabel.text = "\(virtualPeripheral.services.count) \(suffix)"
+                return cell
             } else {
                 return tableView.dequeueReusableCell(withIdentifier: "NewPeripheralCell") as! NewPeripheralCell
             }
