@@ -174,6 +174,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.nameLabel.text = virtualPeripheral.name
                 let suffix = virtualPeripheral.services.count <= 1 ? "Service" : "Services"
                 cell.serviceLabel.text = "\(virtualPeripheral.services.count) \(suffix)"
+                cell.setDidCheckImgClickAction { [weak self] in
+                    self?.selectedVirtualPeriperalIndex = indexPath.row
+                    self?.peripheralsTb.reloadData()
+                }
                 return cell
             } else {
                 return tableView.dequeueReusableCell(withIdentifier: "NewPeripheralCell") as! NewPeripheralCell
