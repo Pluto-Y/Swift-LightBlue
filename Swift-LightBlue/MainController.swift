@@ -36,9 +36,11 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let peripheral: CBPeripheral
         var RSSI: Int = 0
         var advertisementData: [String: Any] = [:]
+        var lastUpdatedTimeInterval: TimeInterval
         
         init(_ peripheral: CBPeripheral) {
             self.peripheral = peripheral
+            self.lastUpdatedTimeInterval = Date().timeIntervalSince1970
         }
         
         static func == (lhs: PeripheralInfos, rhs: PeripheralInfos) -> Bool {
@@ -221,7 +223,16 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let index = nearbyPeripheralInfos.firstIndex(of: peripheralInfo) else {
                 return
             }
+            
             let originPeripheralInfo = nearbyPeripheralInfos[index]
+            let nowTimeInterval = Date().timeIntervalSince1970
+            
+            // If the last update within one second, then ignore it
+            guard nowTimeInterval - originPeripheralInfo.lastUpdatedTimeInterval >= 1.0 else {
+                return
+            }
+            
+            originPeripheralInfo.lastUpdatedTimeInterval = nowTimeInterval
             originPeripheralInfo.RSSI = RSSI.intValue
             originPeripheralInfo.advertisementData = advertisementData
         }
