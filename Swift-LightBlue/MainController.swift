@@ -91,6 +91,8 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func initAll() {
         print("MainController --> initAll")
         self.title = "LightBlue"
+        
+        peripheralsTb.register(UITableViewCell.self, forCellReuseIdentifier: "SearchingCell")
     }
 
     // MARK: callback functions
@@ -139,6 +141,12 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK： UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            guard nearbyPeripheralInfos.count != 0 || indexPath.row != 0 else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SearchingCell", for: indexPath) as UITableViewCell
+                cell.textLabel?.text = "Searching for peripherals..."
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .thin)
+                return cell
+            }
             let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as! NearbyPeripheralCell
             let peripheralInfo = nearbyPeripheralInfos[indexPath.row]
             let peripheral = peripheralInfo.peripheral
@@ -204,16 +212,16 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // The tableview group header view
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+        headerView.backgroundColor = UIColor(red: 54/255.0, green: 55/255.0, blue: 58/255.0, alpha: 1)
         
-        let lblTitle = UILabel(frame: CGRect(x: 20, y: 2, width: 120, height: 21))
-        lblTitle.font = UIFont.boldSystemFont(ofSize: 12)
+        let lblTitle = UILabel(frame: CGRect(x: 15, y: 2, width: 140, height: 21))
+        lblTitle.font = UIFont.systemFont(ofSize: 14)
+        lblTitle.textColor = .white
 
         if section == 0 {
             lblTitle.text = "Peripherals Nearby"
-            headerView.backgroundColor = UIColor.white
         } else {
             lblTitle.text = "Virtual Peripherals"
-            headerView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
         }
         headerView.addSubview(lblTitle)
         return headerView
@@ -221,7 +229,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return nearbyPeripheralInfos.count
+            return nearbyPeripheralInfos.count == 0 ? 1 : nearbyPeripheralInfos.count
         } else if section == 1 {
             return cachedVirtualPeripherals.count + 1
         }
