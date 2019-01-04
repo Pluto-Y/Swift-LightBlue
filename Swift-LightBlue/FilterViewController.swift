@@ -61,6 +61,7 @@ class FilterViewController : UIViewController {
     }
     
     private func initAll() {
+        self.toolbarItems = self.navigationController?.toolbar.items
         if needFilter {
             needFilterSwitch.isOn = true
             filterValueSlider.value = Float(filterValue)

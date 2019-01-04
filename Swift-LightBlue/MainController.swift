@@ -76,6 +76,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // It's used to avoid occuring some wrong when return back.
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.toolbarItems = self.navigationController?.toolbar.items
         nearbyPeripheralInfos.removeAll()
         if bluetoothManager.connectedPeripheral != nil {
             bluetoothManager.disconnectPeripheral()

@@ -39,6 +39,7 @@ class PeripheralController : UIViewController, UITableViewDelegate, UITableViewD
     // MARK: custom functions
     func initAll() {
         self.title = "Peripheral"
+        self.toolbarItems = self.navigationController?.toolbar.items
         advertisementDataKeys = ([String](lastAdvertisementData!.keys)).sorted()
         bluetoothManager.discoverCharacteristics()
         services = bluetoothManager.connectedPeripheral?.services
