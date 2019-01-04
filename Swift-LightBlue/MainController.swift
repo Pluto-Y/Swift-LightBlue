@@ -55,8 +55,6 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let bluetoothManager = BluetoothManager.getInstance()
     var connectingView: ConnectingView?
     fileprivate var nearbyPeripheralInfos: [PeripheralInfos] = []
-//    var nearbyPeripherals: [CBPeripheral] = []
-//    var nearbyPeripheralInfos: [CBPeripheral:Dictionary<String, AnyObject>] = [CBPeripheral:Dictionary<String, AnyObject>]()
     var cachedVirtualPeripherals: [VirtualPeripheral] {
         return VirtualPeripheralStore.shared.cachedVirtualPeripheral
     }
@@ -127,14 +125,15 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             bluetoothManager.connectPeripheral(peripheral)
             bluetoothManager.stopScanPeripheral()
         } else if indexPath.section == 1 {
-            if indexPath.row == cachedVirtualPeripherals.count {
+            guard indexPath.row == cachedVirtualPeripherals.count else {
                 present(UINavigationController(rootViewController: NewVirtualPeripheralController()), animated: true, completion: nil)
-            } else {
-                let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
-                let viewController = VirtualPeripheralViewController()
-                viewController.virtualPeripheral = virtualPeripheral
-                navigationController?.pushViewController(viewController, animated: true)
+                return
             }
+            
+            let virtualPeripheral = cachedVirtualPeripherals[indexPath.row]
+            let viewController = VirtualPeripheralViewController()
+            viewController.virtualPeripheral = virtualPeripheral
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
     
@@ -147,10 +146,10 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .thin)
                 return cell
             }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "NearbyPeripheralCell") as! NearbyPeripheralCell
             let peripheralInfo = nearbyPeripheralInfos[indexPath.row]
             let peripheral = peripheralInfo.peripheral
-            
             
             cell.peripheralNameLbl.text = peripheral.name == nil || peripheral.name == ""  ? "Unnamed" : peripheral.name
             
