@@ -37,90 +37,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYy-vs-6Q4">
-                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oom-u1-tiv">
-                                        <rect key="frame" x="330" y="0.0" width="30" height="45"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="D5Z-rP-mNa"/>
-                                        </constraints>
-                                        <state key="normal" title="Log">
-                                            <color key="titleColor" red="0.35686274509803922" green="0.35686274509803922" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="nTt-yc-e6j" kind="show" id="HZE-bc-fVO"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zph-Wx-WQ8">
-                                        <rect key="frame" x="15" y="0.0" width="30" height="45"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="2kx-U0-eO0"/>
-                                        </constraints>
-                                        <state key="normal" title="Info">
-                                            <color key="titleColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="Blu-bW-0bI" kind="show" id="IMv-jC-3fn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5r-oR-wpm">
-                                        <rect key="frame" x="166.5" y="0.0" width="42" height="45"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Jii-nk-1RL"/>
-                                        </constraints>
-                                        <state key="normal" title="About">
-                                            <color key="titleColor" red="0.35686274509999999" green="0.35686274509999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="qdo-uE-Nmm" kind="show" id="Z3i-Vw-yEo"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.85490196078431369" green="0.85490196078431369" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="n5r-oR-wpm" firstAttribute="centerY" secondItem="ZYy-vs-6Q4" secondAttribute="centerY" id="1n1-KV-cLy"/>
-                                    <constraint firstAttribute="height" constant="45" id="79T-iD-Yny"/>
-                                    <constraint firstItem="Oom-u1-tiv" firstAttribute="centerY" secondItem="ZYy-vs-6Q4" secondAttribute="centerY" id="BKU-Mz-obZ"/>
-                                    <constraint firstItem="Oom-u1-tiv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZYy-vs-6Q4" secondAttribute="leading" constant="20" symbolic="YES" id="BSD-Xl-jvL"/>
-                                    <constraint firstItem="Zph-Wx-WQ8" firstAttribute="leading" secondItem="ZYy-vs-6Q4" secondAttribute="leading" constant="15" id="Mt7-WA-dOg"/>
-                                    <constraint firstItem="Zph-Wx-WQ8" firstAttribute="height" secondItem="ZYy-vs-6Q4" secondAttribute="height" id="PLx-7O-hhD"/>
-                                    <constraint firstItem="Zph-Wx-WQ8" firstAttribute="centerY" secondItem="ZYy-vs-6Q4" secondAttribute="centerY" id="WZh-jZ-lnJ"/>
-                                    <constraint firstItem="Oom-u1-tiv" firstAttribute="height" secondItem="ZYy-vs-6Q4" secondAttribute="height" id="ZlA-ae-80e"/>
-                                    <constraint firstItem="n5r-oR-wpm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zph-Wx-WQ8" secondAttribute="trailing" constant="8" symbolic="YES" id="e4Y-z0-uHN"/>
-                                    <constraint firstItem="n5r-oR-wpm" firstAttribute="centerX" secondItem="ZYy-vs-6Q4" secondAttribute="centerX" id="lBU-9i-A4c"/>
-                                    <constraint firstAttribute="trailing" secondItem="Oom-u1-tiv" secondAttribute="trailing" constant="15" id="zVS-80-cJ2"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="25" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="693-X7-Mnj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="558"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NearbyPeripheralCell" id="QYL-LJ-kfh" customClass="NearbyPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
@@ -195,7 +113,7 @@
                                             <outlet property="signalStrengthLbl" destination="Maq-eI-AaJ" id="RWS-d2-gIM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VirtualPeripheralCell" id="R1N-2w-dbX" customClass="VirtualPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="VirtualPeripheralCell" id="R1N-2w-dbX" customClass="VirtualPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="85" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R1N-2w-dbX" id="e4n-6Y-apf">
@@ -254,7 +172,7 @@
                                             <outlet property="serviceLabel" destination="zM0-xP-ZIq" id="aVE-bN-vcQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewPeripheralCell" id="IIh-H5-nDK" customClass="NewPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewPeripheralCell" id="IIh-H5-nDK" customClass="NewPeripheralCell" customModule="Swift_LightBlue" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="145" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIh-H5-nDK" id="nqE-om-q1i">
@@ -304,26 +222,13 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="5tO-ha-Lm3"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFe-DU-FPC">
-                                <rect key="frame" x="0.0" y="621" width="375" height="1"/>
-                                <color key="backgroundColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="1f8-aM-PYx"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="YFe-DU-FPC" firstAttribute="top" secondItem="693-X7-Mnj" secondAttribute="bottom" constant="-1" id="2go-Hx-7lE"/>
                             <constraint firstItem="693-X7-Mnj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="37g-NT-Im2"/>
                             <constraint firstItem="693-X7-Mnj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="G4H-mn-6T5"/>
-                            <constraint firstAttribute="trailing" secondItem="ZYy-vs-6Q4" secondAttribute="trailing" id="HRt-Hg-UDT"/>
                             <constraint firstAttribute="trailing" secondItem="693-X7-Mnj" secondAttribute="trailing" id="KcM-eb-GIi"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ZYy-vs-6Q4" secondAttribute="bottom" id="Mmb-BP-02x"/>
-                            <constraint firstItem="ZYy-vs-6Q4" firstAttribute="top" secondItem="YFe-DU-FPC" secondAttribute="bottom" id="ZDO-er-jvU"/>
-                            <constraint firstItem="YFe-DU-FPC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="d5f-Fn-uhc"/>
-                            <constraint firstAttribute="trailing" secondItem="YFe-DU-FPC" secondAttribute="trailing" id="hM3-4L-f6x"/>
-                            <constraint firstItem="ZYy-vs-6Q4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mrK-VV-m5O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="693-X7-Mnj" secondAttribute="bottom" id="YZI-5Y-7p4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="fEY-pF-qac">
