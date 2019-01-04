@@ -126,7 +126,7 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
             bluetoothManager.connectPeripheral(peripheral)
             bluetoothManager.stopScanPeripheral()
         } else if indexPath.section == 1 {
-            guard indexPath.row == cachedVirtualPeripherals.count else {
+            guard indexPath.row != cachedVirtualPeripherals.count else {
                 present(UINavigationController(rootViewController: NewVirtualPeripheralController()), animated: true, completion: nil)
                 return
             }
