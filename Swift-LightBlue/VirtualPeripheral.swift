@@ -19,7 +19,7 @@ struct VirtualPeripheral: Codable {
                 
                 static let broadcast                    = Properties(rawValue: 1 << 0)
                 static let read                         = Properties(rawValue: 1 << 1)
-                static let writeWitoutResponse          = Properties(rawValue: 1 << 2)
+                static let writeWithoutResponse         = Properties(rawValue: 1 << 2)
                 static let write                        = Properties(rawValue: 1 << 3)
                 static let notify                       = Properties(rawValue: 1 << 4)
                 static let indicate                     = Properties(rawValue: 1 << 5)
@@ -31,6 +31,40 @@ struct VirtualPeripheral: Codable {
             
             let uuidString: String
             let properties: Properties
+            var cbProperties: CBCharacteristicProperties {
+                var result: CBCharacteristicProperties = []
+                if properties.contains(.broadcast) {
+                    result = result.union(.broadcast)
+                }
+                if properties.contains(.read) {
+                    result = result.union(.read)
+                }
+                if properties.contains(.writeWithoutResponse) {
+                    result = result.union(.writeWithoutResponse)
+                }
+                if properties.contains(.write) {
+                    result = result.union(.write)
+                }
+                if properties.contains(.notify) {
+                    result = result.union(.notify)
+                }
+                if properties.contains(.indicate) {
+                    result = result.union(.indicate)
+                }
+                if properties.contains(.authenticatedSignedWrites) {
+                    result = result.union(.authenticatedSignedWrites)
+                }
+                if properties.contains(.extendedProperties) {
+                    result = result.union(.extendedProperties)
+                }
+                if properties.contains(.notifyEncryptionRequired) {
+                    result = result.union(.notifyEncryptionRequired)
+                }
+                if properties.contains(.indicateEncryptionRequired) {
+                    result = result.union(.indicateEncryptionRequired)
+                }
+                return result
+            }
             
             init(uuid: CBUUID, properties: Properties) {
                 self.uuidString = uuid.uuidString
