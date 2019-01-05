@@ -44,7 +44,7 @@ class RootController : UINavigationController {
     }
 
     @objc private func didLogClick(_ sender: Any) {
-        present(UINavigationController(rootViewController: LogController()), animated: true, completion: nil)
+        present(UINavigationController(rootViewController: LogViewController()), animated: true, completion: nil)
     }
     
 }
