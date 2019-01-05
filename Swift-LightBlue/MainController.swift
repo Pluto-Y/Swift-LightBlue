@@ -249,11 +249,13 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     peripheralInfo.RSSI = RSSI.intValue
                     peripheralInfo.advertisementData = advertisementData
                     nearbyPeripheralInfos.append(peripheralInfo)
+                    LogStore.append("Discovered nearby peripheral: \(peripheral.name ?? "(null)") (RSSI: \(RSSI.intValue))")
                 }
             } else {
                 peripheralInfo.RSSI = RSSI.intValue
                 peripheralInfo.advertisementData = advertisementData
                 nearbyPeripheralInfos.append(peripheralInfo)
+                LogStore.append("Discovered nearby peripheral: \(peripheral.name ?? "(null)")) (RSSI: \(RSSI.intValue))")
             }
         } else {
             guard let index = nearbyPeripheralInfos.firstIndex(of: peripheralInfo) else {
@@ -285,25 +287,30 @@ class MainController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switch state {
         case .resetting:
             print("MainController --> State : Resetting")
+            LogStore.append("Bluetooth State: Resetting")
         case .poweredOn:
+            LogStore.append("Bluetooth State: Powered On")
             bluetoothManager.startScanPeripheral()
             UnavailableView.hideUnavailableView()
         case .poweredOff:
             print(" MainController -->State : Powered Off")
+            LogStore.append("Bluetooth State: Powered Off")
             fallthrough
         case .unauthorized:
             print("MainController --> State : Unauthorized")
+            LogStore.append("Bluetooth State: Unauthorized")
             fallthrough
         case .unknown:
             print("MainController --> State : Unknown")
+            LogStore.append("Bluetooth State: Unknown")
             fallthrough
         case .unsupported:
             print("MainController --> State : Unsupported")
+            LogStore.append("Bluetooth State: Unsupported")
             bluetoothManager.stopScanPeripheral()
             bluetoothManager.disconnectPeripheral()
             ConnectingView.hideConnectingView()
-//            UnavailableView.showUnavailableView()
-            
+            UnavailableView.showUnavailableView()
         }
     }
     
