@@ -297,9 +297,9 @@ extension CBUUID {
             return "Link Loss"
         } else if self == CBUUID.txPowerUUID {
             return "Tx Power"
-        } else if self == CBUUID.currentTimeUUID {
+        } else if self == CBUUID.currentTimeServiceUUID {
             return "Current Time Service"
-        } else if self == CBUUID.referenceTimeInformationUUID {
+        } else if self == CBUUID.referenceTimeUpdateServiceUUID {
             return "Reference Time Update Service"
         } else if self == CBUUID.nextDSTChangeServiceUUID {
             return "Next DST Change Service"
