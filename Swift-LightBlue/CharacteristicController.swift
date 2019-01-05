@@ -83,7 +83,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == headerTitles.count - 1 { // Last group is the properies
-            return characteristic!.getPropertiesString().count
+            return characteristic!.properties.names.count
         } else if section == headerTitles.count - 2 { //Last group but one is the descriptors
             if let descriptor = characteristic!.descriptors {
                 return descriptor.count
@@ -120,7 +120,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 print("Write new value")
                 let controller = EditValueController()
                 controller.characteristic = self.characteristic!
-                if self.characteristic!.getPropertiesString().contains("Write Without Response") {
+                if self.characteristic!.properties.names.contains("Write Without Response") {
                     controller.writeType = .withoutResponse
                 } else {
                     controller.writeType = .withResponse
@@ -191,7 +191,7 @@ class CharacteristicController : UIViewController, UITableViewDelegate, UITableV
                 cell?.selectionStyle = .none
             }
             if indexPath.section == headerTitles.count - 1 {
-                cell?.textLabel?.text = characteristic!.getPropertiesString()[indexPath.row]
+                cell?.textLabel?.text = characteristic!.properties.names[indexPath.row]
             } else if indexPath.section == headerTitles.count - 2 {
                 if let descriptor = characteristic!.descriptors {
                     cell?.textLabel?.text = descriptor[indexPath.row].uuid.description

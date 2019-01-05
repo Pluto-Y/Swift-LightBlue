@@ -10,6 +10,7 @@
 		5D227D2621DF6008006BE6DB /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D227D2521DF6008006BE6DB /* LogStore.swift */; };
 		5D227D2B21DF6605006BE6DB /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D227D2921DF6605006BE6DB /* LogViewController.swift */; };
 		5D227D2C21DF6605006BE6DB /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D227D2A21DF6605006BE6DB /* LogViewController.xib */; };
+		5D227D3021E203B7006BE6DB /* CBCharacteristicProperties+LightBlue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D227D2F21E203B7006BE6DB /* CBCharacteristicProperties+LightBlue.swift */; };
 		5D8D58D721D5E75000BDD71F /* VirtualPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8D58D621D5E75000BDD71F /* VirtualPeripheral.swift */; };
 		5D8D58DA21D5E75000BDD71F /* VirtualPeripheralStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8D58D921D5E75000BDD71F /* VirtualPeripheralStore.swift */; };
 		5DBAA11D21DCC9AE00FE075F /* VirtualPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */; };
@@ -76,6 +77,7 @@
 		5D227D2521DF6008006BE6DB /* LogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 		5D227D2921DF6605006BE6DB /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		5D227D2A21DF6605006BE6DB /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		5D227D2F21E203B7006BE6DB /* CBCharacteristicProperties+LightBlue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CBCharacteristicProperties+LightBlue.swift"; path = "Source/CBCharacteristicProperties+LightBlue.swift"; sourceTree = "<group>"; };
 		5D8D58D621D5E75000BDD71F /* VirtualPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheral.swift; sourceTree = "<group>"; };
 		5D8D58D921D5E75000BDD71F /* VirtualPeripheralStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralStore.swift; sourceTree = "<group>"; };
 		5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				6C75260E1C3972CA009445CE /* BluetoothManager.swift */,
 				6CA9D7FD1C509C3400B5ACD1 /* CBAdvertisementData+LightBlue.swift */,
 				6CA9D7FF1C509C5700B5ACD1 /* CBCharacteristic+LightBlue.swift */,
+				5D227D2F21E203B7006BE6DB /* CBCharacteristicProperties+LightBlue.swift */,
 				6CA9D8001C509C5700B5ACD1 /* CBService+LightBlue.swift */,
 				6C76ACC01C47EDD40017A521 /* CBUUID+LightBlue.swift */,
 				6FD459351CC69AF100BDBEDC /* Constants.swift */,
@@ -448,6 +451,7 @@
 				6CDD91621C35964400DBC2E2 /* MainController.swift in Sources */,
 				5D8D58DA21D5E75000BDD71F /* VirtualPeripheralStore.swift in Sources */,
 				6FD459361CC69AF100BDBEDC /* Constants.swift in Sources */,
+				5D227D3021E203B7006BE6DB /* CBCharacteristicProperties+LightBlue.swift in Sources */,
 				6C130A311C614ECF00E827B1 /* MRHexKeyboard.m in Sources */,
 				6CB655D91C438F1E00128BC6 /* PeripheralController.swift in Sources */,
 				5DC750C421E213A90012B16C /* PreferencesStore.swift in Sources */,
