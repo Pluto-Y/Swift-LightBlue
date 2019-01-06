@@ -286,7 +286,7 @@ extension CBUUID {
      If the UUID is the standard service UUID return the standard name
      If not, return the UUIDString as the name.
      */
-    public var name : String {
+    public var name : String? {
         if self == CBUUID.genericAccessUUID {
             return "Generic Access"
         } else if self == CBUUID.genericAttributeUUID {
@@ -786,6 +786,6 @@ extension CBUUID {
         } else if self == CBUUID.IDDHistoryDataUUID {
             return "IDD History Data"
         }
-        return ""
+        return nil
     }
 }
