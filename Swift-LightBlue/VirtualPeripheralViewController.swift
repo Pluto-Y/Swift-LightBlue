@@ -29,6 +29,29 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @objc private func didOptionClick(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Add Service", style: .default, handler: { [weak self] _ in
+            let service = VirtualPeripheral.Service(uuid: CBUUID(string: UUID().uuidString), primary: true, characteristics: [VirtualPeripheral.Service.Characteristic(uuid: CBUUID(string: UUID().uuidString), properties: .read)])
+            self?.virtualPeripheral.services.append(service)
+            self?.tableView.reloadData()
+            
+            if let vp = self?.virtualPeripheral, let index = VirtualPeripheralStore.shared.cachedVirtualPeripheral.firstIndex(of: vp) {
+                VirtualPeripheralStore.shared.remove(at: index)
+                VirtualPeripheralStore.shared.insert(vp, at: index)
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "Add Characgteristic", style: .default, handler: { _ in
+            
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            
+        }))
+        self.navigationController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc private func didServiceInfoClick(_ infoBtn: UIButton) {
+        let index = infoBtn.tag
+        let service = virtualPeripheral.services[index]
     }
     
     // MARK: UITableViewDelegate & UITableViewDataSource
@@ -53,6 +76,7 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
         let infoBtn = UIButton(type: .infoLight)
         infoBtn.tag = section - 1
         infoBtn.frame = CGRect(origin: CGPoint(x: screenSize.width - infoBtn.frame.size.width - 8, y: (40 - infoBtn.frame.size.height) / 2.0), size: infoBtn.frame.size)
+        infoBtn.addTarget(self, action: #selector(didServiceInfoClick(_:)), for: .touchUpInside)
         headerView.addSubview(infoBtn)
         
         return headerView
