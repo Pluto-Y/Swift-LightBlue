@@ -11,7 +11,7 @@ import Foundation
 class VirtualPeripheralStore: NSObject {
     
     static let shared = VirtualPeripheralStore()
-    let virtualPeripheralsKey = "virtualPeripheralUserDefaultKey"
+    private let virtualPeripheralsKey = "virtualPeripheralUserDefaultKey"
     
     var cachedVirtualPeripheral: [VirtualPeripheral]
     
