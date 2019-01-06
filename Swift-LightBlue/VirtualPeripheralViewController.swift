@@ -108,7 +108,7 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
         
         let charactristic = virtualPeripheral.services[indexPath.section - 1].characteristics[indexPath.row]
         cell.textLabel?.text = CBUUID(string: charactristic.uuidString).name ?? "0x\(charactristic.uuidString)"
-        cell.detailTextLabel?.text = "Properties: \(charactristic.cbProperties.names.joined(separator: " "))"
+        cell.detailTextLabel?.text = "Properties: \(charactristic.properties.cbProperties.names.joined(separator: " "))"
         cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }

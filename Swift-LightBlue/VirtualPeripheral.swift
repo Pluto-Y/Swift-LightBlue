@@ -27,43 +27,47 @@ struct VirtualPeripheral: Codable {
                 static let extendedProperties           = Properties(rawValue: 1 << 7)
                 static let notifyEncryptionRequired     = Properties(rawValue: 1 << 8)
                 static let indicateEncryptionRequired   = Properties(rawValue: 1 << 9)
+                
+                var cbProperties: CBCharacteristicProperties {
+                    var result: CBCharacteristicProperties = []
+                    if contains(.broadcast) {
+                        result = result.union(.broadcast)
+                    }
+                    if contains(.read) {
+                        result = result.union(.read)
+                    }
+                    if contains(.writeWithoutResponse) {
+                        result = result.union(.writeWithoutResponse)
+                    }
+                    if contains(.write) {
+                        result = result.union(.write)
+                    }
+                    if contains(.notify) {
+                        result = result.union(.notify)
+                    }
+                    if contains(.indicate) {
+                        result = result.union(.indicate)
+                    }
+                    if contains(.authenticatedSignedWrites) {
+                        result = result.union(.authenticatedSignedWrites)
+                    }
+                    if contains(.extendedProperties) {
+                        result = result.union(.extendedProperties)
+                    }
+                    if contains(.notifyEncryptionRequired) {
+                        result = result.union(.notifyEncryptionRequired)
+                    }
+                    if contains(.indicateEncryptionRequired) {
+                        result = result.union(.indicateEncryptionRequired)
+                    }
+                    return result
+                }
             }
             
             let uuidString: String
             let properties: Properties
-            var cbProperties: CBCharacteristicProperties {
-                var result: CBCharacteristicProperties = []
-                if properties.contains(.broadcast) {
-                    result = result.union(.broadcast)
-                }
-                if properties.contains(.read) {
-                    result = result.union(.read)
-                }
-                if properties.contains(.writeWithoutResponse) {
-                    result = result.union(.writeWithoutResponse)
-                }
-                if properties.contains(.write) {
-                    result = result.union(.write)
-                }
-                if properties.contains(.notify) {
-                    result = result.union(.notify)
-                }
-                if properties.contains(.indicate) {
-                    result = result.union(.indicate)
-                }
-                if properties.contains(.authenticatedSignedWrites) {
-                    result = result.union(.authenticatedSignedWrites)
-                }
-                if properties.contains(.extendedProperties) {
-                    result = result.union(.extendedProperties)
-                }
-                if properties.contains(.notifyEncryptionRequired) {
-                    result = result.union(.notifyEncryptionRequired)
-                }
-                if properties.contains(.indicateEncryptionRequired) {
-                    result = result.union(.indicateEncryptionRequired)
-                }
-                return result
+            var cbCharacteristic: CBCharacteristic {
+                return CBMutableCharacteristic(type: CBUUID(string: self.uuidString), properties: self.properties.cbProperties, value: nil, permissions: []).copy() as! CBCharacteristic
             }
             
             init(uuid: CBUUID, properties: Properties) {
@@ -75,6 +79,13 @@ struct VirtualPeripheral: Codable {
         let uuidString: String
         let primary: Bool
         var characteristics: [Characteristic]
+        var cbService: CBService {
+            let result = CBMutableService(type: CBUUID(string: self.uuidString), primary: self.primary)
+            result.characteristics = characteristics.map({ (c) -> CBCharacteristic in
+                return c.cbCharacteristic
+            })
+            return result
+        }
         
         init(uuid: CBUUID, primary: Bool, characteristics: [Characteristic]) {
             self.uuidString = uuid.uuidString
