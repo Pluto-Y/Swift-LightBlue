@@ -74,7 +74,7 @@ struct VirtualPeripheral: Codable {
         
         let uuidString: String
         let primary: Bool
-        let characteristics: [Characteristic]
+        var characteristics: [Characteristic]
         
         init(uuid: CBUUID, primary: Bool, characteristics: [Characteristic]) {
             self.uuidString = uuid.uuidString

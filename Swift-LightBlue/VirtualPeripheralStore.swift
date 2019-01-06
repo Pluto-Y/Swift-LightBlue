@@ -36,6 +36,16 @@ class VirtualPeripheralStore: NSObject {
         syncVirtualPeriperals()
     }
     
+    func insert(_ virtualPeripheral: VirtualPeripheral, at index: Int) {
+        cachedVirtualPeripheral.insert(virtualPeripheral, at: index)
+        syncVirtualPeriperals()
+    }
+    
+    func remove(at index: Int) {
+        cachedVirtualPeripheral.remove(at: index)
+        syncVirtualPeriperals()
+    }
+    
     private func syncVirtualPeriperals() {
         guard let encodedData = try? JSONEncoder().encode(cachedVirtualPeripheral) else {
             return

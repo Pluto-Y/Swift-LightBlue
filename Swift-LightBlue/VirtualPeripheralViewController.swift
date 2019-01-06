@@ -112,4 +112,19 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
         let charactristic = virtualPeripheral.services[indexPath.section - 1].characteristics[indexPath.row]
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            virtualPeripheral.services[indexPath.section - 1].characteristics.remove(at: indexPath.row)
+            if virtualPeripheral.services[indexPath.section - 1].characteristics.count == 0 {
+                virtualPeripheral.services.remove(at: indexPath.section - 1)
+            }
+            self.tableView.reloadData()
+            
+            if let index = VirtualPeripheralStore.shared.cachedVirtualPeripheral.firstIndex(of: self.virtualPeripheral) {
+                VirtualPeripheralStore.shared.remove(at: index)
+                VirtualPeripheralStore.shared.insert(self.virtualPeripheral, at: index)
+            }
+        }
+    }
+    
 }
