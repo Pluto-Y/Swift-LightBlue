@@ -67,7 +67,7 @@ struct VirtualPeripheral: Codable {
             let uuidString: String
             let properties: Properties
             var cbCharacteristic: CBCharacteristic {
-                return CBMutableCharacteristic(type: CBUUID(string: self.uuidString), properties: self.properties.cbProperties, value: nil, permissions: []).copy() as! CBCharacteristic
+                return CBMutableCharacteristic(type: CBUUID(string: self.uuidString), properties: self.properties.cbProperties, value: nil, permissions: [])
             }
             
             init(uuid: CBUUID, properties: Properties) {

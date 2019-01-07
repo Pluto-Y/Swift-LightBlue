@@ -27,6 +27,8 @@
 		5D1A78F121E1AD70004E89AB /* VirtualPeripheralStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1A78EE21E1AD70004E89AB /* VirtualPeripheralStore.swift */; };
 		5D1A78F221E1AD70004E89AB /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1A78EF21E1AD70004E89AB /* LogStore.swift */; };
 		5D1A78F321E1AD70004E89AB /* PreferencesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1A78F021E1AD70004E89AB /* PreferencesStore.swift */; };
+		5D1FE09221EC30E500686479 /* EditCharacteristicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1FE09021EC30E500686479 /* EditCharacteristicViewController.swift */; };
+		5D1FE09321EC30E500686479 /* EditCharacteristicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE09121EC30E500686479 /* EditCharacteristicViewController.xib */; };
 		5D227D2B21DF6605006BE6DB /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D227D2921DF6605006BE6DB /* LogViewController.swift */; };
 		5D227D2C21DF6605006BE6DB /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D227D2A21DF6605006BE6DB /* LogViewController.xib */; };
 		5DBAA11D21DCC9AE00FE075F /* VirtualPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */; };
@@ -94,6 +96,8 @@
 		5D1A78EE21E1AD70004E89AB /* VirtualPeripheralStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralStore.swift; sourceTree = "<group>"; };
 		5D1A78EF21E1AD70004E89AB /* LogStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 		5D1A78F021E1AD70004E89AB /* PreferencesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesStore.swift; sourceTree = "<group>"; };
+		5D1FE09021EC30E500686479 /* EditCharacteristicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCharacteristicViewController.swift; sourceTree = "<group>"; };
+		5D1FE09121EC30E500686479 /* EditCharacteristicViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCharacteristicViewController.xib; sourceTree = "<group>"; };
 		5D227D2921DF6605006BE6DB /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		5D227D2A21DF6605006BE6DB /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
 		5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 				6CB464B01C3CCF5600D16277 /* View */,
 				5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */,
 				5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */,
+				5D1FE09021EC30E500686479 /* EditCharacteristicViewController.swift */,
+				5D1FE09121EC30E500686479 /* EditCharacteristicViewController.xib */,
 			);
 			path = "Swift-LightBlue";
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				5D227D2C21DF6605006BE6DB /* LogViewController.xib in Resources */,
 				5DBAA11E21DCC9AE00FE075F /* VirtualPeripheralViewController.xib in Resources */,
 				5D1A78D721E1ACD9004E89AB /* Characteristic2BtnsCell.xib in Resources */,
+				5D1FE09321EC30E500686479 /* EditCharacteristicViewController.xib in Resources */,
 				6C130A331C614ED900E827B1 /* deleteButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,6 +457,7 @@
 				5D1A78C621E1AC02004E89AB /* CBService+LightBlue.swift in Sources */,
 				6CDD91621C35964400DBC2E2 /* MainController.swift in Sources */,
 				5D1A78D521E1ACD9004E89AB /* NearbyPeripheralCell.swift in Sources */,
+				5D1FE09221EC30E500686479 /* EditCharacteristicViewController.swift in Sources */,
 				6C130A311C614ECF00E827B1 /* MRHexKeyboard.m in Sources */,
 				6CB655D91C438F1E00128BC6 /* PeripheralController.swift in Sources */,
 				5D1A78EB21E1AD49004E89AB /* Preferences.swift in Sources */,

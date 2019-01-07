@@ -134,6 +134,9 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let charactristic = virtualPeripheral.services[indexPath.section - 1].characteristics[indexPath.row]
+        let viewController = EditCharacteristicViewController()
+        viewController.characterist = charactristic
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
