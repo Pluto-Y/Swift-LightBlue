@@ -269,14 +269,29 @@ extension CBUUID {
     static public let IDDCommandDataUUID                                 = CBUUID(string: "2B26")
     static public let IDDRecordAccessControlPointUUID                    = CBUUID(string: "2B27")
     static public let IDDHistoryDataUUID                                 = CBUUID(string: "2B28")
-
 }
 
 /**
- Add equal operator function to the .
+ The standard descriptors UUID define in the `Bluetooth Developer Portal` website.
+ It will be used to create the standard characteristic and otain the standard characteristic name.
  */
-func == (leftUUID : CBUUID, rightUUID: CBUUID) -> Bool {
-    return leftUUID.uuidString.lowercased() == rightUUID.uuidString.lowercased()
+extension CBUUID {
+    static public let characteristicExtendedPropertiesUUID              = CBUUID(string: "2900")
+    static public let characteristicUserDescriptionUUID                 = CBUUID(string: "2901")
+    static public let clientCharacteristicConfigurationUUID             = CBUUID(string: "2902")
+    static public let serverCharacteristicConfigurationUUID             = CBUUID(string: "2903")
+    static public let characteristicPresentationFormatUUID              = CBUUID(string: "2904")
+    static public let characteristicAggregateFormatUUID                 = CBUUID(string: "2905")
+    static public let validRangeUUID                                    = CBUUID(string: "2906")
+    static public let externalReportReferenceUUID                       = CBUUID(string: "2907")
+    static public let reportReferenceUUID                               = CBUUID(string: "2908")
+    static public let numberofDigitalsUUID                              = CBUUID(string: "2909")
+    static public let valueTriggerSettingUUID                           = CBUUID(string: "290A")
+    static public let environmentalSensingConfigurationUUID             = CBUUID(string: "290B")
+    static public let environmentalSensingMeasurementUUID               = CBUUID(string: "290C")
+    static public let environmentalSensingTriggerSettingUUID            = CBUUID(string: "290D")
+    static public let timeTriggerSettingUUID                            = CBUUID(string: "290E")
+
 }
 
 extension CBUUID {
@@ -785,6 +800,36 @@ extension CBUUID {
             return "IDD Record Access Control Point"
         } else if self == CBUUID.IDDHistoryDataUUID {
             return "IDD History Data"
+        } else if self == CBUUID.characteristicExtendedPropertiesUUID {
+            return "Characteristic Extended Properties"
+        } else if self == CBUUID.characteristicUserDescriptionUUID {
+            return "Characteristic User Description"
+        } else if self == CBUUID.clientCharacteristicConfigurationUUID {
+            return "Client Characteristic Configuration"
+        } else if self == CBUUID.serverCharacteristicConfigurationUUID {
+            return "Server Characteristic Configuration"
+        } else if self == CBUUID.characteristicPresentationFormatUUID {
+            return "Characteristic Presentation Format"
+        } else if self == CBUUID.characteristicAggregateFormatUUID {
+            return "Characteristic Aggregate Format"
+        } else if self == CBUUID.validRangeUUID {
+            return "Valid Range"
+        } else if self == CBUUID.externalReportReferenceUUID {
+            return "External Report Reference"
+        } else if self == CBUUID.reportReferenceUUID {
+            return "Report Reference"
+        } else if self == CBUUID.numberofDigitalsUUID {
+            return "Number of Digitals"
+        } else if self == CBUUID.valueTriggerSettingUUID {
+            return "Value Trigger Setting"
+        } else if self == CBUUID.environmentalSensingConfigurationUUID {
+            return "Environmental Sensing Configuration"
+        } else if self == CBUUID.environmentalSensingMeasurementUUID {
+            return "Environmental Sensing Measurement"
+        } else if self == CBUUID.environmentalSensingTriggerSettingUUID {
+            return "Environmental Sensing Trigger Setting"
+        } else if self == CBUUID.timeTriggerSettingUUID {
+            return "Time Trigger Setting"
         }
         return nil
     }
