@@ -31,34 +31,34 @@ struct VirtualPeripheral: Codable {
                 var cbProperties: CBCharacteristicProperties {
                     var result: CBCharacteristicProperties = []
                     if contains(.broadcast) {
-                        result = result.union(.broadcast)
+                        result.formUnion(.broadcast)
                     }
                     if contains(.read) {
-                        result = result.union(.read)
+                        result.formUnion(.read)
                     }
                     if contains(.writeWithoutResponse) {
-                        result = result.union(.writeWithoutResponse)
+                        result.formUnion(.writeWithoutResponse)
                     }
                     if contains(.write) {
-                        result = result.union(.write)
+                        result.formUnion(.write)
                     }
                     if contains(.notify) {
-                        result = result.union(.notify)
+                        result.formUnion(.notify)
                     }
                     if contains(.indicate) {
-                        result = result.union(.indicate)
+                        result.formUnion(.indicate)
                     }
                     if contains(.authenticatedSignedWrites) {
-                        result = result.union(.authenticatedSignedWrites)
+                        result.formUnion(.authenticatedSignedWrites)
                     }
                     if contains(.extendedProperties) {
-                        result = result.union(.extendedProperties)
+                        result.formUnion(.extendedProperties)
                     }
                     if contains(.notifyEncryptionRequired) {
-                        result = result.union(.notifyEncryptionRequired)
+                        result.formUnion(.notifyEncryptionRequired)
                     }
                     if contains(.indicateEncryptionRequired) {
-                        result = result.union(.indicateEncryptionRequired)
+                        result.formUnion(.indicateEncryptionRequired)
                     }
                     return result
                 }
@@ -67,8 +67,10 @@ struct VirtualPeripheral: Codable {
                 }
             }
             
-            let uuidString: String
-            let properties: Properties
+            var uuidString: String
+            var properties: Properties
+            var userDescription: String?
+            var value: Data?
             var cbCharacteristic: CBCharacteristic {
                 return CBMutableCharacteristic(type: CBUUID(string: self.uuidString), properties: self.properties.cbProperties, value: nil, permissions: [])
             }
