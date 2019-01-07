@@ -62,6 +62,9 @@ struct VirtualPeripheral: Codable {
                     }
                     return result
                 }
+                var names: [String] {
+                    return self.cbProperties.names
+                }
             }
             
             let uuidString: String

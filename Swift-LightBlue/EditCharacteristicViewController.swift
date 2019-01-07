@@ -98,6 +98,13 @@ class EditCharacteristicViewController: UIViewController, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 {
+            
+        } else if indexPath.section == 1 {
+            let viewController = EditCharacteristicPropertyTableViewController()
+            viewController.selectedProperties = characterist.properties
+            navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
