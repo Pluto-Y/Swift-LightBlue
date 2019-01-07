@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditValueViewController: UIViewController {
+class EditValueViewController: UIViewController, UITextFieldDelegate {
     
     public enum ValueType {
         case hex, string
@@ -43,7 +43,20 @@ class EditValueViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             valueTextField.inputView = inputView
+        } else {
+            self.valueTextField.delegate = self
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text, !text.isEmpty else {
+            return false
+        }
+        if let callback = self.callback {
+            callback(text)
+        }
+        self.navigationController?.popViewController(animated: true)
+        return true
     }
 
 }
