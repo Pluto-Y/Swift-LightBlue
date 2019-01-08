@@ -12,6 +12,7 @@ class EditCharacteristicViewController: UIViewController, UITableViewDataSource,
     
     let characteristicCellReuseIdentifier = "CharacteristicCell"
     public var characterist: VirtualPeripheral.Service.Characteristic!
+    private let generalTitle = ["UUID", "Characteristic User Description", "Hex"]
     private var propertiesString: [String] {
         return characterist.cbCharacteristic.properties.names
     }
@@ -54,16 +55,16 @@ class EditCharacteristicViewController: UIViewController, UITableViewDataSource,
             
             if indexPath.row == 0 {
                 cell.textLabel?.text = characterist.uuidString
-                cell.detailTextLabel?.text = "UUID"
             } else if indexPath.row == 1 {
-                // TODO: add description in character
-                cell.textLabel?.text = "<unset>"
-                cell.detailTextLabel?.text = "Characteristic User Description"
+                cell.textLabel?.text = characterist.userDescription ?? "<unset>"
             } else if indexPath.row == 2 {
-                // TODO: add hex in character
-                cell.textLabel?.text = "No Value"
-                cell.detailTextLabel?.text = "Hex"
+                if let data = self.characterist.value, let value = String(data: data, encoding: .utf8) {
+                    cell.textLabel?.text = value
+                } else {
+                    cell.textLabel?.text = "No Value"
+                }
             }
+            cell.detailTextLabel?.text = generalTitle[indexPath.row]
             
             return cell
         }
@@ -97,6 +98,44 @@ class EditCharacteristicViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editValueViewController = EditValueViewController()
+        guard indexPath.section != 0 else {
+            if indexPath.row == 0 {
+                editValueViewController.callback = { [weak self] (string) in
+                    guard let self = self else {
+                        return
+                    }
+                    self.characterist.uuidString = string
+                    self.title = self.characterist.cbCharacteristic.name
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                editValueViewController.valueType = .hex
+                editValueViewController.defaultValue = characterist.uuidString
+            } else if indexPath.row == 1 {
+                editValueViewController.callback = { [weak self] (string) in
+                    guard let self = self else {
+                        return
+                    }
+                    self.characterist.userDescription = string
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                editValueViewController.valueType = .string
+            } else if indexPath.row == 2 {
+                editValueViewController.callback = { [weak self] (string) in
+                    guard let self = self else {
+                        return
+                    }
+                    self.characterist.value = string.data(using: .utf8)
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                editValueViewController.valueType = .hex
+                editValueViewController.defaultValue = characterist.value ?? ""
+            }
+            
+            editValueViewController.contentTitle = generalTitle[indexPath.row]
+            navigationController?.pushViewController(editValueViewController, animated: true)
+            return
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             
