@@ -98,52 +98,57 @@ class EditCharacteristicViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let editValueViewController = EditValueViewController()
-        guard indexPath.section != 0 else {
-            if indexPath.row == 0 {
-                editValueViewController.callback = { [weak self] (string) in
-                    guard let self = self else {
-                        return
-                    }
-                    self.characterist.uuidString = string
-                    self.title = self.characterist.cbCharacteristic.name
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-                editValueViewController.valueType = .hex
-                editValueViewController.defaultValue = characterist.uuidString
-            } else if indexPath.row == 1 {
-                editValueViewController.callback = { [weak self] (string) in
-                    guard let self = self else {
-                        return
-                    }
-                    self.characterist.userDescription = string
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-                editValueViewController.valueType = .string
-            } else if indexPath.row == 2 {
-                editValueViewController.callback = { [weak self] (string) in
-                    guard let self = self else {
-                        return
-                    }
-                    self.characterist.value = string.data(using: .utf8)
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-                editValueViewController.valueType = .hex
-                editValueViewController.defaultValue = characterist.value ?? ""
-            }
-            
-            editValueViewController.contentTitle = generalTitle[indexPath.row]
-            navigationController?.pushViewController(editValueViewController, animated: true)
-            return
-        }
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 {
-            
-        } else if indexPath.section == 1 {
+        
+        guard indexPath.section == 0 else {
             let viewController = EditCharacteristicPropertyTableViewController()
             viewController.selectedProperties = characterist.properties
+            viewController.callback = { [weak self] (properties) in
+                guard let self = self else {
+                    return
+                }
+                self.characterist.properties = properties
+                tableView.reloadData()
+            }
             navigationController?.pushViewController(viewController, animated: true)
+            return
         }
+        
+        let editValueViewController = EditValueViewController()
+        if indexPath.row == 0 {
+            editValueViewController.callback = { [weak self] (string) in
+                guard let self = self else {
+                    return
+                }
+                self.characterist.uuidString = string
+                self.title = self.characterist.cbCharacteristic.name
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            editValueViewController.valueType = .hex
+            editValueViewController.defaultValue = characterist.uuidString
+        } else if indexPath.row == 1 {
+            editValueViewController.callback = { [weak self] (string) in
+                guard let self = self else {
+                    return
+                }
+                self.characterist.userDescription = string
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            editValueViewController.valueType = .string
+        } else if indexPath.row == 2 {
+            editValueViewController.callback = { [weak self] (string) in
+                guard let self = self else {
+                    return
+                }
+                self.characterist.value = string.data(using: .utf8)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            editValueViewController.valueType = .hex
+            editValueViewController.defaultValue = characterist.value ?? ""
+        }
+        
+        editValueViewController.contentTitle = generalTitle[indexPath.row]
+        navigationController?.pushViewController(editValueViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
