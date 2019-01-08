@@ -12,11 +12,19 @@ class EditCharacteristicPropertyTableViewController: UITableViewController {
 
     let propertyCellReuseIdentifier = "PropertyCell"
     public var selectedProperties: VirtualPeripheral.Service.Characteristic.Properties!
+    public var callback: ((VirtualPeripheral.Service.Characteristic.Properties) -> Void)?
     var allProperties: [VirtualPeripheral.Service.Characteristic.Properties] = [.read, .writeWithoutResponse, .write, .notify, .indicate, .authenticatedSignedWrites, .extendedProperties, .notifyEncryptionRequired, .indicateEncryptionRequired]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initAll()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let callback = self.callback {
+            callback(selectedProperties)
+        }
     }
     
     func initAll() {
