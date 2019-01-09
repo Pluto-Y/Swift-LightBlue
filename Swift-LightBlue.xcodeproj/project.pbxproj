@@ -34,6 +34,7 @@
 		5D1FE09D21EC30E500686479 /* EditValueViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE09B21EC30E500686479 /* EditValueViewController.xib */; };
 		5D227D2B21DF6605006BE6DB /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D227D2921DF6605006BE6DB /* LogViewController.swift */; };
 		5D227D2C21DF6605006BE6DB /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D227D2A21DF6605006BE6DB /* LogViewController.xib */; };
+		5D7211B021E59624008CB20C /* ServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7211AF21E59624008CB20C /* ServiceTableViewController.swift */; };
 		5DBAA11D21DCC9AE00FE075F /* VirtualPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */; };
 		5DBAA11E21DCC9AE00FE075F /* VirtualPeripheralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */; };
 		5DC750B821DF64A90012B16C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DC750B721DF64A90012B16C /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 		5D1FE09B21EC30E500686479 /* EditValueViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditValueViewController.xib; sourceTree = "<group>"; };
 		5D227D2921DF6605006BE6DB /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		5D227D2A21DF6605006BE6DB /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		5D7211AF21E59624008CB20C /* ServiceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTableViewController.swift; sourceTree = "<group>"; };
 		5DBAA11B21DCC9AE00FE075F /* VirtualPeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualPeripheralViewController.swift; sourceTree = "<group>"; };
 		5DBAA11C21DCC9AE00FE075F /* VirtualPeripheralViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VirtualPeripheralViewController.xib; sourceTree = "<group>"; };
 		5DC750B721DF64A90012B16C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				5D1FE09821EC30E500686479 /* EditCharacteristicPropertyTableViewController.swift */,
 				5D1FE09A21EC30E500686479 /* EditValueViewController.swift */,
 				5D1FE09B21EC30E500686479 /* EditValueViewController.xib */,
+				5D7211AF21E59624008CB20C /* ServiceTableViewController.swift */,
 			);
 			path = "Swift-LightBlue";
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				5D1A78E721E1ACED004E89AB /* UIApplication+LightBlue.swift in Sources */,
 				6CDD91601C35964400DBC2E2 /* AppDelegate.swift in Sources */,
 				6C130A2C1C6139E200E827B1 /* EditValueController.swift in Sources */,
+				5D7211B021E59624008CB20C /* ServiceTableViewController.swift in Sources */,
 				5D1A78E621E1ACED004E89AB /* String+LightBlue.swift in Sources */,
 				6CB4656A1C3E253200D16277 /* ConnectingView.swift in Sources */,
 				5D1A78D321E1ACD9004E89AB /* NewPeripheralCell.swift in Sources */,
