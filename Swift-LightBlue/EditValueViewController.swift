@@ -28,6 +28,7 @@ class EditValueViewController: UIViewController, UITextFieldDelegate {
 
     private func initAll() {
         self.title = "EditValue"
+        self.toolbarItems = self.navigationController?.toolbar.items
         self.contentTitleLabel.text = self.contentTitle
         self.valueTextField.text = String(describing: defaultValue)
         if valueType == .hex {
