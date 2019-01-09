@@ -81,7 +81,7 @@ struct VirtualPeripheral: Codable {
             }
         }
         
-        let uuidString: String
+        var uuidString: String
         let primary: Bool
         var characteristics: [Characteristic]
         var cbService: CBService {
@@ -99,8 +99,8 @@ struct VirtualPeripheral: Codable {
         }
     }
     
-    let name: String
-    let uuid: UUID
+    var name: String
+    var uuid: UUID
     var services: [Service]
     
     func cbservices() -> [CBMutableService] {

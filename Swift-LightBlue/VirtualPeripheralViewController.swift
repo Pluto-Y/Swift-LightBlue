@@ -51,7 +51,18 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
     
     @objc private func didServiceInfoClick(_ infoBtn: UIButton) {
         let index = infoBtn.tag
-        let service = virtualPeripheral.services[index]
+        let viewController = EditValueViewController()
+        viewController.contentTitle = "Service UUID"
+        viewController.defaultValue = self.virtualPeripheral.services[index].uuidString
+        viewController.valueType = .hex
+        viewController.callback = { [weak self] (string) in
+            guard let self = self else {
+                return
+            }
+            self.virtualPeripheral.services[index].uuidString = string
+            self.tableView.reloadData()
+        }
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     // MARK: UITableViewDelegate & UITableViewDataSource
@@ -72,12 +83,14 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
         titleLabel.frame = CGRect(origin: CGPoint(x: 15, y: (40.0 - titleLabel.frame.size.height) / 2.0), size: titleLabel.frame.size)
         headerView.addSubview(titleLabel)
         
-        let screenSize = UIScreen.main.bounds.size
-        let infoBtn = UIButton(type: .infoLight)
-        infoBtn.tag = section - 1
-        infoBtn.frame = CGRect(origin: CGPoint(x: screenSize.width - infoBtn.frame.size.width - 8, y: (40 - infoBtn.frame.size.height) / 2.0), size: infoBtn.frame.size)
-        infoBtn.addTarget(self, action: #selector(didServiceInfoClick(_:)), for: .touchUpInside)
-        headerView.addSubview(infoBtn)
+        if section != 0 {
+            let screenSize = UIScreen.main.bounds.size
+            let infoBtn = UIButton(type: .infoLight)
+            infoBtn.tag = section - 1
+            infoBtn.frame = CGRect(origin: CGPoint(x: screenSize.width - infoBtn.frame.size.width - 8, y: (40 - infoBtn.frame.size.height) / 2.0), size: infoBtn.frame.size)
+            infoBtn.addTarget(self, action: #selector(didServiceInfoClick(_:)), for: .touchUpInside)
+            headerView.addSubview(infoBtn)
+        }
         
         return headerView
     }
@@ -97,10 +110,10 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
         guard indexPath.section != 0 else {
             if indexPath.row == 0 {
                 cell.textLabel?.text = virtualPeripheral.uuid.uuidString
-                cell.detailTextLabel?.text = "UUID"
+                cell.detailTextLabel?.text = "Peripheral UUID"
             } else {
                 cell.textLabel?.text = virtualPeripheral.name
-                cell.detailTextLabel?.text = "Name"
+                cell.detailTextLabel?.text = "Peripheral Name"
             }
             cell.textLabel?.adjustsFontSizeToFitWidth = true
             return cell
@@ -133,9 +146,38 @@ class VirtualPeripheralViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let charactristic = virtualPeripheral.services[indexPath.section - 1].characteristics[indexPath.row]
-        let viewController = EditCharacteristicViewController()
-        viewController.characterist = charactristic
+        guard indexPath.section == 0 else {
+            let charactristic = virtualPeripheral.services[indexPath.section - 1].characteristics[indexPath.row]
+            let viewController = EditCharacteristicViewController()
+            viewController.characterist = charactristic
+            navigationController?.pushViewController(viewController, animated: true)
+            return
+        }
+        
+        let viewController = EditValueViewController()
+        if indexPath.row == 0 {
+            viewController.contentTitle = "UUID"
+            viewController.defaultValue = virtualPeripheral.uuid.uuidString
+            viewController.valueType = .hex
+            viewController.callback = { [weak self] (string) in
+                guard let self = self else {
+                    return
+                }
+                self.virtualPeripheral.uuid = UUID(uuidString: string) ?? UUID()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        } else if indexPath.row == 1 {
+            viewController.contentTitle = "Name"
+            viewController.defaultValue = virtualPeripheral.name
+            viewController.valueType = .string
+            viewController.callback = { [weak self] (string) in
+                guard let self = self else {
+                    return
+                }
+                self.virtualPeripheral.name = string
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
         navigationController?.pushViewController(viewController, animated: true)
     }
     
